@@ -1,0 +1,36 @@
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: 1px solid currentColor;
+    color: inherit; /* This will inherit from parent theme color */
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    width: fit-content;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Dark theme specific styles */
+.dark .theme-toggle {
+    background-color: transparent;
+    color: var(--text-dark);
+    border-color: var(--text-dark);
+}
+
+.dark .theme-toggle:hover {
+    /* background-color: var(--hover-dark); */
+}
+
+/* Light theme specific styles */
+.light .theme-toggle {
+    background-color: transparent;
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+
+.light .theme-toggle:hover {
+    /* background-color: var(--hover-light); */
+}

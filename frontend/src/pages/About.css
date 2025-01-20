@@ -1,0 +1,9 @@
+.content a {
+    color: inherit;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+.content a:hover {
+    opacity: 0.8;
+}

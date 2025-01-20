@@ -1,3 +1,12 @@
+:root {
+    --bg-dark: black;
+    --text-dark: #f2eefd;
+    --bg-light: #f2eefd;
+    --text-light: black;
+    --hover-dark: rgba(255, 255, 255, 0.2);
+    --hover-light: rgba(0, 0, 0, 0.1);
+}
+
 @font-face {
     font-family: "TimesNewRomanCondensedBold";
     src:
@@ -14,17 +23,21 @@ html,
 body {
     margin: 0;
     padding: 0;
-    background-color: black;
     font-family: "TimesNewRomanCondensedBold", "Times New Roman", Times, serif;
-    color: #f2eefd;
     font-size: 1.3rem;
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
 }
 
-h2,
-.role {
-    margin: 0;
-    line-height: 1.05; /* This removes extra space between lines */
-    padding: 0;
+/* Theme-specific styles */
+.App.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.App.light {
+    background-color: var(--bg-light);
+    color: var(--text-light);
 }
 
 .App {
@@ -33,16 +46,7 @@ h2,
     padding: 20px;
 }
 
-.App-header {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: #f2eefd;
-}
-
+/* Layout */
 .container {
     display: flex;
     min-height: 100vh;
@@ -54,28 +58,39 @@ h2,
 .left-column {
     width: 28%;
     min-width: 220px;
-    padding: 2rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: right;
     position: fixed;
     height: 100vh;
+    background-color: inherit;
 }
 
 .right-column {
     flex: 1;
-    padding: 2rem;
+    padding: 1rem;
     margin-left: calc(28% + 2rem);
 }
 
-.profile-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    object-fit: cover;
+/* Typography */
+h2,
+.role {
+    margin: 0;
+    line-height: 1.05;
+    padding: 0;
 }
 
+.name-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 1rem 0;
+}
+
+/* Navigation */
 .nav-links {
     display: flex;
     flex-direction: column;
@@ -85,7 +100,7 @@ h2,
 
 .nav-links a {
     width: fit-content;
-    color: #f2eefd;
+    color: inherit;
     text-decoration: none;
     font-size: 1.2rem;
     padding: 0.3rem 0.5rem;
@@ -93,8 +108,23 @@ h2,
     transition: background-color 0.3s;
 }
 
-.nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+.dark .nav-links a:hover {
+    background-color: var(--hover-dark);
+    text-decoration: underline;
+}
+
+.light .nav-links a:hover {
+    background-color: var(--hover-light);
+    text-decoration: underline;
+}
+
+/* Other Elements */
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
 }
 
 .content {
@@ -102,18 +132,13 @@ h2,
     margin: 0 auto;
 }
 
-.role {
-    margin-top: 0;
-}
-
-h1 {
-    margin: 1rem 0;
-}
-
+/* Footer */
 .footer {
     text-align: center;
+    margin-top: 2rem;
 }
 
+/* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
     .container {
         flex-direction: column;

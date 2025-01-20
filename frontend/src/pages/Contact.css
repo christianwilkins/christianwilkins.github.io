@@ -1,0 +1,44 @@
+.social-links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    text-decoration: none;
+    color: inherit; /* This will inherit from the theme */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+/* Dark theme styles */
+.dark .social-link {
+}
+
+.dark .social-link:hover {
+    background-color: var(--hover-dark);
+    text-decoration: underline;
+}
+
+/* Light theme styles */
+.light .social-link {
+}
+
+.light .social-link:hover {
+    background-color: var(--hover-light);
+    text-decoration: underline;
+}
+
+.social-icon {
+    font-size: 1.5rem;
+}
+
+.social-name {
+    font-size: 1.2rem;
+}
