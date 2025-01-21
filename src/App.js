@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useTheme } from "./context/ThemeContext";
 import ThemeToggle from "./components/ThemeToggle";
+import { HashRouter } from "react-router-dom";
 
 function AppContent() {
   const { isDarkMode } = useTheme();
@@ -66,9 +67,9 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
+      <HashRouter>
         <AppContent />
-      </Router>
+      </HashRouter>
     </ThemeProvider>
   );
 }
