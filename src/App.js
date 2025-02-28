@@ -14,13 +14,12 @@ import { HashRouter } from "react-router-dom";
 function AppContent() {
   const { isDarkMode } = useTheme();
 
+  React.useEffect(() => {
+    document.body.className = isDarkMode ? "dark" : "light";
+  }, [isDarkMode]);
+
   return (
-    <div
-      className={`App ${isDarkMode ? "dark" : "light"}`}
-      style={{
-        backgroundColor: isDarkMode ? "var(--bg-dark)" : "var(--bg-light)",
-      }}
-    >
+    <div className={`App ${isDarkMode ? "dark" : "light"}`}>
       <div className="container">
         <div className="left-column">
           <Link

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 export default function Home() {
   return (
@@ -12,11 +13,19 @@ export default function Home() {
         specialize in full-stack development and love tackling complex problems.
       </p>
       <p>
-        Take a look at my <Link to="/projects">recent projects</Link> to see my
-        work in action, or learn more <Link to="/about">about my journey</Link>{" "}
+        Take a look at my{" "}
+        <Link to="/projects" className="nav-link">
+          recent projects
+        </Link>{" "}
+        to see my work in action, or learn more{" "}
+        <Link to="/about" className="nav-link">
+          about my journey
+        </Link>{" "}
         in tech. I'm always excited to{" "}
-        <Link to="/contact">connect with fellow developers</Link> and discuss
-        new opportunities.
+        <Link to="/contact" className="nav-link">
+          connect with fellow developers
+        </Link>{" "}
+        and discuss new opportunities.
       </p>
       <p>
         Whether you're interested in collaboration or just want to chat about

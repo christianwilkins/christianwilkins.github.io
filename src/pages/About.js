@@ -1,5 +1,6 @@
 import React from "react";
 import profileImage from "../assets/pfp.jpg";
+import "./About.css";
 
 export default function About() {
   return (
@@ -9,6 +10,7 @@ export default function About() {
         I’m a passionate software engineer and leader dedicated to solving
         meaningful challenges through technology. As the president of a{" "}
         <a
+          className="nav-link"
           href="https://www.linkedin.com/company/imaginemsu/"
           target="_blank"
           rel="noopener noreferrer"
@@ -29,11 +31,11 @@ export default function About() {
         engineering intern, continuing to push the boundaries of innovation and
         impact.
       </p>
-      <img
+      {/* <img
         src={profileImage}
         alt="Christian Wilkins"
         className="profile-image"
-      />
+      /> */}
     </div>
   );
 }
