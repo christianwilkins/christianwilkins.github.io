@@ -1,0 +1,10 @@
+{
+    "redirects": [
+      {
+        "source": "/meet",
+        "destination": "https://cal.com/christianwilkins/book",
+        "permanent": true
+      }
+    ]
+  }
+  
