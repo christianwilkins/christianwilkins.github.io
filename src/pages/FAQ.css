@@ -1,6 +1,6 @@
 /* FAQ Content Styles */
 .faq-content {
-    max-width: 1000px;
+    max-width: var(--max-chat-width);
     margin: 0 auto;
     padding-top: 0;
     min-height: 100vh;
@@ -9,38 +9,14 @@
     justify-content: flex-start;
 }
 
-/* FAQ Chat Styles */
-.chat-container {
-    max-width: 100%;
-    width: 100%;
-    height: 700px;
-    border: 1px solid;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-/* Dark theme styles */
-.dark .chat-container {
-    border-color: var(--text-dark);
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Light theme styles */
-.light .chat-container {
-    border-color: var(--text-light);
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
+/* FAQ Chat Styles - uses centralized chat styles from variables.css */
 .messages-container {
     flex: 1;
     overflow-y: auto;
-    padding: 1rem;
+    padding: var(--spacing-md);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--spacing-md);
 }
 
 .message {
@@ -56,57 +32,28 @@
     align-items: flex-start;
 }
 
-.message-bubble {
-    max-width: 80%;
-    padding: 1rem;
-    border-radius: 12px;
-    word-wrap: break-word;
-}
-
-.message.user .message-bubble {
-    background-color: #9370db;
-    color: white;
-    border-bottom-right-radius: 4px;
-}
-
-.message.bot .message-bubble {
-    border-bottom-left-radius: 4px;
-}
-
-/* Dark theme message bubbles */
-.dark .message.bot .message-bubble {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-dark);
-}
-
-/* Light theme message bubbles */
-.light .message.bot .message-bubble {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: var(--text-light);
-}
-
 .message-bubble p {
     margin: 0;
-    line-height: 1.4;
+    line-height: var(--line-height-base);
 }
 
 .options-container {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
 }
 
 .option-button {
-    padding: 0.5rem 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
     border: 1px solid;
-    border-radius: 8px;
+    border-radius: var(--border-radius-md);
     background: none;
     cursor: pointer;
     text-align: left;
     font-family: inherit;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    font-size: var(--font-size-small);
+    transition: var(--transition-fast);
 }
 
 /* Dark theme option buttons */
@@ -131,8 +78,8 @@
 
 .input-container {
     display: flex;
-    padding: 1rem;
-    gap: 0.5rem;
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
     border-top: 1px solid;
 }
 
@@ -150,69 +97,11 @@
 
 .message-input {
     flex: 1;
-    padding: 0.75rem;
-    border: 1px solid;
-    border-radius: 8px;
-    background: none;
-    font-family: inherit;
-    font-size: 1rem;
-}
-
-/* Dark theme input */
-.dark .message-input {
-    border-color: var(--text-dark);
-    color: var(--text-dark);
-}
-
-.dark .message-input::placeholder {
-    color: rgba(242, 238, 253, 0.6);
-}
-
-.dark .message-input:focus {
-    outline: none;
-    border-color: #9370db;
-}
-
-/* Light theme input */
-.light .message-input {
-    border-color: var(--text-light);
-    color: var(--text-light);
-}
-
-.light .message-input::placeholder {
-    color: rgba(0, 0, 0, 0.6);
-}
-
-.light .message-input:focus {
-    outline: none;
-    border-color: #9370db;
+    min-width: 200px;
 }
 
 .send-button {
-    padding: 0.75rem 1.5rem;
-    background-color: #9370db;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: background-color 0.2s ease;
-    margin-left: 0.5rem;
-}
-
-.send-button:hover {
-    background-color: #8a5bd6;
-}
-
-.send-button:active {
-    background-color: #7c51cc;
-}
-
-.send-button:disabled {
-    background-color: #6c5b7b;
-    cursor: not-allowed;
-    opacity: 0.6;
+    margin-left: var(--spacing-sm);
 }
 
 /* Streaming text animation */
@@ -263,7 +152,7 @@
 
 .messages-container::-webkit-scrollbar-thumb {
     background-color: rgba(147, 112, 219, 0.3);
-    border-radius: 3px;
+    border-radius: var(--border-radius-xs);
 }
 
 .messages-container::-webkit-scrollbar-thumb:hover {
@@ -272,88 +161,41 @@
 
 /* Mobile responsiveness */
 @media screen and (max-width: 768px) {
-    .chat-container {
-        height: 550px;
-        margin-top: 1rem;
-        max-width: 95%;
-    }
-    
-    .message-bubble {
-        max-width: 95%;
-    }
-    
-    .options-container {
-        gap: 0.3rem;
-    }
-    
     .option-button {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-small);
     }
     
     .input-container {
-        padding: 0.8rem;
+        padding: var(--spacing-sm);
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: var(--spacing-sm);
     }
     
     .message-input {
-        padding: 0.6rem;
-        font-size: 0.9rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-small);
         flex: 1;
         min-width: 200px;
     }
     
     .send-button {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.9rem;
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: var(--font-size-small);
         margin-left: 0;
+    }
+    
+    .start-over-button {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: var(--font-size-small);
+        margin-left: 0;
+        flex: 1;
+        min-width: 120px;
     }
 }
 
 /* Start Over Button Styles */
 .start-over-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-left: 0.5rem;
+    margin-left: var(--spacing-sm);
     white-space: nowrap;
-}
-
-.start-over-button:hover {
-    background-color: var(--primary-color-hover);
-    transform: translateY(-1px);
-}
-
-.start-over-button:active {
-    transform: translateY(0);
-}
-
-.start-over-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.dark .start-over-button:disabled {
-    background-color: #555;
-    color: #999;
-}
-
-/* Add mobile styles for start-over button */
-@media screen and (max-width: 768px) {
-    .start-over-button {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.9rem;
-        margin-left: 0;
-        flex: 1;
-        min-width: 120px;
-    }
 }

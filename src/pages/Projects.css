@@ -1,27 +1,13 @@
+/* Projects page specific styles */
 .projects-intro {
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
 }
 
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.project-card {
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.5s ease;
-    border: 1px solid var(--text-dark);
-}
-
-.light .project-card {
-    border: 1px solid var(--text-light);
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
 }
 
 .project-image {
@@ -37,52 +23,41 @@
 }
 
 .project-content {
-    padding: 1.5rem;
+    padding: var(--spacing-lg);
 }
 
 .project-content h2 {
-    margin: 0 0 1rem 0;
-    font-size: 1.5rem;
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-xlarge);
 }
 
 .project-content p {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
     line-height: 1.6;
 }
 
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.tech-tag {
-    padding: 0.3rem 0.8rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    border: 1px solid var(--text-dark);
-}
-
-.light .tech-tag {
-    border: 1px solid var(--text-light);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
 }
 
 .project-links {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
 }
 
 .project-link {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
     text-decoration: none;
     color: inherit;
     border: 1px solid currentColor;
-    transition: all 0.3s ease;
+    transition: var(--transition-normal);
 }
 
-.project-link:hover {
+.dark .project-link:hover {
     background-color: var(--hover-dark);
 }
 
@@ -93,5 +68,6 @@
 @media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
     }
 }

@@ -186,7 +186,7 @@ export default function FAQ() {
         <div className="messages-container" ref={messagesContainerRef}>
           {messages.map((message) => (
             <div key={message.id} className={`message ${message.sender}`}>
-              <div className="message-bubble">
+              <div className={`message-bubble ${message.sender}`}>
                 <p className={isStreaming && message.sender === "bot" && message.text ? "streaming-text" : ""}>
                   {message.text}
                 </p>
@@ -214,15 +214,15 @@ export default function FAQ() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Type your question here..."
-            className="message-input"
+            className="input-base message-input"
             disabled={isStreaming}
           />
-          <button type="submit" className="send-button" disabled={isStreaming}>
+          <button type="submit" className="btn-accent send-button" disabled={isStreaming}>
             {isStreaming ? "..." : "Send"}
           </button>
           <button 
             type="button"
-            className="start-over-button" 
+            className="btn-accent start-over-button" 
             onClick={handleStartOver}
             disabled={isStreaming}
           >

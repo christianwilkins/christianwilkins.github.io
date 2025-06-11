@@ -1,16 +1,16 @@
 /* Theme Toggle Button */
 .theme-toggle {
     background: none;
-    border: 1px solid currentColor;
-    color: inherit; /* This will inherit from parent theme color */
-    padding: 0.3rem 0.5rem;
-    border-radius: 4px;
+    border: 1px solid var(--color-border-primary);
+    color: inherit;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: var(--font-size-medium);
     width: fit-content;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
+    margin-top: var(--spacing-md);
+    transition: var(--transition-normal);
 }
 
 /* Dark theme specific styles */
@@ -20,17 +20,9 @@
     border-color: var(--text-dark);
 }
 
-.dark .theme-toggle:hover {
-    /* background-color: var(--hover-dark); */
-}
-
 /* Light theme specific styles */
 .light .theme-toggle {
     background-color: transparent;
     color: var(--text-light);
     border-color: var(--text-light);
-}
-
-.light .theme-toggle:hover {
-    /* background-color: var(--hover-light); */
 }
