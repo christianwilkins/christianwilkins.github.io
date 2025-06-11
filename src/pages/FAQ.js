@@ -73,6 +73,12 @@ export default function FAQ() {
     if (option === "Contact Chris") {
       navigate("/contact");
       return;   
+    } else if (option === "Imagine Software") {
+      window.open("https://preview--imagine-software-reborn.lovable.app/", "_blank");
+      return;
+    } else if (option === "Companies Expert YouTube (soft skills)") {
+      window.open("https://www.youtube.com/@TheCompaniesExpert/videos", "_blank");
+      return;
     }
     
     setIsStreaming(true);

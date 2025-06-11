@@ -9,11 +9,11 @@ export const faqData = {
     ]
   },
   "Get Advice from Chris": {
-    text: "Chris loves helping others in their tech journey! Whether you're starting out or looking to advance your career, he's here to help. What area would you like advice on?",
+    text: "I'm willing to help! What would you like advice on?",
     options: [
       "Internship",
       "Resume",
-      "Startups"
+      // "Startups"
     ]
   },
 
@@ -42,17 +42,16 @@ export const faqData = {
 
   // Advice branch placeholders
   "Internship": {
-    text: "You'll add your own content here about internship advice.",
+    text: "I've mainly gotten my internships from experience gained at Imagine Software. I would recommend joining if you're an MSU student or not.",
     options: [
-      "Resume",
-      "Startups"
+      "Imagine Software",
+      "Interviews",
     ]
   },
   "Resume": {
-    text: "You'll add your own content here about resume advice.", 
+    text: "Resumes are very opinionated. Some general advice is to use a well known template (Jake's Resume), minimize whitespace, keep it to one page. Also make sure it is ATS friendly and you use the STAR method for your bullet points. If you want to get more specific advice, we do resume reviews in the Imagine Software Discord server.", 
     options: [
-      "Internship",
-      "Startups"
+      "Imagine Software",
     ]
   },
   "Startups": {
@@ -61,5 +60,28 @@ export const faqData = {
       "Internship", 
       "Resume"
     ]
-  }
+  },
+
+  "Interviews": {
+    text: "Honestly, interviewing is not my strong suit. I would recommend using these resources to help you prepare:",
+    options: [
+      "Companies Expert YouTube (soft skills)",
+      "My LeetCode Thoughts",
+      "Doing Projects"
+    ]
+  },
+
+  "My LeetCode Thoughts": {
+    text: "I don't like LeetCode. My cheat code is to cheat. Not on real technical interviews, but on the practice problems. It's too much memorization.",
+    options: [
+      "Imagine Software",
+    ]
+  },
+
+  "Doing Projects": {
+    text: "Honestly talking about your work is the most impressive thing to me. I would recommend showing by doing when you can. In the age of AI, doing a project is easier than ever.",
+    options: [
+      "Imagine Software",
+    ]
+  },
 };
