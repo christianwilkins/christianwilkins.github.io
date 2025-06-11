@@ -136,24 +136,39 @@
 
 /* Special button variants */
 .btn-accent {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--accent-purple);
+    border-radius: var(--border-radius-sm);
     background-color: var(--accent-purple);
     color: white;
-    border-color: var(--accent-purple);
+    font-family: inherit;
+    font-size: var(--font-size-medium);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .btn-accent:hover {
     background-color: var(--accent-purple-hover);
     border-color: var(--accent-purple-hover);
+    transform: translateY(-1px);
 }
 
 .btn-accent:active {
     background-color: var(--accent-purple-active);
     border-color: var(--accent-purple-active);
+    transform: translateY(0);
 }
 
 .btn-accent:disabled {
     background-color: var(--accent-purple-disabled);
     border-color: var(--accent-purple-disabled);
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Social link styles */
