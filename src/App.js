@@ -6,6 +6,7 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
+import FAQ from "./pages/FAQ";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useTheme } from "./context/ThemeContext";
 import ThemeToggle from "./components/ThemeToggle";
@@ -43,6 +44,7 @@ function AppContent() {
             <Link to="/about">ABOUT</Link>
             <Link to="/projects">PROJECTS</Link>
             <Link to="/contact">CONTACT</Link>
+            <Link to="/faq">FAQ</Link>
             <ThemeToggle />
           </nav>
         </div>
@@ -53,6 +55,7 @@ function AppContent() {
             <Route path="/about" element={<About />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} />
           </Routes>
         </div>
       </div>

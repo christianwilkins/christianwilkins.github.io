@@ -19,18 +19,12 @@
 }
 
 /* Dark theme styles */
-.dark .social-link {
-}
-
 .dark .social-link:hover {
     background-color: var(--hover-dark);
     text-decoration: underline;
 }
 
 /* Light theme styles */
-.light .social-link {
-}
-
 .light .social-link:hover {
     background-color: var(--hover-light);
     text-decoration: underline;
@@ -42,4 +36,10 @@
 
 .social-name {
     font-size: 1.2rem;
+}
+
+.contact-note {
+    color: #6c757d; /* Medium grey accent color */
+    font-style: italic;
+    opacity: 0.8;
 }

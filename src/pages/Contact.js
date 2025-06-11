@@ -1,10 +1,20 @@
 import React from "react";
 import "./Contact.css";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTwitter, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 export default function Contact() {
   const socialLinks = [
+    {
+      name: "Book a Call",
+      url: "https://chriswiki.com/meet",
+      icon: <FaPhoneAlt />, // Using material icon for phone
+    },
+    {
+      name: "Email",
+      url: "mailto:christian.wilkins.careers@gmail.com",
+      icon: <MdEmail />,
+    },
     {
       name: "GitHub",
       url: "https://github.com/christianwilkins",
@@ -20,19 +30,15 @@ export default function Contact() {
       url: "https://x.com/christian_wilki",
       icon: <FaTwitter />,
     },
-    {
-      name: "Email",
-      url: "mailto:christian.wilkins.careers@gmail.com",
-      icon: <MdEmail />,
-    },
+    
   ];
 
   return (
     <div className="content">
       <h1>CONTACT</h1>
       <p>
-        Feel free to check out my pages or contact me on your preferred
-        platform.
+        feel free to reach out and connect with me! <br/> <br/>
+        <span className="contact-note">(do not book call without prior communication)</span>
       </p>
       <div className="social-links">
         {socialLinks.map((link) => (
