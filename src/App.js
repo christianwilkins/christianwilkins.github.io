@@ -10,17 +10,70 @@ import FAQ from "./pages/FAQ";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useTheme } from "./context/ThemeContext";
 import ThemeToggle from "./components/ThemeToggle";
+import HamburgerMenu from "./components/HamburgerMenu";
 import { HashRouter } from "react-router-dom";
 
 function AppContent() {
   const { isDarkMode } = useTheme();
+  const [showStickyHeader, setShowStickyHeader] = React.useState(false);
 
   React.useEffect(() => {
     document.body.className = isDarkMode ? "dark" : "light";
   }, [isDarkMode]);
 
+  React.useEffect(() => {
+    const handleScroll = () => {
+      // Only show sticky header on mobile (screen width <= 768px) and when scrolled past 100px
+      const isMobile = window.innerWidth <= 768;
+      const scrollY = window.scrollY;
+      
+      if (isMobile && scrollY > 100) {
+        setShowStickyHeader(true);
+      } else {
+        setShowStickyHeader(false);
+      }
+    };
+
+    const handleResize = () => {
+      // Hide sticky header if screen becomes larger than mobile
+      if (window.innerWidth > 768) {
+        setShowStickyHeader(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    // Check initial state
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className={`App ${isDarkMode ? "dark" : "light"}`}>
+      {/* Hamburger Menu - Always rendered but only visible on mobile */}
+      <HamburgerMenu isVisible={true} showStickyHeader={showStickyHeader} />
+      
+      {/* Mobile Sticky Header */}
+      <div className={`mobile-sticky-header ${showStickyHeader ? 'visible' : ''}`}>
+        <Link
+          to="/"
+          className="name-link"
+          style={{
+            textDecoration: "none",
+            cursor: "pointer",
+          }}
+        >
+          <h2>
+            CHRIS WILKINS
+          </h2>
+        </Link>
+      </div>
+
       <div className="container">
         <div className="left-column">
           <Link
@@ -49,7 +102,7 @@ function AppContent() {
           </nav>
         </div>
 
-        <div className="right-column">
+        <div className={`right-column ${showStickyHeader ? 'with-sticky-header' : ''}`}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

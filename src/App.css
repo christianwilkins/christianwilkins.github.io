@@ -128,13 +128,59 @@ h1 {
     margin-top: var(--spacing-xl);
 }
 
+/* Sticky Header for Mobile */
+.mobile-sticky-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: var(--spacing-sm) var(--spacing-md);
+    padding-right: 70px; /* Make room for hamburger menu */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: var(--transition-fast);
+}
+
+.dark .mobile-sticky-header {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light .mobile-sticky-header {
+    background-color: rgba(242, 238, 253, 0.9);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-sticky-header h2 {
+    margin: 0;
+    line-height: 1.2;
+    font-size: 1.5rem;
+}
+
+.mobile-sticky-header .name-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Move name down when sticky header is visible to align with hamburger menu */
+.mobile-sticky-header.visible h2 {
+    transform: translateY(4px);
+    transition: var(--transition-fast);
+}
+
 /* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
+    .App {
+        padding: 16px;
+    }
+
     .container {
         flex-direction: column;
-        padding-left: 5%;
-        padding-right: 5%;
-        width: 90%;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
     }
 
     .left-column {
@@ -142,11 +188,32 @@ h1 {
         width: 100%;
         height: auto;
         align-items: left;
-        padding: var(--spacing-md);
+        padding: 0;
+    }
+
+    /* Add more top padding for name in mobile left column (initial state) */
+    .left-column .name-link h2 {
+        padding-top: var(--spacing-md);
+    }
+
+    /* Hide navigation links on mobile since hamburger menu handles navigation */
+    .left-column .nav-links {
+        display: none;
     }
 
     .right-column {
         margin-left: 0;
-        padding: var(--spacing-md);
+        padding: 0;
+        transition: padding-top var(--transition-fast);
+    }
+
+    /* Show sticky header on mobile when scrolling */
+    .mobile-sticky-header.visible {
+        display: block;
+    }
+
+    /* Add padding to content when sticky header is visible */
+    .right-column.with-sticky-header {
+        padding-top: 60px;
     }
 }
