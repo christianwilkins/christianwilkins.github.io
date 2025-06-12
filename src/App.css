@@ -170,6 +170,35 @@ h1 {
     transition: var(--transition-fast);
 }
 
+/* Tablet/Small Desktop Responsiveness */
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+    .container {
+        padding-left: 5%; /* Reduced from 12% */
+        padding-right: 5%; /* Reduced from 12% */
+        width: calc(100% - 10%); /* Adjust width calculation */
+    }
+    
+    .left-column {
+        width: 200px; /* Fixed width instead of percentage */
+        min-width: 200px;
+    }
+    
+    .right-column {
+        margin-left: calc(200px + var(--spacing-xl)); /* Adjust margin to match fixed width */
+    }
+    
+    /* Scale down name and role text for better proportions */
+    .left-column .name-link h2 {
+        transform: scale(0.9);
+        transform-origin: left center;
+    }
+    
+    .left-column .role {
+        transform: scale(0.9);
+        transform-origin: left center;
+    }
+}
+
 /* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
     .App {
