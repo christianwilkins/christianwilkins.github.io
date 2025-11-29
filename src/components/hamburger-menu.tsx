@@ -56,6 +56,7 @@ export function HamburgerMenu({ isVisible, showStickyHeader }: HamburgerMenuProp
                     <Link href="/projects" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">PROJECTS</Link>
                     <Link href="/contact" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">CONTACT</Link>
                     <Link href="/faq" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">FAQ</Link>
+                    <Link href="/lab" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">THE LAB</Link>
                     <div className="mt-4">
                         <ThemeToggle />
                     </div>
