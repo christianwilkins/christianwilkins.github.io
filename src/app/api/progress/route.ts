@@ -1,6 +1,6 @@
 import Redis from 'ioredis';
 import { NextResponse } from 'next/server';
-import { getServerSession } from "next-auth";
+import { requireAuth, unauthorizedResponse } from '@/lib/auth';
 
 // Create a Redis client instance
 // In production (serverless), this might create a new connection per request,
@@ -14,9 +14,9 @@ const getRedisClient = () => {
 };
 
 export async function GET(request: Request) {
-    const session = await getServerSession();
-    if (!session?.user?.email) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const session = await requireAuth();
+    if (!session || !session.user?.email) {
+        return unauthorizedResponse();
     }
 
     const { searchParams } = new URL(request.url);
@@ -43,9 +43,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-    const session = await getServerSession();
-    if (!session?.user?.email) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const session = await requireAuth();
+    if (!session || !session.user?.email) {
+        return unauthorizedResponse();
     }
 
     try {

@@ -1,7 +1,7 @@
 import { del } from '@vercel/blob';
 import Redis from 'ioredis';
 import { NextResponse } from 'next/server';
-import { getServerSession } from "next-auth";
+import { requireAuth, unauthorizedResponse } from '@/lib/auth';
 
 const getRedisClient = () => {
     if (!process.env.REDIS_URL) {
@@ -11,9 +11,9 @@ const getRedisClient = () => {
 };
 
 export async function DELETE(request: Request) {
-    const session = await getServerSession();
-    if (!session?.user?.email) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const session = await requireAuth();
+    if (!session || !session.user?.email) {
+        return unauthorizedResponse();
     }
 
     try {
