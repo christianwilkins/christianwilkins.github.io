@@ -20,7 +20,7 @@ describe('requireAuth', () => {
 
     it('should return session if user email matches allowed email', async () => {
         const mockSession = {
-            user: { email: 'chrisjw12345@gmail.com' }
+            user: { email: 'test@example.com' }
         };
         (getServerSession as jest.Mock).mockResolvedValue(mockSession);
         const result = await requireAuth();
