@@ -1,14 +1,12 @@
 import { list } from '@vercel/blob';
 import { NextResponse } from 'next/server';
-import { getServerSession } from "next-auth";
+import { requireAuth, unauthorizedResponse } from '@/lib/auth';
 
-export async function GET(request: Request) {
-    const session = await getServerSession();
-
+export async function GET() {
+    const session = await requireAuth();
     if (!session) {
-        return NextResponse.json(
-            { error: 'Unauthorized' },
-            { status: 401 }
+        { error: 'Unauthorized' },
+        { status: 401 }
         );
     }
 
