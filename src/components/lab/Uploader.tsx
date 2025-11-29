@@ -75,9 +75,7 @@ export default function Uploader({ onUploadComplete }: UploaderProps) {
                     </>
                 ) : (
                     <>
-                        <div className="p-3 rounded-full bg-background border shadow-sm">
-                            <Upload className="w-6 h-6 text-muted-foreground" />
-                        </div>
+                        <Upload className="w-8 h-8 text-muted-foreground/70 mb-2" strokeWidth={1.5} />
                         <div className="space-y-1">
                             <p className="text-sm font-medium">Click or drag file to upload</p>
                             <p className="text-xs text-muted-foreground">PDF or EPUB</p>
