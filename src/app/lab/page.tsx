@@ -8,13 +8,11 @@ export default function LabPage() {
     return (
         <div className="min-h-screen p-6 md:p-12 lg:p-24 space-y-12">
             <header className="space-y-4 max-w-2xl">
-                <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                        <FlaskConical className="w-8 h-8" />
-                    </div>
+                <div className="flex items-center gap-4">
+                    <FlaskConical className="w-10 h-10 text-primary" strokeWidth={1.5} />
                     <h1 className="text-4xl font-bold tracking-tight font-heading">The Lab</h1>
                 </div>
-                <p className="text-xl text-muted-foreground">
+                <p className="text-xl text-muted-foreground leading-relaxed">
                     A collection of experimental tools, features, and ideas.
                     Some are useful, some are just for fun. All are built by me.
                 </p>
@@ -23,30 +21,28 @@ export default function LabPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Experiment Card: The Library */}
                 <Link href="/lab/books" className="group block h-full">
-                    <Card className="h-full transition-all hover:border-primary/50 hover:shadow-lg">
+                    <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
                         <CardHeader>
-                            <div className="flex items-center justify-between mb-2">
-                                <div className="p-2 rounded-md bg-primary/10 text-primary">
-                                    <BookOpen className="h-6 w-6" />
-                                </div>
-                                <Badge variant="outline">Beta</Badge>
+                            <div className="flex items-center justify-between mb-4">
+                                <BookOpen className="h-8 w-8 text-primary/80 group-hover:text-primary transition-colors" strokeWidth={1.5} />
+                                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">BETA</Badge>
                             </div>
-                            <CardTitle className="text-xl group-hover:text-primary transition-colors">The Library</CardTitle>
-                            <CardDescription>
+                            <CardTitle className="text-2xl group-hover:text-primary transition-colors">The Library</CardTitle>
+                            <CardDescription className="text-base mt-2">
                                 A private, cloud-synced book reader for PDFs and EPUBs.
                                 Tracks progress across devices.
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <Button variant="ghost" className="p-0 h-auto group-hover:translate-x-1 transition-transform">
+                            <div className="flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
                                 Enter Library <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
+                            </div>
                         </CardContent>
                     </Card>
                 </Link>
 
                 {/* Placeholder for future experiments */}
-                <Card className="h-full border-dashed bg-muted/30 flex items-center justify-center min-h-[250px]">
+                <Card className="h-full border-dashed bg-muted/10 flex items-center justify-center min-h-[250px] hover:bg-muted/20 transition-colors">
                     <CardContent className="text-center">
                         <p className="text-sm font-medium text-muted-foreground">More coming soon...</p>
                     </CardContent>
