@@ -48,7 +48,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
             <div className="flex-1 flex flex-col md:ml-[200px] min-h-screen transition-all duration-300">
                 <MobileHeader />
-                <HamburgerMenu isVisible={false} showStickyHeader={showStickyHeader} />
+                <HamburgerMenu isVisible={true} showStickyHeader={showStickyHeader} />
 
                 <main className={cn(
                     "flex-1 p-8 flex flex-col",
