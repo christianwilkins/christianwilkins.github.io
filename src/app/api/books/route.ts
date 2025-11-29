@@ -5,9 +5,7 @@ import { requireAuth, unauthorizedResponse } from '@/lib/auth';
 export async function GET() {
     const session = await requireAuth();
     if (!session) {
-        { error: 'Unauthorized' },
-        { status: 401 }
-        );
+        return unauthorizedResponse();
     }
 
     try {
