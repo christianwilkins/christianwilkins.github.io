@@ -24,6 +24,7 @@ export function Sidebar() {
                 <Link href="/projects" className="w-fit text-lg hover:underline hover:bg-accent/10 p-1 rounded transition-colors font-heading">PROJECTS</Link>
                 <Link href="/contact" className="w-fit text-lg hover:underline hover:bg-accent/10 p-1 rounded transition-colors font-heading">CONTACT</Link>
                 <Link href="/faq" className="w-fit text-lg hover:underline hover:bg-accent/10 p-1 rounded transition-colors font-heading">FAQ</Link>
+                <Link href="/lab" className="w-fit text-lg hover:underline hover:bg-accent/10 p-1 rounded transition-colors font-heading">THE LAB</Link>
                 <div className="mt-2">
                     <ThemeToggle />
                 </div>
