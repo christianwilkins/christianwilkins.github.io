@@ -23,7 +23,7 @@ export function HamburgerMenu({ isVisible, showStickyHeader }: HamburgerMenuProp
             {/* Hamburger Button */}
             <button
                 className={cn(
-                    "fixed top-5 right-5 z-[1002] flex flex-col justify-around w-8 h-8 bg-transparent border-none cursor-pointer p-0 focus:outline-none transition-all duration-300",
+                    "fixed top-5 right-5 z-[1002] flex flex-col justify-around w-8 h-8 bg-transparent border-none cursor-pointer p-0 focus:outline-none transition-all duration-300 md:hidden",
                     isOpen && "open",
                     showStickyHeader && "top-[15px]"
                 )}
