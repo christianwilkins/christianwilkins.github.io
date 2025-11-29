@@ -117,52 +117,56 @@ export default function BookList({ onSelectBook, refreshTrigger }: BookListProps
                 return (
                     <Card
                         key={book.url}
-                        className="group cursor-pointer hover:border-primary/50 transition-colors overflow-hidden relative"
+                        className="group flex flex-col justify-between cursor-pointer hover:border-primary/50 transition-all duration-300 overflow-hidden bg-card/50 hover:bg-card hover:shadow-md"
                         onClick={() => !isDeleting && onSelectBook(book)}
                     >
-                        <CardHeader className="p-4 bg-muted/30 pb-2">
-                            <div className="flex justify-between items-start">
-                                <div className="p-2 rounded-md bg-background border shadow-sm group-hover:text-primary transition-colors">
+                        <CardContent className="p-5 flex flex-col h-full relative">
+                            {/* Header: Icon and Badge */}
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="text-primary/80">
                                     {isPdf ? (
-                                        <FileText className="w-5 h-5" />
+                                        <FileText className="w-8 h-8" strokeWidth={1.5} />
                                     ) : (
-                                        <BookIcon className="w-5 h-5" />
+                                        <BookIcon className="w-8 h-8" strokeWidth={1.5} />
                                     )}
                                 </div>
-                                <div className="flex flex-col items-end gap-1">
-                                    <Badge variant="secondary" className="text-[10px] uppercase">
-                                        {name.split('.').pop()}
-                                    </Badge>
-                                    {progress !== undefined && progress > 0 && (
-                                        <span className="text-[10px] text-muted-foreground font-medium">
-                                            Page {progress}
+                                <Badge variant="secondary" className="text-[10px] uppercase font-medium tracking-wider opacity-70">
+                                    {name.split('.').pop()}
+                                </Badge>
+                            </div>
+
+                            {/* Title and Progress */}
+                            <div className="flex-grow space-y-2">
+                                <CardTitle className="text-base font-medium leading-snug line-clamp-2" title={name}>
+                                    {name}
+                                </CardTitle>
+                                {progress !== undefined && progress > 0 && (
+                                    <p className="text-xs text-muted-foreground font-medium">
+                                        Page {progress}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Actions */}
+                            <div className="pt-4 mt-2 flex justify-end border-t border-border/40">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-8 px-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                                    onClick={(e) => handleDelete(e, book)}
+                                    disabled={isDeleting}
+                                >
+                                    {isDeleting ? (
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        <span className="flex items-center gap-2 text-xs">
+                                            <Trash2 className="h-3.5 w-3.5" />
+                                            Delete
                                         </span>
                                     )}
-                                </div>
+                                </Button>
                             </div>
-                        </CardHeader>
-                        <CardContent className="p-4 pt-2">
-                            <CardTitle className="text-sm font-medium leading-tight line-clamp-2 mb-2" title={name}>
-                                {name}
-                            </CardTitle>
                         </CardContent>
-
-                        {/* Delete Button - Visible on Hover */}
-                        <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button
-                                variant="destructive"
-                                size="icon"
-                                className="h-8 w-8 rounded-full shadow-sm"
-                                onClick={(e) => handleDelete(e, book)}
-                                disabled={isDeleting}
-                            >
-                                {isDeleting ? (
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                    <Trash2 className="h-4 w-4" />
-                                )}
-                            </Button>
-                        </div>
                     </Card>
                 );
             })}
