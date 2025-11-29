@@ -1,6 +1,17 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
 import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
+
+// Create a Redis client instance
+// In production (serverless), this might create a new connection per request,
+// but ioredis handles this relatively well. For high scale, we'd want a singleton pattern,
+// but for this personal library, this is perfectly fine and robust.
+const getRedisClient = () => {
+    if (!process.env.REDIS_URL) {
+        throw new Error("REDIS_URL is not defined");
+    }
+    return new Redis(process.env.REDIS_URL);
+};
 
 export async function GET(request: Request) {
     const session = await getServerSession();
@@ -16,11 +27,18 @@ export async function GET(request: Request) {
     }
 
     try {
+        const redis = getRedisClient();
         const key = `progress:${session.user.email}:${bookName}`;
-        const progress = await kv.get(key);
-        return NextResponse.json(progress || {});
+        const data = await redis.get(key);
+
+        // ioredis returns null if not found, or the string value
+        const progress = data ? JSON.parse(data) : {};
+
+        redis.quit(); // Close connection to prevent leaks in serverless
+        return NextResponse.json(progress);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch progress' }, { status: 500 });
+        console.error("Progress API Error:", error);
+        return NextResponse.json({ error: 'Failed to fetch progress', details: (error as Error).message }, { status: 500 });
     }
 }
 
@@ -38,15 +56,19 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
+        const redis = getRedisClient();
         const key = `progress:${session.user.email}:${bookName}`;
         const data = {
             location,
             lastRead: new Date().toISOString(),
         };
 
-        await kv.set(key, data);
+        await redis.set(key, JSON.stringify(data));
+        redis.quit(); // Close connection
+
         return NextResponse.json({ success: true });
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to save progress' }, { status: 500 });
+        console.error("Progress API Error:", error);
+        return NextResponse.json({ error: 'Failed to save progress', details: (error as Error).message }, { status: 500 });
     }
 }

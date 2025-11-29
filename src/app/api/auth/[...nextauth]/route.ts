@@ -11,10 +11,9 @@ const handler = NextAuth({
     ],
     callbacks: {
         async signIn({ user }) {
-            // Optional: Restrict to specific users if needed
-            // const allowedUsers = ["christianwilkins"];
-            // return allowedUsers.includes(user.email ?? "");
-            return true;
+            const allowedEmail = process.env.ALLOWED_USER_EMAIL;
+            if (!allowedEmail) return false; // Fail safe if env var is missing
+            return user.email === allowedEmail;
         },
     },
 });
