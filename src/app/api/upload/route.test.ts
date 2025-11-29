@@ -23,7 +23,7 @@ describe('Upload API', () => {
     });
 
     it('should call handleUpload if authorized', async () => {
-        (requireAuth as jest.Mock).mockResolvedValue({ user: { email: 'chrisjw12345@gmail.com' } });
+        (requireAuth as jest.Mock).mockResolvedValue({ user: { email: 'test@example.com' } });
         (handleUpload as jest.Mock).mockResolvedValue(NextResponse.json({ token: '123' }));
 
         const request = new Request('http://localhost/api/upload', {
