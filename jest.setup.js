@@ -20,6 +20,6 @@ jest.mock("next-auth", () => ({
 }));
 
 // Mock process.env
-process.env.ALLOWED_USER_EMAIL = 'chrisjw12345@gmail.com';
+process.env.ALLOWED_USER_EMAIL = 'test@example.com';
 process.env.NEXTAUTH_URL = 'http://localhost:3000';
 process.env.NEXTAUTH_SECRET = 'test-secret';
