@@ -6,8 +6,12 @@ import { MobileHeader } from "@/components/mobile-header"
 import { HamburgerMenu } from "@/components/hamburger-menu"
 import { cn } from "@/lib/utils"
 
+import { usePathname } from "next/navigation"
+
 export function LayoutShell({ children }: { children: React.ReactNode }) {
+    const pathname = usePathname()
     const [showStickyHeader, setShowStickyHeader] = React.useState(false)
+    const isLab = pathname?.startsWith("/lab")
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -47,10 +51,14 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 <HamburgerMenu isVisible={false} showStickyHeader={showStickyHeader} />
 
                 <main className={cn(
-                    "flex-1 p-8 flex flex-col justify-center items-center",
+                    "flex-1 p-8 flex flex-col",
+                    !isLab && "justify-center items-center",
                     showStickyHeader && "pt-[80px]"
                 )}>
-                    <div className="w-full max-w-2xl">
+                    <div className={cn(
+                        "w-full",
+                        isLab ? "max-w-7xl mx-auto" : "max-w-2xl"
+                    )}>
                         {children}
                     </div>
                 </main>
@@ -63,3 +71,5 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
         </div>
     )
 }
+
+
