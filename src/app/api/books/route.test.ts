@@ -18,7 +18,7 @@ describe('Books API', () => {
     });
 
     it('should return list of blobs if authorized', async () => {
-        (requireAuth as jest.Mock).mockResolvedValue({ user: { email: 'chrisjw12345@gmail.com' } });
+        (requireAuth as jest.Mock).mockResolvedValue({ user: { email: 'test@example.com' } });
         const mockBlobs = [{ url: 'http://example.com/book.pdf', pathname: 'book.pdf' }];
         (list as jest.Mock).mockResolvedValue({ blobs: mockBlobs });
 
