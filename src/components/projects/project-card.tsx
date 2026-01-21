@@ -1,60 +1,104 @@
 "use client"
 
+import * as React from "react"
 import Link from "next/link"
 
 import { Badge } from "@/components/ui/badge"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import type { Project } from "@/data/projectsData"
+import { cn } from "@/lib/utils"
 
 interface ProjectCardProps {
   project: Project
 }
 
 function ProjectCard({ project }: ProjectCardProps) {
+  const [canHover, setCanHover] = React.useState(false)
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+    const media = window.matchMedia("(hover: hover) and (pointer: fine)")
+    const update = () => setCanHover(media.matches)
+    update()
+
+    if (media.addEventListener) {
+      media.addEventListener("change", update)
+    } else {
+      media.addListener(update)
+    }
+
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener("change", update)
+      } else {
+        media.removeListener(update)
+      }
+    }
+  }, [])
+
+  const interactiveProps = canHover
+    ? {
+        role: "button",
+        tabIndex: 0,
+        "aria-label": `More info about ${project.title}`,
+      }
+    : {}
+
+  const cardBody = (
+    <div
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-6 shadow-soft transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20",
+        canHover &&
+          "cursor-pointer hover:-translate-y-1 hover:border-foreground/30 hover:shadow-deep"
+      )}
+      {...interactiveProps}
+    >
+      <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+        <div className="h-full w-full bg-[radial-gradient(circle_at_top,_color-mix(in_oklch,_var(--muted-foreground)_18%,_transparent),_transparent_70%)]" />
+      </div>
+      <div className="relative z-10 flex h-full flex-col gap-4">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs tracking-wide text-muted-foreground">{project.role}</p>
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">
+              {project.title}
+            </h2>
+          </div>
+          {project.featured ? (
+            <Badge variant="secondary" className="rounded-full text-[0.65rem] tracking-wide">
+              Featured
+            </Badge>
+          ) : null}
+        </div>
+        <p className="text-sm text-muted-foreground">{project.summary}</p>
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <Badge key={tech} variant="outline" className="bg-background/80">
+              {tech}
+            </Badge>
+          ))}
+        </div>
+        <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground/80">
+          <span>{project.timeline}</span>
+          {canHover ? (
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-foreground/30" aria-hidden="true" />
+              Hover or click
+            </span>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  )
+
+  if (!mounted || !canHover) {
+    return cardBody
+  }
+
   return (
     <HoverCard openDelay={150} closeDelay={120}>
-      <HoverCardTrigger asChild>
-        <div
-          className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-6 shadow-soft transition duration-300 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20"
-          role="button"
-          tabIndex={0}
-          aria-label={`More info about ${project.title}`}
-        >
-          <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-            <div className="h-full w-full bg-[radial-gradient(circle_at_top,_color-mix(in_oklch,_var(--muted-foreground)_18%,_transparent),_transparent_70%)]" />
-          </div>
-          <div className="relative z-10 flex h-full flex-col gap-4">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs tracking-wide text-muted-foreground">{project.role}</p>
-                <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                  {project.title}
-                </h2>
-              </div>
-              {project.featured ? (
-                <Badge variant="secondary" className="rounded-full text-[0.65rem] tracking-wide">
-                  Featured
-                </Badge>
-              ) : null}
-            </div>
-            <p className="text-sm text-muted-foreground">{project.summary}</p>
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.map((tech) => (
-                <Badge key={tech} variant="outline" className="bg-background/80">
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-            <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground/80">
-              <span>{project.timeline}</span>
-              <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-foreground/30" aria-hidden="true" />
-                Hover or click
-              </span>
-            </div>
-          </div>
-        </div>
-      </HoverCardTrigger>
+      <HoverCardTrigger asChild>{cardBody}</HoverCardTrigger>
       <HoverCardContent
         align="start"
         side="top"
