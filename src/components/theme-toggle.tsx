@@ -14,7 +14,7 @@ export function ThemeToggle() {
     }, [])
 
     if (!mounted) {
-        return <Button variant="ghost" size="sm" className="w-fit">Loading...</Button>
+        return <Button variant="ghost" size="sm" className="theme-toggle">Loading...</Button>
     }
 
     return (
@@ -22,7 +22,7 @@ export function ThemeToggle() {
             variant="ghost"
             size="sm"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-fit font-bold flex items-center gap-2"
+            className="theme-toggle"
         >
             {theme === "dark" ? (
                 <>
