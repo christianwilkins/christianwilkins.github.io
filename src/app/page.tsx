@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   return (
     <div className="animate-rise-in">
-      <h1 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">About</h1>
+      <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">About</h1>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         I&apos;m passionate about building cool things and solving interesting problems. Based in the
         United States<span className="hidden sm:inline"> and a United States citizen</span>.
@@ -23,7 +23,9 @@ export default function Home() {
       </p>
       <div className="mt-6">
         <Button asChild size="lg">
-          <Link href="/contact">Start a project</Link>
+          <Link href="/contact" className="ui-label">
+            Start a project
+          </Link>
         </Button>
       </div>
     </div>
