@@ -23,11 +23,9 @@ export function Sidebar() {
             </div>
 
             <nav className="flex flex-col gap-4 mt-8">
-                <Link href="/" className="nav-link w-fit text-lg transition-colors font-heading hover-lift">Home</Link>
-                <Link href="/about" className="nav-link w-fit text-lg transition-colors font-heading hover-lift">About</Link>
+                <Link href="/" className="nav-link w-fit text-lg transition-colors font-heading hover-lift">About</Link>
                 <Link href="/projects" className="nav-link w-fit text-lg transition-colors font-heading hover-lift">Projects</Link>
                 <Link href="/contact" className="nav-link w-fit text-lg transition-colors font-heading hover-lift">Contact</Link>
-                <Link href="/faq" className="nav-link w-fit text-lg transition-colors font-heading hover-lift">Faq</Link>
                 <Link href="/lab" className="nav-link w-fit text-lg transition-colors font-heading hover-lift">The Lab</Link>
                 <div className="mt-2">
                     <ThemeToggle />
