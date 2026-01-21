@@ -22,8 +22,8 @@ export function FAQChat() {
             text: "Hi! How can I help you today?",
             sender: "bot",
             options: [
-                "Thinking of hiring Chris?",
-                "Get Advice from Chris",
+                "Thinking of hiring Christian?",
+                "Get Advice from Christian",
             ]
         }
     ]);
@@ -81,8 +81,8 @@ export function FAQChat() {
     const handleOptionClick = async (option: string) => {
         if (isStreaming) return; // Prevent new messages while streaming
 
-        // Check if user selected "Contact Chris" and navigate to contact page
-        if (option === "Contact Chris") {
+        // Check if user selected "Contact Christian" and navigate to contact page
+        if (option === "Contact Christian") {
             router.push("/contact");
             return;
         } else if (option === "Imagine Software") {
@@ -108,9 +108,9 @@ export function FAQChat() {
         const response = faqData[option] || {
             text: "I'm sorry, I don't have information about that. Let me help you with something else!",
             options: [
-                "Thinking of hiring Chris?",
-                "Get Advice from Chris",
-                "Contact Chris"
+                "Thinking of hiring Christian?",
+                "Get Advice from Christian",
+                "Contact Christian"
             ]
         };
 
@@ -150,16 +150,16 @@ export function FAQChat() {
             const response = lastBotMessage ? {
                 text: lastBotMessage.text,
                 options: lastBotMessage.options || [
-                    "Thinking of hiring Chris?",
-                    "Get Advice from Chris",
-                    "Contact Chris"
+                    "Thinking of hiring Christian?",
+                    "Get Advice from Christian",
+                    "Contact Christian"
                 ]
             } : {
-                text: "Hi! I am Chris's faq assistant. How can I help you today?",
+                text: "Hi! I am Christian's faq assistant. How can I help you today?",
                 options: [
-                    "Thinking of hiring Chris?",
-                    "Get Advice from Chris",
-                    "Contact Chris"
+                    "Thinking of hiring Christian?",
+                    "Get Advice from Christian",
+                    "Contact Christian"
                 ]
             };
 
@@ -188,8 +188,8 @@ export function FAQChat() {
                 text: "Hi! How can I help you today?",
                 sender: "bot",
                 options: [
-                    "Thinking of hiring Chris?",
-                    "Get Advice from Chris",
+                    "Thinking of hiring Christian?",
+                    "Get Advice from Christian",
                 ]
             }
         ]);
