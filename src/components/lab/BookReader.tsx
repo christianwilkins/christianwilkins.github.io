@@ -74,21 +74,21 @@ export default function BookReader({ book, onClose }: BookReaderProps) {
     }, [bookName]);
 
     return (
-        <div className="fixed inset-0 z-50 flex flex-col bg-zinc-950">
+        <div className="fixed inset-0 z-50 flex flex-col bg-background text-foreground">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/50 px-4 py-3 backdrop-blur-xl">
+            <div className="flex items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur-xl">
                 <div className="flex items-center gap-3">
                     <button
                         onClick={onClose}
-                        className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                        className="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
                     >
                         <X className="h-5 w-5" />
                     </button>
-                    <h2 className="text-sm font-medium text-white line-clamp-1">
+                    <h2 className="text-sm font-medium text-foreground line-clamp-1">
                         {bookName}
                     </h2>
                 </div>
-                <div className="flex items-center gap-3 text-xs text-zinc-500">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
                     {saving ? "Saving..." : "Progress Saved"}
                 </div>
             </div>
@@ -96,7 +96,7 @@ export default function BookReader({ book, onClose }: BookReaderProps) {
             {/* Reader Content */}
             <div className="flex-1 overflow-hidden relative">
                 {isPdf ? (
-                    <div className="h-full overflow-auto flex justify-center bg-zinc-900/50 p-4">
+                    <div className="h-full overflow-auto flex justify-center bg-muted/50 p-4">
                         <Document
                             file={book.url}
                             onLoadSuccess={({ numPages }) => setNumPages(numPages)}
@@ -104,7 +104,7 @@ export default function BookReader({ book, onClose }: BookReaderProps) {
                             options={options}
                             loading={
                                 <div className="flex items-center justify-center h-full">
-                                    <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
+                                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                                 </div>
                             }
                         >
@@ -118,21 +118,21 @@ export default function BookReader({ book, onClose }: BookReaderProps) {
                         </Document>
 
                         {/* PDF Controls */}
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 rounded-full bg-zinc-800/90 px-6 py-2 backdrop-blur shadow-xl">
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 rounded-full border border-border bg-popover/85 px-6 py-2 text-muted-foreground backdrop-blur shadow-xl">
                             <button
                                 disabled={(location as number) <= 1}
                                 onClick={() => handleLocationChange((location as number) - 1)}
-                                className="p-1 hover:text-white text-zinc-400 disabled:opacity-50"
+                                className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-50"
                             >
                                 <ChevronLeft className="w-5 h-5" />
                             </button>
-                            <span className="text-sm font-medium text-zinc-200">
+                            <span className="text-sm font-medium text-foreground">
                                 {location || 1} / {numPages || '--'}
                             </span>
                             <button
                                 disabled={(location as number) >= (numPages || 0)}
                                 onClick={() => handleLocationChange(((location as number) || 1) + 1)}
-                                className="p-1 hover:text-white text-zinc-400 disabled:opacity-50"
+                                className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-50"
                             >
                                 <ChevronRight className="w-5 h-5" />
                             </button>
