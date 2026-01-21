@@ -38,7 +38,7 @@ export function HamburgerMenu({ isVisible, showStickyHeader }: HamburgerMenuProp
             {/* Overlay */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[1001]"
+                    className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[1001] animate-fade-in"
                     onClick={closeMenu}
                 />
             )}
@@ -46,17 +46,17 @@ export function HamburgerMenu({ isVisible, showStickyHeader }: HamburgerMenuProp
             {/* Menu */}
             <nav
                 className={cn(
-                    "fixed top-0 right-0 h-full w-[300px] bg-background shadow-lg z-[1001] transform transition-transform duration-300 ease-in-out flex flex-col justify-center items-center",
+                    "fixed top-0 right-0 h-full w-[300px] z-[1001] transform transition-transform duration-300 ease-in-out flex flex-col justify-center items-center animate-soft-pop surface-panel",
                     isOpen ? "translate-x-0" : "translate-x-full"
                 )}
             >
                 <div className="flex flex-col gap-8 items-center">
-                    <Link href="/" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">HOME</Link>
-                    <Link href="/about" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">ABOUT</Link>
-                    <Link href="/projects" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">PROJECTS</Link>
-                    <Link href="/contact" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">CONTACT</Link>
-                    <Link href="/faq" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">FAQ</Link>
-                    <Link href="/lab" onClick={closeMenu} className="text-2xl font-bold hover:text-primary transition-colors font-heading">THE LAB</Link>
+                    <Link href="/" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Home</Link>
+                    <Link href="/about" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">About</Link>
+                    <Link href="/projects" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Projects</Link>
+                    <Link href="/contact" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Contact</Link>
+                    <Link href="/faq" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Faq</Link>
+                    <Link href="/lab" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">The Lab</Link>
                     <div className="mt-4">
                         <ThemeToggle />
                     </div>
