@@ -25,6 +25,8 @@
   --page-padding-md: 2.5rem;
   --sidebar-width: 200px;
   --content-width: 42rem;
+  --content-margin-left: auto;
+  --content-margin-right: auto;
   --background: oklch(0.98 0.008 80);
   --foreground: oklch(0.22 0.01 260);
   --card: oklch(0.985 0.006 80);
@@ -151,6 +153,15 @@
     radial-gradient(70% 60% at 12% 18%, color-mix(in oklch, var(--accent) 25%, transparent), transparent 62%),
     radial-gradient(60% 50% at 88% 8%, color-mix(in oklch, var(--primary) 18%, transparent), transparent 60%),
     radial-gradient(75% 65% at 70% 82%, color-mix(in oklch, var(--muted) 35%, transparent), transparent 65%);
+}
+
+:root[data-align="left"] {
+  --content-margin-left: 0;
+  --content-margin-right: auto;
+}
+
+:root[data-align="wide"] {
+  --content-width: 52rem;
 }
 
 :root[data-density="compact"] {
