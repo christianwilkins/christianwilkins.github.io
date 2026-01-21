@@ -38,15 +38,15 @@ export function MobileHeader() {
 
     return (
         <div className={cn(
-            "fixed top-0 left-0 right-0 z-[1000] px-4 py-2 pr-[70px] backdrop-blur-md transition-all duration-300 hidden",
-            showStickyHeader && "block bg-background/90 border-b border-border"
+            "fixed top-0 left-0 right-0 z-[1000] px-4 py-2 pr-[70px] transition-all duration-300 hidden",
+            showStickyHeader && "block surface-panel animate-fade-in"
         )}>
             <Link
                 href="/"
                 className="text-inherit no-underline cursor-pointer block transform translate-y-1"
             >
                 <h2 className="m-0 leading-[1.2] text-xl font-bold font-heading">
-                    CHRIS WILKINS
+                    Chris Wilkins
                 </h2>
             </Link>
         </div>
