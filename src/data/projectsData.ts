@@ -38,7 +38,7 @@ export const projects: Project[] = [
   {
     title: "Configura Summer Intern Project",
     summary: "Client focused enhancements to enterprise space planning software.",
-    description: "Implemented features for a specific client and refined Ui flows across the React front end and C sharp services.",
+    description: "Implemented features for a specific client and refined UI flows across the React front end and C sharp services.",
     image: "",
     technologies: ["C#", "React", "TypeScript"],
     liveLink: "https://configura.com",
@@ -48,18 +48,18 @@ export const projects: Project[] = [
     timeline: "Summer internship",
     highlights: [
       "Delivered client requested features on a tight timeline.",
-      "Bridged front end Ui updates with backend logic.",
+      "Bridged front end UI updates with backend logic.",
       "Partnered with Qa to validate release readiness.",
     ],
     impact: [
       "Enhanced client workflows with tailored features.",
-      "Improved consistency across Ui interactions.",
+      "Improved consistency across UI interactions.",
     ],
   },
   {
     title: "ReKive Ai Politics Project",
     summary: "Ai platform for balanced political analysis and news summaries.",
-    description: "Aggregated news sources, applied Nlp summarization, and surfaced multiple viewpoints in a clean, skimmable Ui.",
+    description: "Aggregated news sources, applied Nlp summarization, and surfaced multiple viewpoints in a clean, skimmable UI.",
     image: "",
     technologies: ["Python", "Nlp", "React"],
     liveLink: "https://rekive.ai",
@@ -142,10 +142,10 @@ export const projects: Project[] = [
   },
   {
     title: "This Portfolio Website",
-    summary: "Next.js and Tailwind portfolio with custom, reusable Ui components.",
+    summary: "Next.js and Tailwind portfolio with custom, reusable UI components.",
     description: "Designed a clean visual system, built modular components, and optimized layout for clarity and responsiveness.",
     image: "",
-    technologies: ["Next.js", "Tailwind CSS", "Shadcn Ui"],
+    technologies: ["Next.js", "Tailwind CSS", "Shadcn UI"],
     liveLink: "https://chriswiki.com",
     githubLink: "https://github.com/christianwilkins/christianwilkins.github.io",
     featured: true,
@@ -174,7 +174,7 @@ export const projects: Project[] = [
     timeline: "Prototype",
     highlights: [
       "Integrated lightweight on device inference.",
-      "Designed camera first Ui flows.",
+      "Designed camera first UI flows.",
       "Mapped classifications to recycling guidance.",
     ],
     impact: [
