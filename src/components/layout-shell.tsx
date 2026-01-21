@@ -11,35 +11,20 @@ import { usePathname } from "next/navigation"
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
-    const [showStickyHeader, setShowStickyHeader] = React.useState(false)
+    const [isMobile, setIsMobile] = React.useState(false)
     const isLab = pathname?.startsWith("/lab")
 
     React.useEffect(() => {
-        const handleScroll = () => {
-            const isMobile = window.innerWidth <= 768
-            const scrollY = window.scrollY
-
-            if (isMobile && scrollY > 100) {
-                setShowStickyHeader(true)
-            } else {
-                setShowStickyHeader(false)
-            }
+        const update = () => {
+            const mobile = window.innerWidth <= 768
+            setIsMobile(mobile)
         }
 
-        const handleResize = () => {
-            if (window.innerWidth > 768) {
-                setShowStickyHeader(false)
-            }
-        }
-
-        window.addEventListener('scroll', handleScroll)
-        window.addEventListener('resize', handleResize)
-
-        handleScroll()
+        window.addEventListener("resize", update)
+        update()
 
         return () => {
-            window.removeEventListener('scroll', handleScroll)
-            window.removeEventListener('resize', handleResize)
+            window.removeEventListener("resize", update)
         }
     }, [])
 
@@ -49,13 +34,13 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
             <div className="layout-main flex-1 flex flex-col min-h-screen transition-all duration-300">
                 <MobileHeader />
-                <HamburgerMenu isVisible={true} showStickyHeader={showStickyHeader} />
+                <HamburgerMenu isVisible={true} />
                 <StyleSettingsDrawer />
 
                 <main className={cn(
                     "flex-1 page-shell flex flex-col animate-fade-in",
                     !isLab && "justify-center items-center",
-                    showStickyHeader && "pt-[80px]"
+                    isMobile && "mobile-content-offset"
                 )}>
                     <div className={cn(
                         "layout-content animate-rise-in",
