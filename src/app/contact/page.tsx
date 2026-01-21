@@ -32,10 +32,10 @@ export default function Contact() {
 
     return (
         <div className="animate-rise-in">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">Contact</h1>
+            <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">Contact</h1>
             <p className="mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed">
-                feel free to reach out and connect with me! <br /> <br />
-                <span className="hidden sm:inline text-sm text-muted-foreground">(do not book call without prior communication)</span>
+                Feel free to reach out and connect with me. <br /> <br />
+                <span className="hidden sm:inline text-sm text-muted-foreground">(Do not book a call without prior communication)</span>
             </p>
             <div className="flex flex-col gap-4">
                 {socialLinks.map((link) => (
@@ -47,7 +47,7 @@ export default function Contact() {
                         className="group flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border border-border bg-background text-foreground shadow-soft hover:bg-muted transition-colors hover-lift"
                     >
                         <span className="text-muted-foreground transition-colors group-hover:text-foreground">{link.icon}</span>
-                        <span className="font-medium text-sm sm:text-base">{link.name}</span>
+                        <span className="ui-label font-medium text-sm sm:text-base">{link.name}</span>
                     </a>
                 ))}
             </div>
