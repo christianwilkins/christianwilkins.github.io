@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import '@testing-library/jest-dom'
 import { TextEncoder, TextDecoder } from 'util';
 
@@ -6,7 +7,6 @@ global.TextDecoder = TextDecoder;
 
 // Polyfill Web APIs
 if (typeof global.Request === 'undefined') {
-    // Next.js uses undici under the hood
     const { Request, Response, Headers } = require('undici');
     global.Request = Request;
     global.Response = Response;
