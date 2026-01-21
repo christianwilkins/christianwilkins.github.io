@@ -40,7 +40,7 @@ export default function BooksPage() {
                                     <ArrowLeft className="w-5 h-5" />
                                 </Link>
                             </Button>
-                            <h1 className="text-3xl font-bold font-heading">The Library</h1>
+                            <h1 className="ui-label text-3xl font-bold font-heading">The Library</h1>
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
