@@ -46,7 +46,7 @@ export function MobileHeader() {
                 className="text-inherit no-underline cursor-pointer block transform translate-y-1"
             >
                 <h2 className="m-0 leading-[1.2] text-xl font-bold font-heading">
-                    Chris Wilkins
+                    Christian Wilkins
                 </h2>
             </Link>
         </div>
