@@ -31,8 +31,8 @@ export default function Contact() {
     ];
 
     return (
-        <div>
-            <h1 className="text-4xl font-bold mb-6 font-heading">CONTACT</h1>
+        <div className="animate-rise-in">
+            <h1 className="text-4xl font-bold mb-6 font-heading">Contact</h1>
             <p className="mb-8 text-lg leading-relaxed">
                 feel free to reach out and connect with me! <br /> <br />
                 <span className="text-sm text-muted-foreground">(do not book call without prior communication)</span>
@@ -44,7 +44,7 @@ export default function Contact() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-4 p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                        className="flex items-center gap-4 p-4 rounded-lg border bg-card text-card-foreground shadow-soft hover:bg-accent hover:text-accent-foreground transition-colors hover-lift"
                     >
                         <span className="text-primary">{link.icon}</span>
                         <span className="font-medium">{link.name}</span>
