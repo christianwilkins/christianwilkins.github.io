@@ -4,13 +4,13 @@ import * as React from "react"
 import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
+import { Menu, X } from "lucide-react"
 
 interface HamburgerMenuProps {
     isVisible: boolean
-    showStickyHeader: boolean
 }
 
-export function HamburgerMenu({ isVisible, showStickyHeader }: HamburgerMenuProps) {
+export function HamburgerMenu({ isVisible }: HamburgerMenuProps) {
     const [isOpen, setIsOpen] = React.useState(false)
 
     const toggleMenu = () => setIsOpen(!isOpen)
@@ -34,18 +34,14 @@ export function HamburgerMenu({ isVisible, showStickyHeader }: HamburgerMenuProp
             {/* Hamburger Button */}
             <button
                 className={cn(
-                    "fixed top-4 right-4 z-[1002] flex flex-col justify-around w-11 h-11 bg-transparent border-none cursor-pointer p-0 focus:outline-none transition-all duration-300 md:hidden",
-                    isOpen && "open",
-                    showStickyHeader && "top-3"
+                    "mobile-menu-button fixed z-[1002] flex items-center justify-center w-11 h-11 rounded-full border border-border/70 bg-background/80 text-foreground shadow-soft backdrop-blur-sm transition-all duration-300 md:hidden"
                 )}
                 onClick={toggleMenu}
                 aria-label="Toggle navigation menu"
                 aria-expanded={isOpen}
                 aria-controls="mobile-nav"
             >
-                <span className={cn("w-6 h-0.5 bg-foreground rounded transition-all duration-300 relative origin-[1px]", isOpen && "rotate-45 translate-x-[2px]")} />
-                <span className={cn("w-6 h-0.5 bg-foreground rounded transition-all duration-300 relative opacity-100", isOpen && "opacity-0 translate-x-5")} />
-                <span className={cn("w-6 h-0.5 bg-foreground rounded transition-all duration-300 relative origin-[1px]", isOpen && "-rotate-45 translate-x-[2px]")} />
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
 
             {/* Overlay */}
