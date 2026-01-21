@@ -5,15 +5,15 @@ export interface FAQOption {
 
 export const faqData: Record<string, FAQOption> = {
     // Main branches
-    "Thinking of hiring Chris?": {
-        text: "Great! Chris is a passionate software engineer with leadership experience and a proven track record. What would you like to know about his qualifications?",
+    "Thinking of hiring Christian?": {
+        text: "Great! Christian is a passionate software engineer with leadership experience and a proven track record. What would you like to know about his qualifications?",
         options: [
             "Projects",
             "Experience",
-            "Chris's Resume"
+            "Christian's Resume"
         ]
     },
-    "Get Advice from Chris": {
+    "Get Advice from Christian": {
         text: "I'm willing to help! What would you like advice on?",
         options: [
             "Internship",
@@ -24,21 +24,21 @@ export const faqData: Record<string, FAQOption> = {
 
     // Hiring branch placeholders
     "Projects": {
-        text: "You'll add your own content here about Chris's projects.",
+        text: "You'll add your own content here about Christian's projects.",
         options: [
             "Experience",
-            "Chris's Resume"
+            "Christian's Resume"
         ]
     },
     "Experience": {
-        text: "You'll add your own content here about Chris's experience.",
+        text: "You'll add your own content here about Christian's experience.",
         options: [
             "Projects",
-            "Chris's Resume"
+            "Christian's Resume"
         ]
     },
-    "Chris's Resume": {
-        text: "You'll add your own content here about Chris's resume.",
+    "Christian's Resume": {
+        text: "You'll add your own content here about Christian's resume.",
         options: [
             "Projects",
             "Experience"
