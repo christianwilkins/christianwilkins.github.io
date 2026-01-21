@@ -44,8 +44,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Chris Wilkins - Software Engineer",
-  description: "Portfolio of Chris Wilkins, a Software Engineer based in the United States.",
+  title: "Christian Wilkins - Software Engineer",
+  description: "Portfolio of Christian Wilkins, a Software Engineer based in the United States.",
 };
 
 export default function RootLayout({
