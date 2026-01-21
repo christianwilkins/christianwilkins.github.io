@@ -127,7 +127,7 @@ export default function LearningPage() {
                 <Sparkles className="h-7 w-7" />
                 <span className="text-sm font-semibold text-muted-foreground">Learning hub</span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
+              <h1 className="ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 A modular shelf of experiments built while exploring UI systems, state models,
                 data storytelling, and interaction design. Each module can stand alone or connect into a larger narrative.
