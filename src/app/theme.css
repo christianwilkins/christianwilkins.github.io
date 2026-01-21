@@ -27,6 +27,7 @@
   --content-width: 42rem;
   --content-margin-left: auto;
   --content-margin-right: auto;
+  --ui-text-transform: none;
   --background: oklch(0.98 0.008 80);
   --foreground: oklch(0.22 0.01 260);
   --card: oklch(0.985 0.006 80);
@@ -162,6 +163,10 @@
 
 :root[data-align="wide"] {
   --content-width: 52rem;
+}
+
+:root[data-case="lower"] {
+  --ui-text-transform: lowercase;
 }
 
 :root[data-density="compact"] {
