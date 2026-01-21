@@ -51,11 +51,9 @@ export function HamburgerMenu({ isVisible, showStickyHeader }: HamburgerMenuProp
                 )}
             >
                 <div className="flex flex-col gap-8 items-center">
-                    <Link href="/" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Home</Link>
-                    <Link href="/about" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">About</Link>
+                    <Link href="/" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">About</Link>
                     <Link href="/projects" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Projects</Link>
                     <Link href="/contact" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Contact</Link>
-                    <Link href="/faq" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">Faq</Link>
                     <Link href="/lab" onClick={closeMenu} className="nav-link text-2xl font-bold transition-colors font-heading hover-lift">The Lab</Link>
                     <div className="mt-4">
                         <ThemeToggle />
