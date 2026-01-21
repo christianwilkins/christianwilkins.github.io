@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { ProjectCard } from "@/components/projects/project-card";
 import { projects } from "@/data/projectsData";
+
+export const metadata: Metadata = {
+    title: "Projects | Christian Wilkins",
+    description:
+        "Projects by Christian Wilkins, a software consultant and engineer focused on startups, product design, and practical delivery.",
+};
 
 export default function Projects() {
     return (
