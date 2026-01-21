@@ -238,7 +238,7 @@ function setRootData(
 
 export function StyleSettingsDrawer() {
   const [open, setOpen] = React.useState(false);
-  const [preset, setPreset] = React.useState<PresetId>("custom");
+  const [preset, setPreset] = React.useState<PresetId>("studio");
   const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("studio");
   const [font, setFont] = React.useState<(typeof fontSets)[number]["id"]>("studio");
   const [motion, setMotion] = React.useState<(typeof motionSets)[number]["id"]>("calm");
