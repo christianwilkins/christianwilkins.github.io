@@ -1,35 +1,31 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
     <div className="animate-rise-in">
-      <h1 className="text-4xl font-bold mb-6 font-heading">Home</h1>
-      <p className="mb-4 text-lg leading-relaxed">Hi, I&apos;m Chris!</p>
-      <p className="mb-4 text-lg leading-relaxed">
-        I&apos;m a software engineer passionate about building meaningful solutions
-        that make a difference. Currently based in the United States, and I am a
-        United States citizen, I specialize in full-stack development and love
-        tackling complex problems.
+      <h1 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">About</h1>
+      <p className="mb-4 text-base sm:text-lg leading-relaxed">
+        I&apos;m passionate about building cool things and solving interesting problems. Based in the
+        United States<span className="hidden sm:inline"> and a United States citizen</span>.
       </p>
-      <p className="mb-4 text-lg leading-relaxed">
-        Take a look at my{" "}
+      <p className="mb-4 text-base sm:text-lg leading-relaxed">
+        I&apos;m currently interested in building with AI agents and pushing cutting edge workflows
+        for AI integration across every level of development.
+        <span className="hidden sm:inline"> I also focus on design and software consulting.</span>
+      </p>
+      <p className="mb-4 text-base sm:text-lg leading-relaxed">
+        I&apos;ve done a lot of building recently. Check out my{" "}
         <Link href="/projects" className="text-primary hover:underline font-medium">
-          recent projects
-        </Link>{" "}
-        to see my work in action, or learn more{" "}
-        <Link href="/about" className="text-primary hover:underline font-medium">
-          about my journey
-        </Link>{" "}
-        in tech. I&apos;m always excited to{" "}
-        <Link href="/contact" className="text-primary hover:underline font-medium">
-          connect with fellow developers
-        </Link>{" "}
-        and discuss new opportunities.
+          projects
+        </Link>
+        .
       </p>
-      <p className="mb-4 text-lg leading-relaxed">
-        Whether you&apos;re interested in collaboration or just want to chat about
-        technology, I&apos;d love to hear from you!
-      </p>
+      <div className="mt-6">
+        <Button asChild size="lg">
+          <Link href="/contact">Start a project</Link>
+        </Button>
+      </div>
     </div>
   );
 }
