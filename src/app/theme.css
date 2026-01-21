@@ -133,6 +133,11 @@
   --shadow-2: none;
 }
 
+:root[data-shadow="low"] {
+  --shadow-1: 0 8px 22px color-mix(in oklch, var(--foreground) 10%, transparent);
+  --shadow-2: 0 14px 34px color-mix(in oklch, var(--foreground) 14%, transparent);
+}
+
 :root[data-shadow="deep"] {
   --shadow-1: 0 14px 40px color-mix(in oklch, var(--foreground) 16%, transparent);
   --shadow-2: 0 28px 70px color-mix(in oklch, var(--foreground) 26%, transparent);
