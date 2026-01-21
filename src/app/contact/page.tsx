@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { FaGithub, FaLinkedin, FaTwitter, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+
+export const metadata: Metadata = {
+    title: "Contact | Christian Wilkins",
+    description:
+        "Contact Christian Wilkins for software consultancy, startup product design, and technical hiring support.",
+};
 
 export default function Contact() {
     const socialLinks = [
