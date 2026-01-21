@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  AlignLeft,
   ChevronRight,
   CornerUpRight,
   Droplet,
@@ -9,6 +10,7 @@ import {
   LayoutGrid,
   Layers,
   Palette,
+  PanelLeft,
   SlidersHorizontal,
   Sparkles,
   SunDim,
@@ -29,6 +31,8 @@ const STORAGE_KEYS = {
   density: "style.density",
   ambient: "style.ambient",
   layout: "style.layout",
+  align: "style.align",
+  nav: "style.nav",
 } as const;
 
 const palettes = [
@@ -112,6 +116,17 @@ const layoutSets = [
   { id: "atelier", name: "Atelier", description: "Editorial card layout with ornaments" },
 ] as const;
 
+const alignSets = [
+  { id: "center", name: "Center", description: "Balanced alignment" },
+  { id: "left", name: "Left", description: "Left aligned content rail" },
+  { id: "wide", name: "Wide", description: "Wider reading measure" },
+] as const;
+
+const navSets = [
+  { id: "sidebar", name: "Sidebar", description: "Left vertical navigation" },
+  { id: "top", name: "Navbar", description: "Top horizontal navigation" },
+] as const;
+
 const presets = [
   {
     id: "studio",
@@ -127,6 +142,8 @@ const presets = [
       density: "standard",
       ambient: "off",
       layout: "classic",
+      align: "center",
+      nav: "sidebar",
     },
   },
   {
@@ -143,6 +160,8 @@ const presets = [
       density: "standard",
       ambient: "on",
       layout: "classic",
+      align: "center",
+      nav: "sidebar",
     },
   },
   {
@@ -159,6 +178,8 @@ const presets = [
       density: "roomy",
       ambient: "on",
       layout: "atelier",
+      align: "center",
+      nav: "sidebar",
     },
   },
   {
@@ -175,6 +196,8 @@ const presets = [
       density: "compact",
       ambient: "off",
       layout: "classic",
+      align: "center",
+      nav: "sidebar",
     },
   },
 ] as const;
@@ -191,10 +214,23 @@ type SectionKey =
   | "blur"
   | "radius"
   | "density"
-  | "ambient";
+  | "ambient"
+  | "alignment"
+  | "navigation";
 
 function setRootData(
-  key: "palette" | "font" | "motion" | "blur" | "radius" | "shadow" | "density" | "ambient" | "layout",
+  key:
+    | "palette"
+    | "font"
+    | "motion"
+    | "blur"
+    | "radius"
+    | "shadow"
+    | "density"
+    | "ambient"
+    | "layout"
+    | "align"
+    | "nav",
   value: string
 ) {
   if (typeof document === "undefined") return;
@@ -233,11 +269,20 @@ function setRootData(
   }
   if (key === "layout") {
     root.dataset.layout = value;
+    return;
+  }
+  if (key === "align") {
+    root.dataset.align = value;
+    return;
+  }
+  if (key === "nav") {
+    root.dataset.nav = value;
   }
 }
 
 export function StyleSettingsDrawer() {
   const [open, setOpen] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
   const [preset, setPreset] = React.useState<PresetId>("studio");
   const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("studio");
   const [font, setFont] = React.useState<(typeof fontSets)[number]["id"]>("studio");
@@ -248,6 +293,8 @@ export function StyleSettingsDrawer() {
   const [density, setDensity] = React.useState<(typeof densitySets)[number]["id"]>("standard");
   const [ambient, setAmbient] = React.useState<(typeof ambientSets)[number]["id"]>("off");
   const [layout, setLayout] = React.useState<(typeof layoutSets)[number]["id"]>("classic");
+  const [align, setAlign] = React.useState<(typeof alignSets)[number]["id"]>("center");
+  const [nav, setNav] = React.useState<(typeof navSets)[number]["id"]>("sidebar");
   const [openSections, setOpenSections] = React.useState<Record<SectionKey, boolean>>({
     presets: false,
     colorway: false,
@@ -259,7 +306,29 @@ export function StyleSettingsDrawer() {
     radius: false,
     density: false,
     ambient: false,
+    alignment: false,
+    navigation: false,
   });
+
+  React.useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+
+    update();
+    if (media.addEventListener) {
+      media.addEventListener("change", update);
+    } else {
+      media.addListener(update);
+    }
+
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener("change", update);
+      } else {
+        media.removeListener(update);
+      }
+    };
+  }, []);
 
   React.useEffect(() => {
     const savedPalette = localStorage.getItem(STORAGE_KEYS.palette) ?? "studio";
@@ -271,6 +340,8 @@ export function StyleSettingsDrawer() {
     const savedDensity = localStorage.getItem(STORAGE_KEYS.density) ?? "standard";
     const savedAmbient = localStorage.getItem(STORAGE_KEYS.ambient) ?? "off";
     const savedLayout = localStorage.getItem(STORAGE_KEYS.layout) ?? "classic";
+    const savedAlign = localStorage.getItem(STORAGE_KEYS.align) ?? "center";
+    const savedNav = localStorage.getItem(STORAGE_KEYS.nav) ?? "sidebar";
     const savedPreset = (localStorage.getItem(STORAGE_KEYS.preset) ?? "custom") as PresetId;
 
     setPalette(savedPalette as (typeof palettes)[number]["id"]);
@@ -282,6 +353,8 @@ export function StyleSettingsDrawer() {
     setDensity(savedDensity as (typeof densitySets)[number]["id"]);
     setAmbient(savedAmbient as (typeof ambientSets)[number]["id"]);
     setLayout(savedLayout as (typeof layoutSets)[number]["id"]);
+    setAlign(savedAlign as (typeof alignSets)[number]["id"]);
+    setNav(savedNav as (typeof navSets)[number]["id"]);
 
     const matchedPreset = presets.find((item) =>
       Object.entries(item.values).every(([key, value]) => {
@@ -294,6 +367,8 @@ export function StyleSettingsDrawer() {
         if (key === "density") return value === savedDensity;
         if (key === "ambient") return value === savedAmbient;
         if (key === "layout") return value === savedLayout;
+        if (key === "align") return value === savedAlign;
+        if (key === "nav") return value === savedNav;
         return false;
       })
     );
@@ -313,7 +388,17 @@ export function StyleSettingsDrawer() {
     setRootData("density", savedDensity);
     setRootData("ambient", savedAmbient);
     setRootData("layout", savedLayout);
+    setRootData("align", savedAlign);
+    setRootData("nav", savedNav);
   }, []);
+
+  React.useEffect(() => {
+    if (isMobile) {
+      setRootData("nav", "sidebar");
+      return;
+    }
+    setRootData("nav", nav);
+  }, [isMobile, nav]);
 
   const handlePaletteChange = (value: (typeof palettes)[number]["id"]) => {
     setPalette(value);
@@ -387,6 +472,23 @@ export function StyleSettingsDrawer() {
     setRootData("layout", value);
   };
 
+  const handleAlignChange = (value: (typeof alignSets)[number]["id"]) => {
+    setAlign(value);
+    localStorage.setItem(STORAGE_KEYS.align, value);
+    localStorage.setItem(STORAGE_KEYS.preset, "custom");
+    setPreset("custom");
+    setRootData("align", value);
+  };
+
+  const handleNavChange = (value: (typeof navSets)[number]["id"]) => {
+    if (isMobile) return;
+    setNav(value);
+    localStorage.setItem(STORAGE_KEYS.nav, value);
+    localStorage.setItem(STORAGE_KEYS.preset, "custom");
+    setPreset("custom");
+    setRootData("nav", value);
+  };
+
   const applyPreset = (id: (typeof presets)[number]["id"]) => {
     const selectedPreset = presets.find((item) => item.id === id);
     if (!selectedPreset) return;
@@ -400,6 +502,8 @@ export function StyleSettingsDrawer() {
     setDensity(values.density);
     setAmbient(values.ambient);
     setLayout(values.layout);
+    setAlign(values.align);
+    setNav(values.nav);
 
     localStorage.setItem(STORAGE_KEYS.palette, values.palette);
     localStorage.setItem(STORAGE_KEYS.font, values.font);
@@ -410,6 +514,8 @@ export function StyleSettingsDrawer() {
     localStorage.setItem(STORAGE_KEYS.density, values.density);
     localStorage.setItem(STORAGE_KEYS.ambient, values.ambient);
     localStorage.setItem(STORAGE_KEYS.layout, values.layout);
+    localStorage.setItem(STORAGE_KEYS.align, values.align);
+    localStorage.setItem(STORAGE_KEYS.nav, values.nav);
     localStorage.setItem(STORAGE_KEYS.preset, id);
 
     setRootData("palette", values.palette);
@@ -421,6 +527,8 @@ export function StyleSettingsDrawer() {
     setRootData("density", values.density);
     setRootData("ambient", values.ambient);
     setRootData("layout", values.layout);
+    setRootData("align", values.align);
+    setRootData("nav", values.nav);
     setPreset(id);
   };
 
@@ -433,6 +541,9 @@ export function StyleSettingsDrawer() {
   const selectedDensity = densitySets.find((item) => item.id === density)?.name ?? "";
   const selectedAmbient = ambientSets.find((item) => item.id === ambient)?.name ?? "";
   const selectedLayout = layoutSets.find((item) => item.id === layout)?.name ?? "";
+  const selectedAlign = alignSets.find((item) => item.id === align)?.name ?? "";
+  const selectedNav = navSets.find((item) => item.id === nav)?.name ?? "";
+  const navLabel = isMobile ? "Hamburger" : selectedNav;
   const selectedPreset = presets.find((item) => item.id === preset)?.name ?? "Custom";
 
   const toggleSection = (key: SectionKey) => {
@@ -445,14 +556,13 @@ export function StyleSettingsDrawer() {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium shadow-soft",
-          "surface-panel hover:bg-muted transition-colors",
+          "style-trigger flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold",
           open && "opacity-0 pointer-events-none"
         )}
         aria-label="Open style settings"
       >
         <SlidersHorizontal className="h-4 w-4" />
-        Style
+        Style me!
       </button>
 
       <div
@@ -468,7 +578,7 @@ export function StyleSettingsDrawer() {
         role="dialog"
         aria-label="Style settings"
         className={cn(
-          "fixed right-6 bottom-6 w-[420px] max-w-[92vw] rounded-2xl border text-card-foreground shadow-deep max-h-[80vh] flex flex-col",
+          "fixed left-4 right-4 bottom-4 w-auto max-w-[92vw] rounded-2xl border text-card-foreground shadow-deep max-h-[80vh] flex flex-col sm:left-auto sm:right-6 sm:bottom-6 sm:w-[420px]",
           "surface-panel",
           "transition-all duration-300",
           open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
@@ -654,6 +764,103 @@ export function StyleSettingsDrawer() {
                     className={cn(
                       "rounded-xl border px-3 py-2 text-left transition-colors",
                       layout === item.id
+                        ? "border-foreground bg-muted text-foreground"
+                        : "border-border bg-background hover:bg-muted"
+                    )}
+                  >
+                    <p className="text-sm font-medium">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3 self-start">
+              <button
+                type="button"
+                onClick={() => toggleSection("alignment")}
+                aria-expanded={openSections.alignment}
+                aria-controls="style-alignment"
+                className="w-full text-left text-xs font-semibold text-muted-foreground flex items-center justify-between gap-3"
+              >
+                <span className="flex items-center gap-2 text-foreground">
+                  <AlignLeft className="h-4 w-4" />
+                  Alignment
+                </span>
+                <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                  {selectedAlign}
+                  <ChevronRight
+                    className={cn(
+                      "h-3 w-3 text-muted-foreground transition-transform",
+                      openSections.alignment ? "rotate-90" : ""
+                    )}
+                  />
+                </span>
+              </button>
+              <div
+                id="style-alignment"
+                className={cn("mt-3 grid gap-2", openSections.alignment ? "grid" : "hidden")}
+              >
+                {alignSets.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleAlignChange(item.id)}
+                    className={cn(
+                      "rounded-xl border px-3 py-2 text-left transition-colors",
+                      align === item.id
+                        ? "border-foreground bg-muted text-foreground"
+                        : "border-border bg-background hover:bg-muted"
+                    )}
+                  >
+                    <p className="text-sm font-medium">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3 self-start">
+              <button
+                type="button"
+                onClick={() => toggleSection("navigation")}
+                aria-expanded={openSections.navigation}
+                aria-controls="style-navigation"
+                className="w-full text-left text-xs font-semibold text-muted-foreground flex items-center justify-between gap-3"
+              >
+                <span className="flex items-center gap-2 text-foreground">
+                  <PanelLeft className="h-4 w-4" />
+                  Navigation
+                </span>
+                <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                  {navLabel}
+                  <ChevronRight
+                    className={cn(
+                      "h-3 w-3 text-muted-foreground transition-transform",
+                      openSections.navigation ? "rotate-90" : ""
+                    )}
+                  />
+                </span>
+              </button>
+              <div
+                id="style-navigation"
+                className={cn("mt-3 grid gap-2", openSections.navigation ? "grid" : "hidden")}
+              >
+                {isMobile && (
+                  <p className="text-xs text-muted-foreground">
+                    Mobile uses hamburger navigation. This setting applies on larger screens.
+                  </p>
+                )}
+                {navSets.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleNavChange(item.id)}
+                    disabled={isMobile}
+                    className={cn(
+                      "rounded-xl border px-3 py-2 text-left transition-colors",
+                      isMobile && "opacity-50 pointer-events-none",
+                      nav === item.id
                         ? "border-foreground bg-muted text-foreground"
                         : "border-border bg-background hover:bg-muted"
                     )}
