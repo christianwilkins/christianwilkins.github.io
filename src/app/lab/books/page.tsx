@@ -25,7 +25,7 @@ export default function BooksPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background text-foreground">
+        <div className="min-h-screen bg-background text-foreground animate-fade-in">
             <AuthGate>
                 {selectedBook ? (
                     <BookReader
@@ -33,7 +33,7 @@ export default function BooksPage() {
                         onClose={() => setSelectedBook(null)}
                     />
                 ) : (
-                    <div className="container mx-auto px-4 py-8 md:py-12">
+                    <div className="container mx-auto px-4 py-8 md:py-12 animate-rise-in">
                         <div className="mb-8 flex items-center gap-4">
                             <Button variant="ghost" size="icon" asChild>
                                 <Link href="/lab">
@@ -55,7 +55,7 @@ export default function BooksPage() {
                                     <CardContent className="space-y-4">
                                         <Uploader onUploadComplete={handleUploadComplete} />
                                         <p className="text-xs text-muted-foreground">
-                                            Supported formats: PDF, EPUB.
+                                            Supported formats: Pdf, Epub.
                                             <br />
                                             Files are stored in Vercel Blob storage.
                                         </p>
