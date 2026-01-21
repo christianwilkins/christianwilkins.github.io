@@ -129,7 +129,7 @@ export default function LearningPage() {
               </div>
               <h1 className="text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                A modular shelf of experiments built while exploring Ui systems, state models,
+                A modular shelf of experiments built while exploring UI systems, state models,
                 data storytelling, and interaction design. Each module can stand alone or connect into a larger narrative.
               </p>
             </div>
