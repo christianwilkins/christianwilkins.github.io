@@ -94,11 +94,39 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Christian Wilkins",
+      alternateName: ["Christian Wilkins Portfolio", "christianwilkins.github.io"],
+      url: "https://christianwilkins.github.io",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Christian Wilkins",
+      url: "https://christianwilkins.github.io",
+      jobTitle: "Software consultant and engineer",
+      disambiguatingDescription:
+        "United States software consultant and engineer focused on startups and product design.",
+      sameAs: [
+        "https://github.com/christianwilkins",
+        "https://www.linkedin.com/in/christian--wilkins/",
+        "https://x.com/christian_wilki",
+      ],
+    },
+  ];
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${manrope.variable} ${newsreader.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
