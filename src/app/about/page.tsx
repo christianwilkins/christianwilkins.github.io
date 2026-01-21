@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function About() {
     return (
-        <div>
-            <h1 className="text-4xl font-bold mb-6 font-heading">ABOUT ME</h1>
+        <div className="animate-rise-in">
+            <h1 className="text-4xl font-bold mb-6 font-heading">About Me</h1>
             <p className="mb-4 text-lg leading-relaxed">
                 I’m a passionate software engineer and leader dedicated to solving
                 meaningful challenges through technology. As the president of a{" "}
