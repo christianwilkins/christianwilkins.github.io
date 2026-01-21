@@ -44,8 +44,23 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Christian Wilkins - Software Engineer",
-  description: "Portfolio of Christian Wilkins, a Software Engineer based in the United States.",
+  title: "Christian Wilkins Software Consultant and Engineer",
+  description:
+    "Portfolio of Christian Wilkins. Software consultancy for startups, freelance product design, and hiring support for top CS candidates in the United States.",
+  keywords: [
+    "software consultancy",
+    "software consulting",
+    "startup",
+    "start up",
+    "freelance software engineer",
+    "product design",
+    "UI design",
+    "UX design",
+    "design systems",
+    "hiring CS candidates",
+    "founder support",
+    "technical consulting",
+  ],
 };
 
 export default function RootLayout({
