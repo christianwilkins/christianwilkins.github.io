@@ -31,6 +31,7 @@ export function FAQChat() {
     const [showOptions, setShowOptions] = useState(true);
     const [isStreaming, setIsStreaming] = useState(false);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
+    const messageIdRef = useRef(1);
 
     const scrollToBottom = () => {
         if (messagesContainerRef.current) {
@@ -48,14 +49,13 @@ export function FAQChat() {
     // Streaming text function
     const streamText = async (text: string, messageId: number) => {
         const words = text.split(' ');
-        let currentText = '';
 
         for (let i = 0; i < words.length; i++) {
-            currentText += (i === 0 ? '' : ' ') + words[i];
+            const nextText = words.slice(0, i + 1).join(' ');
 
             setMessages(prev => prev.map(msg =>
                 msg.id === messageId
-                    ? { ...msg, text: currentText }
+                    ? { ...msg, text: nextText }
                     : msg
             ));
 
@@ -64,9 +64,10 @@ export function FAQChat() {
         }
 
         // Ensure the final message is fully set
+        const finalText = words.join(' ');
         setMessages(prev => prev.map(msg =>
             msg.id === messageId
-                ? { ...msg, text: currentText }
+                ? { ...msg, text: finalText }
                 : msg
         ));
         scrollToBottom();
@@ -97,10 +98,11 @@ export function FAQChat() {
 
         // Add user message
         const userMessage: Message = {
-            id: Date.now(),
+            id: messageIdRef.current + 1,
             text: option,
             sender: "user"
         };
+        messageIdRef.current += 1;
 
         // Get bot response
         const response = faqData[option] || {
@@ -112,13 +114,14 @@ export function FAQChat() {
             ]
         };
 
-        const botMessageId = Date.now() + 1;
+        const botMessageId = messageIdRef.current + 1;
         const botMessage: Message = {
             id: botMessageId,
             text: "", // Start with empty text for streaming
             sender: "bot",
             options: response.options
         };
+        messageIdRef.current += 1;
 
         // Add both messages
         setMessages(prev => [...prev, userMessage, botMessage]);
@@ -135,10 +138,11 @@ export function FAQChat() {
             setShowOptions(false);
 
             const userMessage: Message = {
-                id: Date.now(),
+                id: messageIdRef.current + 1,
                 text: inputValue,
                 sender: "user"
             };
+            messageIdRef.current += 1;
 
             // Find the last bot message to repeat
             const lastBotMessage = messages.slice().reverse().find(msg => msg.sender === "bot");
@@ -151,7 +155,7 @@ export function FAQChat() {
                     "Contact Chris"
                 ]
             } : {
-                text: "Hi! I'm Chris's FAQ assistant. How can I help you today?",
+                text: "Hi! I am Chris's faq assistant. How can I help you today?",
                 options: [
                     "Thinking of hiring Chris?",
                     "Get Advice from Chris",
@@ -159,13 +163,14 @@ export function FAQChat() {
                 ]
             };
 
-            const botMessageId = Date.now() + 1;
+            const botMessageId = messageIdRef.current + 1;
             const botMessage: Message = {
                 id: botMessageId,
                 text: "", // Start with empty text for streaming
                 sender: "bot",
                 options: response.options
             };
+            messageIdRef.current += 1;
 
             setMessages(prev => [...prev, userMessage, botMessage]);
             setInputValue("");
@@ -188,16 +193,17 @@ export function FAQChat() {
                 ]
             }
         ]);
+        messageIdRef.current = 1;
         setInputValue("");
         setShowOptions(true);
         setIsStreaming(false);
     };
 
     return (
-        <div className="flex flex-col h-[600px] w-full max-w-2xl border rounded-lg overflow-hidden bg-card shadow-sm">
+        <div className="flex flex-col h-[600px] w-full max-w-2xl border rounded-lg overflow-hidden bg-card shadow-soft animate-rise-in">
             <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={messagesContainerRef}>
                 {messages.map((message) => (
-                    <div key={message.id} className={cn("flex flex-col", message.sender === "user" ? "items-end" : "items-start")}>
+                    <div key={message.id} className={cn("flex flex-col animate-rise-in", message.sender === "user" ? "items-end" : "items-start")}>
                         <div className={cn(
                             "max-w-[80%] p-3 rounded-lg text-sm",
                             message.sender === "user"
