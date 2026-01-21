@@ -44,7 +44,11 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Christian Wilkins Software Consultant and Engineer",
+  metadataBase: new URL("https://christianwilkins.github.io"),
+  title: {
+    default: "Christian Wilkins Software Consultant and Engineer",
+    template: "%s | Christian Wilkins",
+  },
   description:
     "Portfolio of Christian Wilkins. Software consultancy for startups, freelance product design, and hiring support for top CS candidates in the United States.",
   keywords: [
@@ -61,6 +65,28 @@ export const metadata: Metadata = {
     "founder support",
     "technical consulting",
   ],
+  openGraph: {
+    title: "Christian Wilkins Software Consultant and Engineer",
+    description:
+      "Software consultancy for startups, freelance product design, and hiring support for top CS candidates.",
+    url: "/",
+    siteName: "Christian Wilkins",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Christian Wilkins Software Consultant and Engineer",
+    description:
+      "Software consultancy for startups, freelance product design, and hiring support for top CS candidates.",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/logo192.png" }],
+  },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
