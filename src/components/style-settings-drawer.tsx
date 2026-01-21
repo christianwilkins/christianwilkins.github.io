@@ -103,8 +103,9 @@ const radiusSets = [
 
 const shadowSets = [
   { id: "none", name: "None", description: "Flat surfaces" },
-  { id: "soft", name: "Soft", description: "Gentle depth" },
-  { id: "deep", name: "Deep", description: "More contrast" },
+  { id: "low", name: "Low", description: "Subtle depth" },
+  { id: "soft", name: "Medium", description: "Balanced depth" },
+  { id: "deep", name: "High", description: "More contrast" },
 ] as const;
 
 const densitySets = [
@@ -145,7 +146,7 @@ const presets = [
       motion: "calm",
       blur: "soft",
       radius: "soft",
-      shadow: "soft",
+      shadow: "low",
       density: "standard",
       ambient: "off",
       layout: "classic",
