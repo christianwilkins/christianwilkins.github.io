@@ -120,7 +120,8 @@ body::after {
   .layout-shell {
     position: relative;
     isolation: isolate;
-    overflow: hidden;
+    overflow-x: clip;
+    overflow-y: hidden;
   }
 
   .layout-shell::before,
@@ -204,7 +205,8 @@ body::after {
 
   :root[data-nav="top"] .layout-shell {
     flex-direction: column;
-    overflow: visible;
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   :root[data-nav="top"] .sidebar-shell {
@@ -214,11 +216,13 @@ body::after {
     right: 0;
     z-index: 900;
     width: 100% !important;
+    max-width: 100%;
     height: auto !important;
     min-height: 0 !important;
     flex-direction: row !important;
     align-items: center !important;
     padding: var(--page-padding) !important;
+    box-sizing: border-box;
     border-right: none !important;
     border-bottom: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
     background: color-mix(in oklch, var(--sidebar) 92%, transparent);
@@ -291,11 +295,16 @@ body::after {
     gap: 0.4rem;
     padding: 0.35rem 0.65rem;
     border-radius: 999px;
+    text-transform: var(--ui-text-transform);
     transition: color var(--motion-duration-fast) var(--motion-ease),
       transform var(--motion-duration-fast) var(--motion-ease),
       background var(--motion-duration-fast) var(--motion-ease),
       border-color var(--motion-duration-fast) var(--motion-ease);
     border: 1px solid transparent;
+  }
+
+  .ui-label {
+    text-transform: var(--ui-text-transform);
   }
 
   .mobile-nav-link {
@@ -434,6 +443,7 @@ body::after {
     border: 1px solid color-mix(in oklch, var(--foreground) 35%, transparent);
     color: var(--primary-foreground);
     background: var(--primary);
+    text-transform: var(--ui-text-transform);
     box-shadow:
       0 14px 32px color-mix(in oklch, var(--foreground) 18%, transparent),
       inset 0 1px 0 color-mix(in oklch, var(--primary-foreground) 30%, transparent);
@@ -485,6 +495,7 @@ body::after {
     color: var(--muted-foreground);
     background: color-mix(in oklch, var(--muted) 60%, transparent);
     border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+    text-transform: var(--ui-text-transform);
   }
 
   .theme-toggle:hover {
