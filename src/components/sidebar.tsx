@@ -20,32 +20,38 @@ export function Sidebar() {
 
     return (
         <div className="sidebar-shell hidden md:flex flex-col fixed h-screen p-6 items-start animate-rise-in">
-            <Link
-                href="/"
-                className="text-inherit no-underline w-fit mb-4"
-            >
-                <h2 className="m-0 leading-[1.05] p-0 text-2xl font-bold font-heading">
-                    Christian<br />Wilkins
-                </h2>
-            </Link>
-            <h1 className="m-0 leading-[1.05] p-0 text-xl font-normal mb-8 font-heading">
-                Software<br />Engineer
-            </h1>
-            <nav className="flex flex-col gap-4 mt-8">
-                {navItems.map((item) => (
+            <div className="sidebar-inner">
+                <div className="sidebar-header">
                     <Link
-                        key={item.href}
-                        href={item.href}
-                        aria-current={isActive(item.href) ? "page" : undefined}
-                        className="nav-link w-fit text-lg transition-colors font-heading hover-lift"
+                        href="/"
+                        className="sidebar-brand text-inherit no-underline w-fit"
                     >
-                        {item.label}
+                        <h2 className="m-0 leading-[1.05] p-0 text-2xl font-bold font-heading sidebar-name">
+                            <span className="sidebar-name-part">Christian</span>
+                            <span className="sidebar-name-part">Wilkins</span>
+                        </h2>
                     </Link>
-                ))}
-                <div className="mt-2">
-                    <ThemeToggle />
+                    <h1 className="sidebar-role m-0 leading-[1.05] p-0 text-xl font-normal font-heading">
+                        <span className="sidebar-role-part">Software</span>
+                        <span className="sidebar-role-part">Engineer</span>
+                    </h1>
                 </div>
-            </nav>
+                <nav className="flex flex-col gap-4 mt-8">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            aria-current={isActive(item.href) ? "page" : undefined}
+                            className="nav-link w-fit text-lg transition-colors font-heading hover-lift"
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                    <div className="mt-2">
+                        <ThemeToggle />
+                    </div>
+                </nav>
+            </div>
         </div>
     )
 }
