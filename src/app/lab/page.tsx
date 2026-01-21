@@ -49,7 +49,7 @@ export default function LabPage() {
                             </div>
                             <CardTitle className="text-2xl group-hover:text-primary transition-colors">Learning Hub</CardTitle>
                             <CardDescription className="text-base mt-2">
-                                A shelf for experiments in Ui systems, state models, and interaction design.
+                                A shelf for experiments in UI systems, state models, and interaction design.
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -67,7 +67,7 @@ export default function LabPage() {
                                 <MessageCircle className="h-8 w-8 text-primary/80 group-hover:text-primary transition-colors" strokeWidth={1.5} />
                                 <Badge variant="secondary" className="font-medium tracking-wide opacity-80">Info</Badge>
                             </div>
-                            <CardTitle className="text-2xl group-hover:text-primary transition-colors">Faq</CardTitle>
+                            <CardTitle className="text-2xl group-hover:text-primary transition-colors">FAQ</CardTitle>
                             <CardDescription className="text-base mt-2">
                                 A quick interactive guide to learn more about me.
                             </CardDescription>
