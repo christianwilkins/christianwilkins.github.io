@@ -4,6 +4,7 @@ import * as React from "react"
 import { Sidebar } from "@/components/sidebar"
 import { MobileHeader } from "@/components/mobile-header"
 import { HamburgerMenu } from "@/components/hamburger-menu"
+import { StyleSettingsDrawer } from "@/components/style-settings-drawer"
 import { cn } from "@/lib/utils"
 
 import { usePathname } from "next/navigation"
@@ -43,33 +44,38 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
     }, [])
 
     return (
-        <div className="flex min-h-screen">
+        <div className="layout-shell flex min-h-screen">
             <Sidebar />
 
-            <div className="flex-1 flex flex-col md:ml-[200px] min-h-screen transition-all duration-300">
+            <div className="layout-main flex-1 flex flex-col min-h-screen transition-all duration-300">
                 <MobileHeader />
                 <HamburgerMenu isVisible={true} showStickyHeader={showStickyHeader} />
+                <StyleSettingsDrawer />
 
                 <main className={cn(
-                    "flex-1 p-8 flex flex-col",
+                    "flex-1 page-shell flex flex-col animate-fade-in",
                     !isLab && "justify-center items-center",
                     showStickyHeader && "pt-[80px]"
                 )}>
                     <div className={cn(
-                        "w-full",
-                        isLab ? "max-w-7xl mx-auto" : "max-w-2xl"
+                        "layout-content animate-rise-in",
+                        isLab && "layout-content-lab"
                     )}>
-                        {children}
+                        {isLab ? (
+                            children
+                        ) : (
+                            <div className="layout-card">
+                                {children}
+                            </div>
+                        )}
                     </div>
                 </main>
 
                 {/* Footer */}
-                <footer className="p-8 text-center text-sm text-muted-foreground mt-auto">
-                    <h4>COPYRIGHT © 2025 Christian J Wilkins. ALL RIGHTS RESERVED.</h4>
+                <footer className="page-footer text-center text-sm text-muted-foreground mt-auto">
+                    <h4>Copyright © 2025 Christian J Wilkins. All rights reserved.</h4>
                 </footer>
             </div>
         </div>
     )
 }
-
-
