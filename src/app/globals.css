@@ -533,6 +533,29 @@ body::after {
 }
 
 @media (max-width: 767px) {
+  .mobile-header {
+    height: calc(env(safe-area-inset-top, 0px) + 56px);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-inline: 1rem;
+    padding-right: calc(1rem + 3.25rem);
+    display: flex;
+    align-items: center;
+    background: color-mix(in oklch, var(--background) 92%, transparent);
+    border-bottom: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+    backdrop-filter: blur(var(--surface-blur));
+    -webkit-backdrop-filter: blur(var(--surface-blur));
+    box-shadow: var(--shadow-1);
+  }
+
+  .mobile-content-offset {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 56px + 1rem);
+  }
+
+  .mobile-menu-button {
+    top: calc(env(safe-area-inset-top, 0px) + 6px);
+    right: 1rem;
+  }
+
   .theme-toggle {
     min-height: 2.75rem;
     padding-inline: 0.9rem;
