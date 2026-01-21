@@ -388,3 +388,13 @@
   --sidebar-border: oklch(0.29 0.012 40);
   --sidebar-ring: oklch(0.52 0.02 40);
 }
+
+@media (max-width: 640px) {
+  :root {
+    --page-padding: 1rem;
+  }
+
+  :root[data-layout="atelier"] {
+    --layout-card-padding: 1.25rem;
+  }
+}
