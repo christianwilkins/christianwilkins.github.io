@@ -1,12 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Christian Wilkins",
+  description:
+    "Christian Wilkins is a software consultant and engineer focused on startups, freelance product design, and hiring support for top CS candidates in the United States.",
+};
 
 export default function Home() {
   return (
     <div className="animate-rise-in">
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">About</h1>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m passionate about building cool things and solving interesting problems. Based in the
+        I&apos;m a software consultant and engineer focused on startups and product design. Based in the
         United States<span className="hidden sm:inline"> and a United States citizen</span>.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
