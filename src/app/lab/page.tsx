@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, FlaskConical, ArrowRight, Sparkles } from "lucide-react";
+import { BookOpen, FlaskConical, ArrowRight, Sparkles, MessageCircle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -55,6 +55,26 @@ export default function LabPage() {
                         <CardContent>
                             <div className="flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
                                 Explore Modules <ArrowRight className="ml-2 h-4 w-4" />
+                            </div>
+                        </CardContent>
+                    </Card>
+                </Link>
+
+                <Link href="/lab/faq" className="group block h-full">
+                    <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
+                        <CardHeader>
+                            <div className="flex items-center justify-between mb-4">
+                                <MessageCircle className="h-8 w-8 text-primary/80 group-hover:text-primary transition-colors" strokeWidth={1.5} />
+                                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">Info</Badge>
+                            </div>
+                            <CardTitle className="text-2xl group-hover:text-primary transition-colors">Faq</CardTitle>
+                            <CardDescription className="text-base mt-2">
+                                A quick interactive guide to learn more about me.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
+                                Start Chat <ArrowRight className="ml-2 h-4 w-4" />
                             </div>
                         </CardContent>
                     </Card>
