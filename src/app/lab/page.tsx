@@ -1,14 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, FlaskConical, ArrowRight, Sparkles, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
+export const metadata: Metadata = {
+    title: "The Lab | Christian Wilkins",
+    description:
+        "The Lab by Christian Wilkins, experiments in product design, UI systems, and new workflows.",
+};
 
 export default function LabPage() {
     return (
         <div className="min-h-screen p-6 md:p-12 lg:p-24 space-y-12 animate-rise-in">
             <header className="space-y-4 max-w-2xl">
                 <div className="flex items-center gap-4">
-                    <FlaskConical className="w-10 h-10 text-primary" strokeWidth={1.5} />
+                    <span className="h-2.5 w-2.5 rounded-full bg-primary/70" aria-hidden="true" />
                     <h1 className="ui-label text-4xl font-bold tracking-tight font-heading">The Lab</h1>
                 </div>
                 <p className="text-xl text-muted-foreground leading-relaxed">
@@ -23,7 +30,7 @@ export default function LabPage() {
                     <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
                         <CardHeader>
                             <div className="flex items-center justify-between mb-4">
-                                <BookOpen className="h-8 w-8 text-primary/80 group-hover:text-primary transition-colors" strokeWidth={1.5} />
+                                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
                                 <Badge variant="secondary" className="font-medium tracking-wide opacity-80">Beta</Badge>
                             </div>
                             <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">The Library</CardTitle>
@@ -44,7 +51,7 @@ export default function LabPage() {
                     <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
                         <CardHeader>
                             <div className="flex items-center justify-between mb-4">
-                                <Sparkles className="h-8 w-8 text-primary/80 group-hover:text-primary transition-colors" strokeWidth={1.5} />
+                                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
                                 <Badge variant="secondary" className="font-medium tracking-wide opacity-80">New</Badge>
                             </div>
                             <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">Learning Hub</CardTitle>
@@ -64,7 +71,7 @@ export default function LabPage() {
                     <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
                         <CardHeader>
                             <div className="flex items-center justify-between mb-4">
-                                <MessageCircle className="h-8 w-8 text-primary/80 group-hover:text-primary transition-colors" strokeWidth={1.5} />
+                                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
                                 <Badge variant="secondary" className="font-medium tracking-wide opacity-80">Info</Badge>
                             </div>
                             <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">FAQ</CardTitle>
