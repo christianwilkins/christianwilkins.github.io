@@ -12,7 +12,7 @@ export default function Contact() {
     const socialLinks = [
         {
             name: "Book a Call",
-            url: "https://chriswiki.com/meet",
+            url: "https://cal.com/christianwilkins/book?duration=15",
             icon: <FaPhoneAlt className="w-6 h-6" />,
         },
         {
