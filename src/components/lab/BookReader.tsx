@@ -17,7 +17,6 @@ interface BookReaderProps {
 }
 
 export default function BookReader({ book, onClose }: BookReaderProps) {
-    const [loading, setLoading] = useState(true);
     const [location, setLocation] = useState<string | number>(0);
     const [numPages, setNumPages] = useState<number | null>(null);
     const [saving, setSaving] = useState(false);
@@ -34,7 +33,6 @@ export default function BookReader({ book, onClose }: BookReaderProps) {
     // Load progress
     useEffect(() => {
         const load = async () => {
-            setLoading(true);
             try {
                 const res = await fetch(`/api/progress?book=${encodeURIComponent(bookName)}`);
                 if (res.ok) {
@@ -45,8 +43,6 @@ export default function BookReader({ book, onClose }: BookReaderProps) {
                 }
             } catch (e) {
                 console.error("Error loading progress:", e);
-            } finally {
-                setLoading(false);
             }
         };
         load();

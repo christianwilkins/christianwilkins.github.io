@@ -11,6 +11,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LayoutShell } from "@/components/layout-shell";
 import { Providers } from "@/components/providers";
+import { siteConfig } from "@/data/siteConfig";
+import { contactLinks } from "@/data/contactData";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -44,40 +46,59 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://christianwilkins.github.io"),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Christian Wilkins Software Consultant and Engineer",
+    default: siteConfig.title,
     template: "%s | Christian Wilkins",
   },
-  description:
-    "Portfolio of Christian Wilkins. Software consultancy for startups, freelance product design, and hiring support for top CS candidates in the United States.",
-  keywords: [
-    "software consultancy",
-    "software consulting",
-    "startup",
-    "start up",
-    "freelance software engineer",
-    "product design",
-    "UI design",
-    "UX design",
-    "design systems",
-    "hiring CS candidates",
-    "founder support",
-    "technical consulting",
-  ],
+  description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
+  applicationName: siteConfig.title,
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "Software Consulting",
+  classification: "Portfolio",
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  alternates: {
+    canonical: siteConfig.url,
+    types: {
+      "application/rss+xml": `${siteConfig.url}${siteConfig.rss}`,
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "Christian Wilkins Software Consultant and Engineer",
-    description:
-      "Software consultancy for startups, freelance product design, and hiring support for top CS candidates.",
-    url: "/",
-    siteName: "Christian Wilkins",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     type: "website",
+    locale: siteConfig.locale,
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.title,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Christian Wilkins Software Consultant and Engineer",
-    description:
-      "Software consultancy for startups, freelance product design, and hiring support for top CS candidates.",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [siteConfig.image],
+    site: siteConfig.twitterHandle,
+    creator: siteConfig.twitterHandle,
   },
   icons: {
     icon: [
@@ -98,23 +119,56 @@ export default function RootLayout({
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      name: "Christian Wilkins",
-      alternateName: ["Christian Wilkins Portfolio", "christianwilkins.github.io"],
-      url: "https://christianwilkins.github.io",
+      name: siteConfig.name,
+      alternateName: ["Christian Wilkins Portfolio", siteConfig.url],
+      url: siteConfig.url,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${siteConfig.url}/?q={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
     },
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      name: "Christian Wilkins",
-      url: "https://christianwilkins.github.io",
+      name: siteConfig.name,
+      url: siteConfig.url,
       jobTitle: "Software consultant and engineer",
       disambiguatingDescription:
         "United States software consultant and engineer focused on startups and product design.",
-      sameAs: [
-        "https://github.com/christianwilkins",
-        "https://www.linkedin.com/in/christian--wilkins/",
-        "https://x.com/christian_wilki",
+      description: siteConfig.description,
+      knowsAbout: [...siteConfig.keywords],
+      sameAs: contactLinks
+        .filter((link) => ["github", "linkedin", "twitter"].includes(link.id))
+        .map((link) => link.url),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      name: "Christian Wilkins Software Consulting",
+      url: siteConfig.url,
+      areaServed: "United States",
+      description: siteConfig.description,
+      provider: {
+        "@type": "Person",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      serviceType: [
+        "Software consulting",
+        "Product design systems",
+        "Front-end engineering",
+        "AI workflow automation",
       ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "inquiries",
+        email: contactLinks.find((link) => link.id === "email")?.url.replace("mailto:", "") ?? "",
+        url: contactLinks.find((link) => link.id === "call")?.url ?? siteConfig.url,
+      },
+      sameAs: contactLinks
+        .filter((link) => ["github", "linkedin", "twitter"].includes(link.id))
+        .map((link) => link.url),
     },
   ];
 

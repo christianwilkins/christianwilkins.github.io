@@ -87,6 +87,26 @@ export default function LabPage() {
                     </Card>
                 </Link>
 
+                <Link href="/terminal" className="group block h-full">
+                    <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
+                        <CardHeader>
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
+                                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">New</Badge>
+                            </div>
+                            <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">ChrisWiki OS</CardTitle>
+                            <CardDescription className="text-base mt-2">
+                                Command driven terminal with live routing and style control.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
+                                Launch Terminal <ArrowRight className="ml-2 h-4 w-4" />
+                            </div>
+                        </CardContent>
+                    </Card>
+                </Link>
+
                 {/* Placeholder for future experiments */}
                 <Card className="h-full border-dashed bg-muted/10 flex items-center justify-center min-h-[250px] hover:bg-muted/20 transition-colors">
                     <CardContent className="text-center">

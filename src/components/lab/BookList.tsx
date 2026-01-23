@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Book } from "@/lib/types";
 import { Book as BookIcon, FileText, Loader2, Trash2 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -51,7 +51,7 @@ export default function BookList({ onSelectBook, refreshTrigger }: BookListProps
                             newProgress[book.url] = data.location;
                         }
                     }
-                } catch (e) {
+                } catch {
                     // Ignore errors for individual progress fetch
                 }
             }));

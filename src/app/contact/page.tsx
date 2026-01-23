@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FaGithub, FaLinkedin, FaTwitter, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { contactLinks, type ContactLink } from "@/data/contactData";
 
 export const metadata: Metadata = {
     title: "Contact | Christian Wilkins",
@@ -9,33 +10,13 @@ export const metadata: Metadata = {
 };
 
 export default function Contact() {
-    const socialLinks = [
-        {
-            name: "Book a Call",
-            url: "https://cal.com/christianwilkins/book?duration=15",
-            icon: <FaPhoneAlt className="w-6 h-6" />,
-        },
-        {
-            name: "Email",
-            url: "mailto:christian.wilkins.careers@gmail.com",
-            icon: <MdEmail className="w-6 h-6" />,
-        },
-        {
-            name: "GitHub",
-            url: "https://github.com/christianwilkins",
-            icon: <FaGithub className="w-6 h-6" />,
-        },
-        {
-            name: "LinkedIn",
-            url: "https://www.linkedin.com/in/christian--wilkins/",
-            icon: <FaLinkedin className="w-6 h-6" />,
-        },
-        {
-            name: "Twitter",
-            url: "https://x.com/christian_wilki",
-            icon: <FaTwitter className="w-6 h-6" />,
-        },
-    ];
+    const icons: Record<ContactLink["id"], React.ReactNode> = {
+        call: <FaPhoneAlt className="w-6 h-6" />,
+        email: <MdEmail className="w-6 h-6" />,
+        github: <FaGithub className="w-6 h-6" />,
+        linkedin: <FaLinkedin className="w-6 h-6" />,
+        twitter: <FaTwitter className="w-6 h-6" />,
+    };
 
     return (
         <div className="animate-rise-in">
@@ -45,16 +26,16 @@ export default function Contact() {
                 <span className="hidden sm:inline text-sm text-muted-foreground">(Do not book a call without prior communication)</span>
             </p>
             <div className="flex flex-col gap-4">
-                {socialLinks.map((link) => (
+                {contactLinks.map((link) => (
                     <a
-                        key={link.name}
+                        key={link.id}
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border border-border bg-background text-foreground shadow-soft hover:bg-muted transition-colors hover-lift"
                     >
-                        <span className="text-muted-foreground transition-colors group-hover:text-foreground">{link.icon}</span>
-                        <span className="ui-label font-medium text-sm sm:text-base">{link.name}</span>
+                        <span className="text-muted-foreground transition-colors group-hover:text-foreground">{icons[link.id]}</span>
+                        <span className="ui-label font-medium text-sm sm:text-base">{link.label}</span>
                     </a>
                 ))}
             </div>
