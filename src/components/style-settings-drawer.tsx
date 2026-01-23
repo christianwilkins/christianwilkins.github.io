@@ -15,212 +15,38 @@ import {
   SlidersHorizontal,
   Sparkles,
   SunDim,
+  Terminal,
   Type,
   Wind,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const STORAGE_KEYS = {
-  preset: "style.preset",
-  palette: "style.palette",
-  font: "style.font",
-  motion: "style.motion",
-  blur: "style.blur",
-  radius: "style.radius",
-  shadow: "style.shadow",
-  density: "style.density",
-  ambient: "style.ambient",
-  layout: "style.layout",
-  align: "style.align",
-  nav: "style.nav",
-  case: "style.case",
-} as const;
-
-const palettes = [
-  {
-    id: "studio",
-    name: "Studio",
-    description: "Warm off white and graphite",
-  },
-  {
-    id: "legacy",
-    name: "Legacy",
-    description: "Original contrast set",
-  },
-  {
-    id: "gallery",
-    name: "Gallery",
-    description: "Cool off white and soft slate",
-  },
-  {
-    id: "cinder",
-    name: "Cinder",
-    description: "Smoky stone and deep ink",
-  },
-] as const;
-
-const fontSets = [
-  {
-    id: "studio",
-    name: "Manrope and Newsreader",
-    description: "Clean and editorial",
-  },
-  {
-    id: "legacy",
-    name: "Geist and Times New Roman Condensed",
-    description: "Original pairing",
-  },
-  {
-    id: "metro",
-    name: "Plus Jakarta and Instrument Serif",
-    description: "Modern and refined",
-  },
-] as const;
-
-const caseSets = [
-  { id: "title", name: "Standard", description: "Labels keep their current case" },
-  { id: "lower", name: "Lowercase", description: "Labels set to lowercase" },
-] as const;
-
-const motionSets = [
-  { id: "calm", name: "Calm", description: "Longer motion and soft easing" },
-  { id: "crisp", name: "Crisp", description: "Tighter motion and shorter timing" },
-  { id: "still", name: "Still", description: "Minimal movement" },
-] as const;
-
-const blurSets = [
-  { id: "soft", name: "Soft", description: "Subtle panel blur" },
-  { id: "glass", name: "Glass", description: "Stronger blur and depth" },
-  { id: "off", name: "Off", description: "No blur" },
-] as const;
-
-const radiusSets = [
-  { id: "sharp", name: "Sharp", description: "Tighter corners" },
-  { id: "soft", name: "Soft", description: "Balanced curves" },
-  { id: "round", name: "Round", description: "More rounded surfaces" },
-] as const;
-
-const shadowSets = [
-  { id: "none", name: "None", description: "Flat surfaces" },
-  { id: "low", name: "Low", description: "Subtle depth" },
-  { id: "soft", name: "Medium", description: "Balanced depth" },
-  { id: "deep", name: "High", description: "More contrast" },
-] as const;
-
-const densitySets = [
-  { id: "compact", name: "Compact", description: "Tighter spacing" },
-  { id: "standard", name: "Standard", description: "Balanced spacing" },
-  { id: "roomy", name: "Roomy", description: "More breathing room" },
-] as const;
-
-const ambientSets = [
-  { id: "off", name: "Off", description: "Clean flat background" },
-  { id: "on", name: "On", description: "Soft ambient glow" },
-] as const;
-
-const layoutSets = [
-  { id: "classic", name: "Classic", description: "Clean layout and quiet surfaces" },
-  { id: "atelier", name: "Atelier", description: "Editorial card layout with ornaments" },
-] as const;
-
-const alignSets = [
-  { id: "center", name: "Center", description: "Balanced alignment" },
-  { id: "left", name: "Left", description: "Left aligned content rail" },
-  { id: "wide", name: "Wide", description: "Wider reading measure" },
-] as const;
-
-const navSets = [
-  { id: "sidebar", name: "Sidebar", description: "Left vertical navigation" },
-  { id: "top", name: "Navbar", description: "Top horizontal navigation" },
-] as const;
-
-const presets = [
-  {
-    id: "studio",
-    name: "Studio calm",
-    description: "Studio palette with calm motion",
-    values: {
-      palette: "studio",
-      font: "studio",
-      motion: "calm",
-      blur: "soft",
-      radius: "soft",
-      shadow: "low",
-      density: "standard",
-      ambient: "off",
-      layout: "classic",
-      align: "center",
-      nav: "sidebar",
-      case: "title",
-    },
-  },
-  {
-    id: "gallery",
-    name: "Gallery crisp",
-    description: "Cool palette with crisp motion",
-    values: {
-      palette: "gallery",
-      font: "metro",
-      motion: "crisp",
-      blur: "soft",
-      radius: "soft",
-      shadow: "soft",
-      density: "standard",
-      ambient: "on",
-      layout: "classic",
-      align: "center",
-      nav: "sidebar",
-      case: "title",
-    },
-  },
-  {
-    id: "atelier",
-    name: "Atelier editorial",
-    description: "Atelier layout and layered depth",
-    values: {
-      palette: "cinder",
-      font: "metro",
-      motion: "calm",
-      blur: "glass",
-      radius: "round",
-      shadow: "deep",
-      density: "roomy",
-      ambient: "on",
-      layout: "atelier",
-      align: "center",
-      nav: "sidebar",
-      case: "title",
-    },
-  },
-  {
-    id: "legacy",
-    name: "Legacy original",
-    description: "Original pairing and contrast",
-    values: {
-      palette: "legacy",
-      font: "legacy",
-      motion: "crisp",
-      blur: "off",
-      radius: "sharp",
-      shadow: "none",
-      density: "compact",
-      ambient: "off",
-      layout: "classic",
-      align: "center",
-      nav: "sidebar",
-      case: "title",
-    },
-  },
-] as const;
-
-type PresetId = (typeof presets)[number]["id"] | "custom";
+import {
+  STORAGE_KEYS,
+  palettes,
+  fontSets,
+  caseSets,
+  motionSets,
+  blurSets,
+  radiusSets,
+  shadowSets,
+  densitySets,
+  ambientSets,
+  layoutSets,
+  alignSets,
+  navSets,
+  terminalSets,
+  presets,
+  setRootData,
+  type PresetId,
+} from "@/lib/style-config";
 
 type SectionKey =
   | "presets"
   | "colorway"
   | "font"
   | "layout"
+  | "terminal"
   | "motion"
   | "shadow"
   | "blur"
@@ -230,73 +56,6 @@ type SectionKey =
   | "alignment"
   | "navigation"
   | "case";
-
-function setRootData(
-  key:
-    | "palette"
-    | "font"
-    | "motion"
-    | "blur"
-    | "radius"
-    | "shadow"
-    | "density"
-    | "ambient"
-    | "layout"
-    | "align"
-    | "nav"
-    | "case",
-  value: string
-) {
-  if (typeof document === "undefined") return;
-  const root = document.documentElement;
-  if (key === "palette") {
-    root.dataset.palette = value;
-    return;
-  }
-  if (key === "font") {
-    root.dataset.font = value;
-    return;
-  }
-  if (key === "motion") {
-    root.dataset.motion = value;
-    return;
-  }
-  if (key === "blur") {
-    root.dataset.blur = value;
-    return;
-  }
-  if (key === "radius") {
-    root.dataset.radius = value;
-    return;
-  }
-  if (key === "shadow") {
-    root.dataset.shadow = value;
-    return;
-  }
-  if (key === "density") {
-    root.dataset.density = value;
-    return;
-  }
-  if (key === "ambient") {
-    root.dataset.ambient = value;
-    return;
-  }
-  if (key === "layout") {
-    root.dataset.layout = value;
-    return;
-  }
-  if (key === "align") {
-    root.dataset.align = value;
-    return;
-  }
-  if (key === "nav") {
-    root.dataset.nav = value;
-    return;
-  }
-  if (key === "case") {
-    root.dataset.case = value;
-  }
-}
 
 export function StyleSettingsDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -312,6 +71,7 @@ export function StyleSettingsDrawer() {
   const [density, setDensity] = React.useState<(typeof densitySets)[number]["id"]>("standard");
   const [ambient, setAmbient] = React.useState<(typeof ambientSets)[number]["id"]>("off");
   const [layout, setLayout] = React.useState<(typeof layoutSets)[number]["id"]>("classic");
+  const [terminal, setTerminal] = React.useState<(typeof terminalSets)[number]["id"]>("iterm");
   const [align, setAlign] = React.useState<(typeof alignSets)[number]["id"]>("center");
   const [nav, setNav] = React.useState<(typeof navSets)[number]["id"]>("sidebar");
   const [openSections, setOpenSections] = React.useState<Record<SectionKey, boolean>>({
@@ -320,6 +80,7 @@ export function StyleSettingsDrawer() {
     font: false,
     case: false,
     layout: false,
+    terminal: false,
     motion: false,
     shadow: false,
     blur: false,
@@ -361,6 +122,7 @@ export function StyleSettingsDrawer() {
     const savedDensity = localStorage.getItem(STORAGE_KEYS.density) ?? "standard";
     const savedAmbient = localStorage.getItem(STORAGE_KEYS.ambient) ?? "off";
     const savedLayout = localStorage.getItem(STORAGE_KEYS.layout) ?? "classic";
+    const savedTerminal = localStorage.getItem(STORAGE_KEYS.terminal) ?? "iterm";
     const savedAlign = localStorage.getItem(STORAGE_KEYS.align) ?? "center";
     const savedNav = localStorage.getItem(STORAGE_KEYS.nav) ?? "sidebar";
     const savedPreset = (localStorage.getItem(STORAGE_KEYS.preset) ?? "custom") as PresetId;
@@ -375,6 +137,7 @@ export function StyleSettingsDrawer() {
     setDensity(savedDensity as (typeof densitySets)[number]["id"]);
     setAmbient(savedAmbient as (typeof ambientSets)[number]["id"]);
     setLayout(savedLayout as (typeof layoutSets)[number]["id"]);
+    setTerminal(savedTerminal as (typeof terminalSets)[number]["id"]);
     setAlign(savedAlign as (typeof alignSets)[number]["id"]);
     setNav(savedNav as (typeof navSets)[number]["id"]);
 
@@ -390,6 +153,7 @@ export function StyleSettingsDrawer() {
         if (key === "density") return value === savedDensity;
         if (key === "ambient") return value === savedAmbient;
         if (key === "layout") return value === savedLayout;
+        if (key === "terminal") return value === savedTerminal;
         if (key === "align") return value === savedAlign;
         if (key === "nav") return value === savedNav;
         return false;
@@ -412,6 +176,7 @@ export function StyleSettingsDrawer() {
     setRootData("density", savedDensity);
     setRootData("ambient", savedAmbient);
     setRootData("layout", savedLayout);
+    setRootData("terminal", savedTerminal);
     setRootData("align", savedAlign);
     setRootData("nav", savedNav);
   }, []);
@@ -504,6 +269,14 @@ export function StyleSettingsDrawer() {
     setRootData("layout", value);
   };
 
+  const handleTerminalChange = (value: (typeof terminalSets)[number]["id"]) => {
+    setTerminal(value);
+    localStorage.setItem(STORAGE_KEYS.terminal, value);
+    localStorage.setItem(STORAGE_KEYS.preset, "custom");
+    setPreset("custom");
+    setRootData("terminal", value);
+  };
+
   const handleAlignChange = (value: (typeof alignSets)[number]["id"]) => {
     setAlign(value);
     localStorage.setItem(STORAGE_KEYS.align, value);
@@ -535,6 +308,7 @@ export function StyleSettingsDrawer() {
     setDensity(values.density);
     setAmbient(values.ambient);
     setLayout(values.layout);
+    setTerminal(values.terminal ?? "iterm");
     setAlign(values.align);
     setNav(values.nav);
 
@@ -548,6 +322,7 @@ export function StyleSettingsDrawer() {
     localStorage.setItem(STORAGE_KEYS.density, values.density);
     localStorage.setItem(STORAGE_KEYS.ambient, values.ambient);
     localStorage.setItem(STORAGE_KEYS.layout, values.layout);
+    localStorage.setItem(STORAGE_KEYS.terminal, values.terminal ?? "iterm");
     localStorage.setItem(STORAGE_KEYS.align, values.align);
     localStorage.setItem(STORAGE_KEYS.nav, values.nav);
     localStorage.setItem(STORAGE_KEYS.preset, id);
@@ -562,6 +337,7 @@ export function StyleSettingsDrawer() {
     setRootData("density", values.density);
     setRootData("ambient", values.ambient);
     setRootData("layout", values.layout);
+    setRootData("terminal", values.terminal ?? "iterm");
     setRootData("align", values.align);
     setRootData("nav", values.nav);
     setPreset(id);
@@ -577,6 +353,7 @@ export function StyleSettingsDrawer() {
   const selectedDensity = densitySets.find((item) => item.id === density)?.name ?? "";
   const selectedAmbient = ambientSets.find((item) => item.id === ambient)?.name ?? "";
   const selectedLayout = layoutSets.find((item) => item.id === layout)?.name ?? "";
+  const selectedTerminal = terminalSets.find((item) => item.id === terminal)?.name ?? "";
   const selectedAlign = alignSets.find((item) => item.id === align)?.name ?? "";
   const selectedNav = navSets.find((item) => item.id === nav)?.name ?? "";
   const navLabel = isMobile ? "Hamburger" : selectedNav;
@@ -842,6 +619,48 @@ export function StyleSettingsDrawer() {
                     className={cn(
                       "rounded-xl border px-3 py-2 text-left transition-colors",
                       layout === item.id
+                        ? "border-foreground bg-muted text-foreground"
+                        : "border-border bg-background hover:bg-muted"
+                    )}
+                  >
+                    <p className="text-sm font-medium">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3 self-start">
+              <button
+                type="button"
+                onClick={() => toggleSection("terminal")}
+                aria-expanded={openSections.terminal}
+                aria-controls="style-terminal"
+                className="w-full text-left text-xs font-semibold text-muted-foreground flex items-center justify-between gap-3"
+              >
+                <span className="flex items-center gap-2 text-foreground">
+                  <Terminal className="h-4 w-4" />
+                  Terminal
+                </span>
+                <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                  {selectedTerminal}
+                  <ChevronRight
+                    className={cn(
+                      "h-3 w-3 text-muted-foreground transition-transform",
+                      openSections.terminal ? "rotate-90" : ""
+                    )}
+                  />
+                </span>
+              </button>
+              <div id="style-terminal" className={cn("mt-3 grid gap-2", openSections.terminal ? "grid" : "hidden")}>
+                {terminalSets.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleTerminalChange(item.id)}
+                    className={cn(
+                      "rounded-xl border px-3 py-2 text-left transition-colors",
+                      terminal === item.id
                         ? "border-foreground bg-muted text-foreground"
                         : "border-border bg-background hover:bg-muted"
                     )}

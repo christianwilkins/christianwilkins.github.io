@@ -1,7 +1,6 @@
 import { GET } from './route';
 import { requireAuth } from '@/lib/auth';
 import { list } from '@vercel/blob';
-import { NextResponse } from 'next/server';
 
 jest.mock('@/lib/auth', () => ({
     ...jest.requireActual('@/lib/auth'),
