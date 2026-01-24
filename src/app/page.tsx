@@ -6,11 +6,49 @@ import { siteConfig } from "@/data/siteConfig";
 export const metadata: Metadata = {
   title: "Christian Wilkins",
   description: siteConfig.shortDescription,
+  keywords: [...siteConfig.keywords, "software consultant portfolio"],
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.shortDescription,
+    url: siteConfig.url,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.title,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.shortDescription,
+    images: [siteConfig.image],
+  },
 };
 
 export default function Home() {
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: siteConfig.title,
+    description: siteConfig.shortDescription,
+    url: siteConfig.url,
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
+
   return (
     <div className="animate-rise-in">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">About</h1>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         I&apos;m a software consultant and engineer focused on startups and product design. Based in the

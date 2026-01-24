@@ -2,10 +2,22 @@ import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { TerminalPageClient } from "@/components/terminal/terminal-page-client";
 import { terminalPageContent } from "@/data/terminalData";
+import { siteConfig } from "@/data/siteConfig";
 
 export const metadata: Metadata = {
   title: "Terminal | Christian Wilkins",
   description: "ChrisWiki OS terminal for routing, style control, and portfolio navigation.",
+  alternates: {
+    canonical: `${siteConfig.url}/terminal`,
+  },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 export default function TerminalPage() {

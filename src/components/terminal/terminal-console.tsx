@@ -68,7 +68,7 @@ export function TerminalConsole() {
                 <div
                   key={entry.id}
                   className={cn(
-                    "whitespace-pre-wrap",
+                    "whitespace-pre-wrap terminal-text",
                     entry.type === "output" && toneClasses[entry.tone ?? "default"]
                   )}
                 >

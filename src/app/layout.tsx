@@ -9,6 +9,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { LayoutShell } from "@/components/layout-shell";
 import { Providers } from "@/components/providers";
 import { siteConfig } from "@/data/siteConfig";
@@ -193,6 +194,7 @@ export default function RootLayout({
             </LayoutShell>
           </Providers>
         </ThemeProvider>
+        <AnalyticsScripts />
       </body>
     </html>
   );

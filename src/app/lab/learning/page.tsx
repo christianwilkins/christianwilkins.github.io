@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { learningModules, type LearningModule } from "@/data/learningModules";
+import { siteConfig } from "@/data/siteConfig";
 
 const statusLabel: Record<LearningModule["status"], string> = {
   live: "Live",
@@ -22,6 +23,8 @@ const statusStyles: Record<LearningModule["status"], string> = {
   prototype: "status-chip status-prototype",
   planned: "status-chip status-planned",
 };
+
+const learningDescription = "Learning Hub experiments in UI systems, state models, and interaction design.";
 
 function ModuleCard({ module }: { module: LearningModule }) {
   const card = (
@@ -108,8 +111,33 @@ export default function LearningPage() {
   const activeModules = filteredModules.filter((module) => module.status !== "planned");
   const plannedModules = filteredModules.filter((module) => module.status === "planned");
 
+  const learningSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Learning Hub",
+    description: learningDescription,
+    url: `${siteConfig.url}/lab/learning`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+      { "@type": "ListItem", position: 2, name: "Lab", item: `${siteConfig.url}/lab` },
+      { "@type": "ListItem", position: 3, name: "Learning Hub", item: `${siteConfig.url}/lab/learning` },
+    ],
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden px-6 py-10 md:px-10 lg:px-16 animate-rise-in">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="pointer-events-none absolute -top-40 right-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-muted/40 blur-3xl" />
 

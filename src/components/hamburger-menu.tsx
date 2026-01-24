@@ -6,7 +6,6 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
 import { primaryNavItems } from "@/data/navigation"
-import { useTerminalWindow } from "@/components/terminal/terminal-window-provider"
 
 interface HamburgerMenuProps {
     isVisible: boolean
@@ -14,7 +13,6 @@ interface HamburgerMenuProps {
 
 export function HamburgerMenu({ isVisible }: HamburgerMenuProps) {
     const [isOpen, setIsOpen] = React.useState(false)
-    const { openTerminal, isOpen: isTerminalOpen } = useTerminalWindow()
 
     const toggleMenu = () => setIsOpen(!isOpen)
     const closeMenu = () => setIsOpen(false)
@@ -67,30 +65,14 @@ export function HamburgerMenu({ isVisible }: HamburgerMenuProps) {
             >
                 <div className="flex flex-col gap-5 items-stretch w-full px-6">
                     {primaryNavItems.map((item) => (
-                        item.action === "terminal" ? (
-                            <button
-                                key={item.id}
-                                type="button"
-                                onClick={() => {
-                                    openTerminal()
-                                    closeMenu()
-                                }}
-                                aria-haspopup="dialog"
-                                aria-expanded={isTerminalOpen}
-                                className="nav-link mobile-nav-link text-xl font-semibold transition-colors font-heading hover-lift text-center"
-                            >
-                                {item.label}
-                            </button>
-                        ) : (
-                            <Link
-                                key={item.id}
-                                href={item.href}
-                                onClick={closeMenu}
-                                className="nav-link mobile-nav-link text-xl font-semibold transition-colors font-heading hover-lift text-center"
-                            >
-                                {item.label}
-                            </Link>
-                        )
+                        <Link
+                            key={item.id}
+                            href={item.href}
+                            onClick={closeMenu}
+                            className="nav-link mobile-nav-link text-xl font-semibold transition-colors font-heading hover-lift text-center"
+                        >
+                            {item.label}
+                        </Link>
                     ))}
                     <div className="mt-4 flex justify-center">
                         <ThemeToggle />
