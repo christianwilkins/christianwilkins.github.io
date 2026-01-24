@@ -6,7 +6,7 @@ import { insightPosts } from "@/data/insightsContent";
 import { siteConfig } from "@/data/siteConfig";
 
 interface InsightPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export const dynamicParams = false;
@@ -15,8 +15,9 @@ export function generateStaticParams() {
   return insightPosts.map((post) => ({ slug: post.slug }));
 }
 
-export function generateMetadata({ params }: InsightPageProps): Metadata {
-  const post = insightPosts.find((entry) => entry.slug === params.slug);
+export async function generateMetadata({ params }: InsightPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = insightPosts.find((entry) => entry.slug === slug);
   if (!post) {
     return {};
   }
@@ -53,8 +54,9 @@ export function generateMetadata({ params }: InsightPageProps): Metadata {
   };
 }
 
-export default function InsightPage({ params }: InsightPageProps) {
-  const post = insightPosts.find((entry) => entry.slug === params.slug);
+export default async function InsightPage({ params }: InsightPageProps) {
+  const { slug } = await params;
+  const post = insightPosts.find((entry) => entry.slug === slug);
   if (!post) {
     notFound();
   }

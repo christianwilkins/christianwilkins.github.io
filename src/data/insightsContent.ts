@@ -407,4 +407,190 @@ export const insightPosts: InsightPost[] = [
       },
     ],
   },
+  {
+    slug: "just-ask-ai",
+    title: "Just ask AI.",
+    description:
+      "Why coding agents became my default answer and how I use Codex to move faster without losing quality.",
+    date: "2026-01-24",
+    readingTime: "7 min read",
+    tags: ["coding agents", "AI workflows", "developer tools"],
+    keywords: [
+      "OpenAI Codex",
+      "coding agent",
+      "AI coding assistant",
+      "agentic workflows",
+    ],
+    sections: [
+      {
+        title: "The default move",
+        content: [
+          "When I need a feature, a refactor, or a quick spike, my first step is simple: just ask the agent.",
+          "That shift is less about hype and more about speed. Agents can chew through setup and grunt work while I keep the product decisions in my hands.",
+        ],
+      },
+      {
+        title: "Work that fits agents well",
+        content: [
+          "Scoped tasks with clear inputs and outputs are perfect: adding a component, updating a page, writing tests, or cleaning up a module.",
+          "If I can express it as a checklist, the agent can execute it.",
+        ],
+      },
+      {
+        title: "How I use Codex in practice",
+        content: [
+          "I use the CLI for local work and the cloud agent for parallel tasks. Both are great when you pair them with a short spec and a clear test command.",
+          "An AGENTS.md file keeps the agent aligned with project rules, and approvals make sure nothing risky happens on its own.",
+        ],
+      },
+      {
+        title: "Where humans still lead",
+        content: [
+          "I keep product strategy, UI taste, and final shipping decisions on the human side.",
+          "Agents are fast builders, but the final call on what to ship stays with the team.",
+        ],
+      },
+      {
+        title: "A starter prompt",
+        content: [
+          "Give a goal, a list of files, and the expected test command. Then ask for a short plan before it writes code.",
+          "That small step avoids confusion and keeps the work clean.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "design-to-code-without-handoff",
+    title: "Design to code without the handoff",
+    description:
+      "Why design-to-code workflows are tightening and how I keep teams shipping from a shared system.",
+    date: "2026-01-19",
+    readingTime: "7 min read",
+    tags: ["design systems", "design-to-code", "product design"],
+    keywords: [
+      "Figma Dev Mode",
+      "design to code workflow",
+      "Figma MCP server",
+      "Code Connect",
+    ],
+    sections: [
+      {
+        title: "Handoff is where speed dies",
+        content: [
+          "When design and code drift, teams slow down. The fix is not a bigger spec, it is shared context.",
+          "Tools that bring design intent into the coding workflow are now a real advantage.",
+        ],
+      },
+      {
+        title: "A tight loop workflow",
+        content: [
+          "Design lives in one place, code lives in another, and the link between them needs to be direct.",
+          "Dev Mode, Code Connect, and design context for coding agents reduce the gap and make changes less risky.",
+        ],
+      },
+      {
+        title: "What to standardize early",
+        content: [
+          "Component names, tokens, and layout rules should be consistent across design and code.",
+          "If the tokens do not match, the handoff will never be smooth.",
+        ],
+      },
+      {
+        title: "How I help",
+        content: [
+          "I help teams build the design system in Figma and ship the matching components in code.",
+          "That keeps the product consistent even as the team grows.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "platform-engineering-for-small-teams",
+    title: "Platform engineering for small teams",
+    description:
+      "A lightweight approach to developer experience without building a full platform org.",
+    date: "2026-01-18",
+    readingTime: "6 min read",
+    tags: ["platform engineering", "developer experience", "startup engineering"],
+    keywords: [
+      "platform engineering",
+      "developer experience",
+      "startup engineering tools",
+    ],
+    sections: [
+      {
+        title: "Start with the friction list",
+        content: [
+          "Slow builds, unclear deploy steps, and one-off scripts drain energy from small teams.",
+          "List the top three pain points and fix those first.",
+        ],
+      },
+      {
+        title: "Thin platform, real impact",
+        content: [
+          "You do not need a platform team to get platform value.",
+          "A few shared tools, a clean repo template, and stable CI can cut hours every week.",
+        ],
+      },
+      {
+        title: "Self-service is the goal",
+        content: [
+          "The best platform work makes common tasks easy without asking for help.",
+          "If a new engineer can ship on day one, the platform is doing its job.",
+        ],
+      },
+      {
+        title: "Measure the change",
+        content: [
+          "Track cycle time and deploy frequency before and after the updates.",
+          "If those improve, the investment is paying off.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "agent-security-for-product-teams",
+    title: "Agent security for product teams",
+    description:
+      "How to ship agentic workflows without opening the door to prompt injection and tool misuse.",
+    date: "2026-01-16",
+    readingTime: "7 min read",
+    tags: ["AI agents", "security", "product workflows"],
+    keywords: [
+      "prompt injection",
+      "agent security",
+      "AI workflow safety",
+    ],
+    sections: [
+      {
+        title: "Assume prompts can be hostile",
+        content: [
+          "Agents read more than you think: emails, docs, tickets, and web pages can all carry hidden instructions.",
+          "Treat every input as untrusted until it is cleaned or verified.",
+        ],
+      },
+      {
+        title: "Least privilege tools",
+        content: [
+          "Give agents access only to the tools and data they need for a task.",
+          "Small scopes reduce the blast radius when something goes wrong.",
+        ],
+      },
+      {
+        title: "Human review still matters",
+        content: [
+          "Require a review step before any write operation that affects production systems.",
+          "You can move fast and still keep the final action in human hands.",
+        ],
+      },
+      {
+        title: "Roll out in layers",
+        content: [
+          "Start with read-only tasks, then add write access once the team trusts the workflow.",
+          "This is the safest path to agent adoption.",
+        ],
+      },
+    ],
+  },
+
 ];

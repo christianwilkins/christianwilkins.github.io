@@ -3,22 +3,16 @@
 Purpose: avoid common AI-leaning words/phrases and stylistic tells when drafting public content.
 
 Sources used:
-- arXiv: "The Words That Make Us Like LLMs?" (lexical markers such as "delve" and "underscore").
-- PMC: "GPT-4 is already more transparent than humans" (lexical markers such as "delve", "realm", "primarily", "meticulous").
-- SEOwind: AI-writing clichés and transition phrases (e.g., "in today’s fast-paced world").
+- arXiv: "Why Does ChatGPT 'Delve' So Much? Exploring the Sources of Lexical Overrepresentation in Large Language Models" (lexical markers such as "delve," "intricate," and "underscore").
+- arXiv: "Word Overuse and Alignment in Large Language Models" (lexical markers such as "delve" and "intricate").
 
-## Lexical markers to avoid (or use sparingly)
+## Research-backed lexical markers to avoid (or use sparingly)
 - delve / delving
-- underscore / underscored
-- realm
 - intricate / intricacy
-- nuanced / nuance
-- meticulously / meticulous
-- primarily
-- notably
-- comprehensive
-- robust
-- leverage / leveraging
+- underscore / underscored
+
+## House-style overuse list (subjective, but helpful)
+- leverage / leveraging (when it replaces specifics)
 - optimize / optimization (when it replaces specifics)
 - seamless / seamlessly
 - cutting-edge
