@@ -5,6 +5,7 @@ import { insightPosts } from "@/data/insightsContent";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    "/about",
     "/projects",
     "/contact",
     "/services",

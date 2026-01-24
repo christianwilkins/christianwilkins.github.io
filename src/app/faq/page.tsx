@@ -6,6 +6,29 @@ export const metadata: Metadata = {
   title: "FAQ | Christian Wilkins",
   description: faqContent.subtitle,
   keywords: [...siteConfig.keywords, "software consulting faq"],
+  alternates: {
+    canonical: `${siteConfig.url}/faq`,
+  },
+  openGraph: {
+    title: "FAQ | Christian Wilkins",
+    description: faqContent.subtitle,
+    url: `${siteConfig.url}/faq`,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: "Christian Wilkins FAQ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ | Christian Wilkins",
+    description: faqContent.subtitle,
+    images: [siteConfig.image],
+  },
 };
 
 export default function FaqPage() {

@@ -9,11 +9,56 @@ export const metadata: Metadata = {
   title: "Software Consulting | Christian Wilkins",
   description: consultingContent.heroSubtitle,
   keywords: [...siteConfig.keywords, "software consultant", "startup software consultant"],
+  alternates: {
+    canonical: `${siteConfig.url}/consulting`,
+  },
+  openGraph: {
+    title: "Software Consulting | Christian Wilkins",
+    description: consultingContent.heroSubtitle,
+    url: `${siteConfig.url}/consulting`,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: "Christian Wilkins Consulting",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Software Consulting | Christian Wilkins",
+    description: consultingContent.heroSubtitle,
+    images: [siteConfig.image],
+  },
 };
 
 export default function ConsultingPage() {
+  const consultingSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: consultingContent.heroTitle,
+    description: consultingContent.heroSubtitle,
+    provider: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    areaServed: "United States",
+    serviceType: consultingContent.focusAreas,
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: `${siteConfig.url}/contact`,
+    },
+  };
+
   return (
     <div className="animate-rise-in space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(consultingSchema) }}
+      />
       <header className="space-y-4">
         <Badge variant="secondary" className="text-xs">Consulting</Badge>
         <h1 className="ui-label text-3xl sm:text-4xl font-bold font-heading">
@@ -61,9 +106,6 @@ export default function ConsultingPage() {
               Start a consulting project
             </Link>
           </Button>
-          <Link href="/services" className="text-sm text-primary font-medium hover:underline">
-            Explore services
-          </Link>
         </div>
       </section>
     </div>
