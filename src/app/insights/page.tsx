@@ -14,6 +14,26 @@ export const metadata: Metadata = {
       "application/rss+xml": `${siteConfig.url}${siteConfig.rss}`,
     },
   },
+  openGraph: {
+    title: "Insights | Christian Wilkins",
+    description: insightsIntro.description,
+    url: `${siteConfig.url}/insights`,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: "Christian Wilkins Insights",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Insights | Christian Wilkins",
+    description: insightsIntro.description,
+    images: [siteConfig.image],
+  },
 };
 
 export default function InsightsPage() {

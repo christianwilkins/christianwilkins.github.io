@@ -9,11 +9,64 @@ export const metadata: Metadata = {
   title: "Services | Christian Wilkins",
   description: servicesContent.heroSubtitle,
   keywords: [...siteConfig.keywords, "software consultant", "software consulting services"],
+  alternates: {
+    canonical: `${siteConfig.url}/services`,
+  },
+  openGraph: {
+    title: "Services | Christian Wilkins",
+    description: servicesContent.heroSubtitle,
+    url: `${siteConfig.url}/services`,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: "Christian Wilkins Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services | Christian Wilkins",
+    description: servicesContent.heroSubtitle,
+    images: [siteConfig.image],
+  },
 };
 
 export default function ServicesPage() {
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: servicesContent.heroTitle,
+    description: servicesContent.summary,
+    provider: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    areaServed: "United States",
+    serviceType: servicesContent.highlights,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Service offerings",
+      itemListElement: servicesContent.offerings.map((offering) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: offering.title,
+          description: offering.description,
+        },
+      })),
+    },
+  };
+
   return (
     <div className="animate-rise-in space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
       <header className="space-y-4">
         <Badge variant="secondary" className="text-xs">Services</Badge>
         <h1 className="ui-label text-3xl sm:text-4xl font-bold font-heading">

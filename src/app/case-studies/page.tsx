@@ -9,6 +9,31 @@ export const metadata: Metadata = {
   description:
     "Case studies from Christian Wilkins, software consultant and engineer delivering product strategy, UI systems, and engineering execution.",
   keywords: [...siteConfig.keywords, "software consultant case studies", "startup case study"],
+  alternates: {
+    canonical: `${siteConfig.url}/case-studies`,
+  },
+  openGraph: {
+    title: "Case Studies | Christian Wilkins",
+    description:
+      "Case studies from Christian Wilkins, software consultant and engineer delivering product strategy, UI systems, and engineering execution.",
+    url: `${siteConfig.url}/case-studies`,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: "Christian Wilkins Case Studies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Case Studies | Christian Wilkins",
+    description:
+      "Case studies from Christian Wilkins, software consultant and engineer delivering product strategy, UI systems, and engineering execution.",
+    images: [siteConfig.image],
+  },
 };
 
 export default function CaseStudiesPage() {

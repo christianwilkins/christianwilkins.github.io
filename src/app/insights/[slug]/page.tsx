@@ -25,6 +25,9 @@ export function generateMetadata({ params }: InsightPageProps): Metadata {
     title: `${post.title} | Christian Wilkins`,
     description: post.description,
     keywords: [...siteConfig.keywords, ...post.keywords],
+    alternates: {
+      canonical: `${siteConfig.url}/insights/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
@@ -113,9 +116,6 @@ export default function InsightPage({ params }: InsightPageProps) {
         <div className="mt-3 flex flex-wrap gap-3 text-sm">
           <Link href="/contact" className="text-primary font-medium hover:underline">
             Contact Christian Wilkins
-          </Link>
-          <Link href="/services" className="text-primary font-medium hover:underline">
-            Explore services
           </Link>
         </div>
       </div>

@@ -7,11 +7,63 @@ export const metadata: Metadata = {
   title: "Resources | Christian Wilkins",
   description: resourcesContent.subtitle,
   keywords: [...siteConfig.keywords, "software consulting resources", "product design resources"],
+  alternates: {
+    canonical: `${siteConfig.url}/resources`,
+  },
+  openGraph: {
+    title: "Resources | Christian Wilkins",
+    description: resourcesContent.subtitle,
+    url: `${siteConfig.url}/resources`,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1200,
+        height: 630,
+        alt: "Christian Wilkins Resources",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Resources | Christian Wilkins",
+    description: resourcesContent.subtitle,
+    images: [siteConfig.image],
+  },
 };
 
 export default function ResourcesPage() {
+  const resourcesSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: resourcesContent.title,
+    description: resourcesContent.subtitle,
+    url: `${siteConfig.url}/resources`,
+    about: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    hasPart: [
+      ...resourcesContent.playbooks.map((item) => ({
+        "@type": "CreativeWork",
+        name: item.title,
+        description: item.description,
+      })),
+      ...resourcesContent.stack.map((item) => ({
+        "@type": "CreativeWork",
+        name: item.title,
+        description: item.description,
+      })),
+    ],
+  };
+
   return (
     <div className="animate-rise-in space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(resourcesSchema) }}
+      />
       <header className="space-y-4">
         <Badge variant="secondary" className="text-xs">Resources</Badge>
         <h1 className="ui-label text-3xl sm:text-4xl font-bold font-heading">

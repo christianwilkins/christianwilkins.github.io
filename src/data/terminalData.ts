@@ -104,15 +104,6 @@ export const terminalTips = {
 
 export const terminalPingMessage = "Signal check: all systems nominal.";
 
-const seoRoutes: TerminalRoute[] = [
-  { id: "services", label: "Services", path: "/services" },
-  { id: "consulting", label: "Consulting", path: "/consulting" },
-  { id: "faq", label: "FAQ", path: "/faq" },
-  { id: "insights", label: "Insights", path: "/insights" },
-  { id: "resources", label: "Resources", path: "/resources" },
-  { id: "case-studies", label: "Case Studies", path: "/case-studies" },
-];
-
 const labRoutes: TerminalRoute[] = [
   { id: "books", label: "Library", path: "/lab/books" },
   { id: "learning", label: "Learning Hub", path: "/lab/learning" },
@@ -121,7 +112,6 @@ const labRoutes: TerminalRoute[] = [
 
 export const terminalRoutes: TerminalRoute[] = [
   ...primaryNavItems.map((item) => ({ id: item.id, label: item.label, path: item.href })),
-  ...seoRoutes,
   ...labRoutes,
 ];
 
