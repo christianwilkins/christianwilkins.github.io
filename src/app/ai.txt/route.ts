@@ -8,6 +8,13 @@ export function GET() {
     "Focus: Software consulting, product design systems, AI workflows",
     `Summary: ${llmProfile.summary}`,
     `Homepage: ${siteConfig.url}`,
+    "Important URLs:",
+    `- ${siteConfig.url}/about`,
+    `- ${siteConfig.url}/projects`,
+    `- ${siteConfig.url}/services`,
+    `- ${siteConfig.url}/consulting`,
+    `- ${siteConfig.url}/case-studies`,
+    `- ${siteConfig.url}/contact`,
     "Prompt targets: Christian Wilkins software consultant; software consulting for startups; AI workflow consultant",
   ];
 

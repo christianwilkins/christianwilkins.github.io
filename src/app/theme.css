@@ -53,12 +53,23 @@
   --chart-4: oklch(0.75 0.12 95);
   --chart-5: oklch(0.7 0.1 60);
   --radius: 0.625rem;
-  --terminal-bg: oklch(0.18 0.02 260);
-  --terminal-panel: oklch(0.22 0.02 260);
-  --terminal-screen: oklch(0.16 0.02 260);
-  --terminal-border: color-mix(in oklch, var(--foreground) 35%, transparent);
-  --terminal-text: oklch(0.94 0.01 80);
-  --terminal-muted: oklch(0.72 0.01 80);
+  --terminal-base: var(--foreground);
+  --terminal-contrast: var(--background);
+  --terminal-text-base: var(--background);
+  --terminal-text-contrast: var(--foreground);
+  --terminal-bg-mix: 84%;
+  --terminal-panel-mix: 76%;
+  --terminal-screen-mix: 90%;
+  --terminal-text-mix: 92%;
+  --terminal-muted-mix: 72%;
+  --terminal-border-strength: 35%;
+  --terminal-glow-strength: 35%;
+  --terminal-bg: color-mix(in oklch, var(--terminal-base) var(--terminal-bg-mix), var(--terminal-contrast));
+  --terminal-panel: color-mix(in oklch, var(--terminal-base) var(--terminal-panel-mix), var(--terminal-contrast));
+  --terminal-screen: color-mix(in oklch, var(--terminal-base) var(--terminal-screen-mix), var(--terminal-contrast));
+  --terminal-border: color-mix(in oklch, var(--foreground) var(--terminal-border-strength), transparent);
+  --terminal-text: color-mix(in oklch, var(--terminal-text-base) var(--terminal-text-mix), var(--terminal-text-contrast));
+  --terminal-muted: color-mix(in oklch, var(--terminal-text-base) var(--terminal-muted-mix), var(--terminal-text-contrast));
   --terminal-accent: color-mix(in oklch, var(--primary) 80%, var(--chart-2));
   --terminal-error: color-mix(in oklch, var(--destructive) 80%, var(--foreground));
   --terminal-prompt-a: color-mix(in oklch, var(--chart-4) 80%, var(--primary));
@@ -68,7 +79,7 @@
   --terminal-control-min: color-mix(in oklch, var(--chart-5) 85%, var(--secondary));
   --terminal-control-max: color-mix(in oklch, var(--chart-2) 85%, var(--primary));
   --terminal-shadow: 0 30px 80px color-mix(in oklch, var(--foreground) 40%, transparent);
-  --terminal-glow: color-mix(in oklch, var(--primary) 35%, transparent);
+  --terminal-glow: color-mix(in oklch, var(--primary) var(--terminal-glow-strength), transparent);
   --sidebar: oklch(0.975 0.006 80);
   --sidebar-foreground: oklch(0.22 0.01 260);
   --sidebar-primary: oklch(0.24 0.02 260);
@@ -104,6 +115,10 @@
   --chart-3: oklch(0.72 0.12 70);
   --chart-4: oklch(0.62 0.13 310);
   --chart-5: oklch(0.6 0.14 20);
+  --terminal-base: var(--background);
+  --terminal-contrast: var(--foreground);
+  --terminal-text-base: var(--foreground);
+  --terminal-text-contrast: var(--background);
   --sidebar: oklch(0.19 0.01 260);
   --sidebar-foreground: oklch(0.92 0.01 80);
   --sidebar-primary: oklch(0.9 0.01 80);
@@ -252,38 +267,37 @@
 }
 
 :root[data-terminal="iterm"] {
-  --terminal-bg: oklch(0.16 0.02 260);
-  --terminal-panel: oklch(0.2 0.02 260);
-  --terminal-screen: oklch(0.14 0.02 260);
-  --terminal-border: color-mix(in oklch, var(--foreground) 32%, transparent);
-  --terminal-text: oklch(0.93 0.01 90);
-  --terminal-muted: oklch(0.7 0.01 90);
-  --terminal-accent: color-mix(in oklch, var(--chart-2) 85%, var(--primary));
-  --terminal-prompt-a: color-mix(in oklch, var(--chart-4) 85%, var(--primary));
-  --terminal-prompt-b: color-mix(in oklch, var(--chart-2) 85%, var(--accent));
-  --terminal-prompt-c: color-mix(in oklch, var(--chart-5) 85%, var(--primary));
+  --terminal-bg-mix: 88%;
+  --terminal-panel-mix: 80%;
+  --terminal-screen-mix: 92%;
+  --terminal-text-mix: 93%;
+  --terminal-muted-mix: 74%;
+  --terminal-border-strength: 38%;
+  --terminal-glow-strength: 40%;
 }
 
 :root[data-terminal="noir"] {
-  --terminal-bg: oklch(0.14 0.01 270);
-  --terminal-panel: oklch(0.18 0.01 270);
-  --terminal-screen: oklch(0.12 0.01 270);
-  --terminal-border: color-mix(in oklch, var(--foreground) 28%, transparent);
-  --terminal-text: oklch(0.92 0.01 95);
-  --terminal-muted: oklch(0.68 0.01 95);
-  --terminal-accent: color-mix(in oklch, var(--accent) 60%, var(--primary));
-  --terminal-prompt-a: color-mix(in oklch, var(--foreground) 20%, var(--accent));
-  --terminal-prompt-b: color-mix(in oklch, var(--primary) 65%, var(--accent));
-  --terminal-prompt-c: color-mix(in oklch, var(--chart-1) 70%, var(--primary));
+  --terminal-bg-mix: 92%;
+  --terminal-panel-mix: 86%;
+  --terminal-screen-mix: 94%;
+  --terminal-text-mix: 94%;
+  --terminal-muted-mix: 78%;
+  --terminal-border-strength: 32%;
+  --terminal-glow-strength: 22%;
+  --terminal-accent: color-mix(in oklch, var(--accent) 65%, var(--primary));
+  --terminal-prompt-a: color-mix(in oklch, var(--foreground) 28%, var(--accent));
+  --terminal-prompt-b: color-mix(in oklch, var(--primary) 60%, var(--accent));
+  --terminal-prompt-c: color-mix(in oklch, var(--chart-1) 65%, var(--primary));
 }
 
 :root[data-terminal="dawn"] {
-  --terminal-bg: oklch(0.93 0.01 90);
-  --terminal-panel: oklch(0.96 0.01 90);
-  --terminal-screen: oklch(0.92 0.01 90);
-  --terminal-border: color-mix(in oklch, var(--foreground) 20%, transparent);
-  --terminal-text: oklch(0.2 0.01 260);
-  --terminal-muted: oklch(0.44 0.01 260);
+  --terminal-bg-mix: 68%;
+  --terminal-panel-mix: 60%;
+  --terminal-screen-mix: 74%;
+  --terminal-text-mix: 90%;
+  --terminal-muted-mix: 68%;
+  --terminal-border-strength: 26%;
+  --terminal-glow-strength: 30%;
   --terminal-accent: color-mix(in oklch, var(--primary) 70%, var(--accent));
   --terminal-prompt-a: color-mix(in oklch, var(--primary) 75%, var(--chart-2));
   --terminal-prompt-b: color-mix(in oklch, var(--chart-2) 75%, var(--accent));

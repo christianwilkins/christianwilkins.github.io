@@ -4,18 +4,19 @@ import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projectsData";
 import { siteConfig } from "@/data/siteConfig";
 
+const caseStudiesDescription =
+  "Case studies from Christian Wilkins, software consultant and engineer delivering product strategy, UI systems, and engineering execution.";
+
 export const metadata: Metadata = {
   title: "Case Studies | Christian Wilkins",
-  description:
-    "Case studies from Christian Wilkins, software consultant and engineer delivering product strategy, UI systems, and engineering execution.",
+  description: caseStudiesDescription,
   keywords: [...siteConfig.keywords, "software consultant case studies", "startup case study"],
   alternates: {
     canonical: `${siteConfig.url}/case-studies`,
   },
   openGraph: {
     title: "Case Studies | Christian Wilkins",
-    description:
-      "Case studies from Christian Wilkins, software consultant and engineer delivering product strategy, UI systems, and engineering execution.",
+    description: caseStudiesDescription,
     url: `${siteConfig.url}/case-studies`,
     type: "website",
     images: [
@@ -30,8 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Case Studies | Christian Wilkins",
-    description:
-      "Case studies from Christian Wilkins, software consultant and engineer delivering product strategy, UI systems, and engineering execution.",
+    description: caseStudiesDescription,
     images: [siteConfig.image],
   },
 };
@@ -58,9 +58,29 @@ export default function CaseStudiesPage() {
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteConfig.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies",
+        item: `${siteConfig.url}/case-studies`,
+      },
+    ],
+  };
+
   return (
     <div className="animate-rise-in space-y-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <header className="space-y-4">
         <Badge variant="secondary" className="text-xs">Case Studies</Badge>
         <h1 className="ui-label text-3xl sm:text-4xl font-bold font-heading">

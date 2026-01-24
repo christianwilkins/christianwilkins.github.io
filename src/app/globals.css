@@ -532,6 +532,12 @@ body::after {
     font-family: var(--font-geist-mono);
     line-height: 1.6;
     letter-spacing: 0.01em;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .terminal-inputbar {
@@ -542,7 +548,7 @@ body::after {
   .terminal-line {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.5rem;
   }
 
@@ -587,7 +593,15 @@ body::after {
   }
 
   .terminal-command {
+    min-width: 0;
     color: var(--terminal-text);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .terminal-text {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .terminal-input-field {
@@ -633,6 +647,12 @@ body::after {
     box-shadow:
       inset 0 0 0 1px color-mix(in oklch, var(--foreground) 5%, transparent),
       inset 0 0 35px color-mix(in oklch, var(--primary) 10%, transparent);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .terminal-input {

@@ -57,9 +57,29 @@ export default function InsightsPage() {
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteConfig.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Insights",
+        item: `${siteConfig.url}/insights`,
+      },
+    ],
+  };
+
   return (
     <div className="animate-rise-in space-y-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <header className="space-y-4">
         <Badge variant="secondary" className="text-xs">Insights</Badge>
         <h1 className="ui-label text-3xl sm:text-4xl font-bold font-heading">
