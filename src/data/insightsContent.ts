@@ -593,4 +593,89 @@ export const insightPosts: InsightPost[] = [
     ],
   },
 
+  {
+    slug: "remote-agentic-dev-setup",
+    title: "My remote agent dev setup (phone + old PC + laptop)",
+    description:
+      "A practical setup guide for running Codex, OpenCode, and Claude Code across devices with Tailscale, tmux, and custom scripts.",
+    date: "2026-01-24",
+    readingTime: "9 min read",
+    tags: ["remote dev", "coding agents", "workflow"],
+    keywords: [
+      "remote development setup",
+      "coding agents workflow",
+      "Codex CLI",
+      "tmux async jobs",
+    ],
+    sections: [
+      {
+        title: "What this setup is for",
+        content: [
+          "I want to work from anywhere and still run real builds, tests, and agent tasks safely on hardware I control.",
+          "The phone is for quick prompts and task handoffs. The old PC is the always-on workhorse. The laptop is for focused work and reviews.",
+        ],
+      },
+      {
+        title: "Hardware layout",
+        content: [
+          "Old PC stays online at home and runs long jobs. It is the default place for heavy tasks like builds, indexing, or data prep.",
+          "Laptop is for active coding sessions and reviews. It connects to the same repo and can take over any job.",
+          "Phone is for quick prompts, status checks, and kicking off tasks when I am away from a desk.",
+        ],
+      },
+      {
+        title: "Network glue with Tailscale",
+        content: [
+          "All machines are on the same Tailscale network so I can SSH to the old PC from anywhere, including my phone.",
+          "I keep a short host alias list so I can jump in fast without thinking about IPs.",
+        ],
+      },
+      {
+        title: "tmux as the async job runner",
+        content: [
+          "Every long task runs inside tmux on the old PC. Each repo gets a named session and each task gets its own window.",
+          "This lets me start a job from the phone, close the app, and check progress later from any device.",
+        ],
+      },
+      {
+        title: "Agent stack: Codex, OpenCode, Claude Code",
+        content: [
+          "I run Codex in the repo for file edits, tests, and structured refactors. It is my default for hands-on work.",
+          "OpenCode handles quick codebase questions and small changes when I want a lighter loop.",
+          "Claude Code is my backup for alternative plans or second opinions on a risky change.",
+        ],
+      },
+      {
+        title: "Custom scripts that keep it fast",
+        content: [
+          "I keep a scripts folder with helpers like: open a tmux session, sync the repo, run tests, and start an agent task with a standard prompt.",
+          "One script creates a new tmux window, pulls the latest branch, then opens Codex with a short spec template.",
+        ],
+      },
+      {
+        title: "A simple daily flow",
+        content: [
+          "From my phone, I SSH into the old PC, create a tmux window, and start a Codex task with a short prompt.",
+          "From the laptop, I review the diff, run tests locally if needed, and push the final change.",
+        ],
+      },
+      {
+        title: "Safety and guardrails",
+        content: [
+          "All agent tasks run in a clean working tree. I keep separate branches for each task to avoid messy merges.",
+          "I only allow write access where needed, and I always review diffs before pushing.",
+        ],
+      },
+      {
+        title: "Quick start checklist",
+        content: [
+          "Install Tailscale on all devices and confirm SSH access to the old PC.",
+          "Set up tmux sessions per repo and name them clearly.",
+          "Install Codex, OpenCode, and Claude Code on the machines where you will run them.",
+          "Create a small scripts folder for repeatable tasks and keep prompts short and specific.",
+        ],
+      },
+    ],
+  },
+
 ];
