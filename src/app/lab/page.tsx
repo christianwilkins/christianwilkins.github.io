@@ -69,6 +69,13 @@ export default function LabPage() {
       },
       {
         "@type": "SoftwareApplication",
+        name: "Supabase Tester",
+        url: `${siteConfig.url}/lab/supabase-tester`,
+        description: "Supabase exposure explorer for endpoints, tables, and write permissions.",
+        applicationCategory: "DeveloperApplication",
+      },
+      {
+        "@type": "SoftwareApplication",
         name: "ChrisWiki OS",
         url: `${siteConfig.url}/terminal`,
         description: "Command driven terminal with live routing and style control.",
@@ -168,6 +175,26 @@ export default function LabPage() {
             <CardContent>
               <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
                 Start Chat <ArrowRight className="ml-2 h-4 w-4" />
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/lab/supabase-tester" className="group block h-full">
+          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
+            <CardHeader>
+              <div className="flex items-center justify-between mb-4">
+                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
+                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">New</Badge>
+              </div>
+              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">Supabase Tester</CardTitle>
+              <CardDescription className="text-base mt-2">
+                Inspect Supabase endpoints, tables, and write permissions in one workspace.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
+                Open Tester <ArrowRight className="ml-2 h-4 w-4" />
               </div>
             </CardContent>
           </Card>
