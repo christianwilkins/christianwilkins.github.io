@@ -42,7 +42,7 @@ export default function WritesPage() {
               Back to Lab
             </Link>
           </div>
-          <h1 className="mt-6 max-w-2xl font-[var(--font-serif)] text-4xl leading-tight text-[var(--color-ink)] sm:text-5xl">
+          <h1 className="mt-6 max-w-2xl font-heading text-4xl leading-tight text-[var(--color-ink)] sm:text-5xl">
             Write payload tests
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-ink-muted)]">
@@ -123,7 +123,7 @@ export default function WritesPage() {
                 value={writePayload}
                 onChange={(event) => setWritePayload(event.target.value)}
                 rows={6}
-                className="mt-2 w-full break-all rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-2 font-[var(--font-mono)] text-[11px] text-[var(--color-ink)]"
+                className="mt-2 w-full break-all rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-2 font-mono text-[11px] text-[var(--color-ink)]"
               />
             </label>
             <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--color-ink-muted)]">
