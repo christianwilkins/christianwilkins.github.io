@@ -12,9 +12,12 @@ interface ProjectCardProps {
   project: Project
 }
 
+type RoleLabelStyle = "label" | "tag" | "dot"
+
 function ProjectCard({ project }: ProjectCardProps) {
   const [canHover, setCanHover] = React.useState(false)
   const [mounted, setMounted] = React.useState(false)
+  const [roleLabelStyle, setRoleLabelStyle] = React.useState<RoleLabelStyle>("label")
 
   React.useEffect(() => {
     setMounted(true)
@@ -35,6 +38,24 @@ function ProjectCard({ project }: ProjectCardProps) {
         media.removeListener(update)
       }
     }
+  }, [])
+
+  React.useEffect(() => {
+    if (typeof document === "undefined") return
+    const root = document.documentElement
+    const readRoleLabel = () => {
+      const value = root.dataset.roleLabel
+      if (value === "tag" || value === "dot" || value === "label") {
+        setRoleLabelStyle(value)
+      } else {
+        setRoleLabelStyle("label")
+      }
+    }
+
+    readRoleLabel()
+    const observer = new MutationObserver(readRoleLabel)
+    observer.observe(root, { attributes: true, attributeFilter: ["data-role-label"] })
+    return () => observer.disconnect()
   }, [])
 
   const interactiveProps = canHover
@@ -60,7 +81,22 @@ function ProjectCard({ project }: ProjectCardProps) {
       <div className="relative z-10 flex h-full flex-col gap-4">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs tracking-wide text-muted-foreground">{project.role}</p>
+            {roleLabelStyle === "tag" ? (
+              <span className="mb-2 inline-flex w-fit items-center rounded-full border border-border/70 bg-background/80 px-2.5 py-0.5 text-[0.7rem] font-medium text-muted-foreground">
+                {project.role}
+              </span>
+            ) : null}
+            {roleLabelStyle === "dot" ? (
+              <div className="mb-1 flex items-center gap-2 text-xs text-muted-foreground">
+                <span className="mt-0.5 h-1.5 w-1.5 rounded-full bg-foreground/40" aria-hidden="true" />
+                <span className="pr-4">{project.role}</span>
+              </div>
+            ) : null}
+            {roleLabelStyle === "label" ? (
+              <p className="mb-1 pr-4 text-xs font-medium text-foreground/70">
+                {project.role}
+              </p>
+            ) : null}
             <h2 className="text-xl font-semibold tracking-tight text-foreground">
               {project.title}
             </h2>
