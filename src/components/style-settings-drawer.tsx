@@ -40,6 +40,7 @@ import {
   setRootData,
   type PresetId,
 } from "@/lib/style-config";
+import { useTheme } from "next-themes";
 
 type SectionKey =
   | "presets"
@@ -58,6 +59,7 @@ type SectionKey =
   | "case";
 
 export function StyleSettingsDrawer() {
+  const { resolvedTheme } = useTheme();
   const [open, setOpen] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(false);
   const [preset, setPreset] = React.useState<PresetId>("signal");
@@ -71,7 +73,7 @@ export function StyleSettingsDrawer() {
   const [density, setDensity] = React.useState<(typeof densitySets)[number]["id"]>("standard");
   const [ambient, setAmbient] = React.useState<(typeof ambientSets)[number]["id"]>("off");
   const [layout, setLayout] = React.useState<(typeof layoutSets)[number]["id"]>("classic");
-  const [terminal, setTerminal] = React.useState<(typeof terminalSets)[number]["id"]>("iterm");
+  const [terminal, setTerminal] = React.useState<(typeof terminalSets)[number]["id"]>("dawn");
   const [align, setAlign] = React.useState<(typeof alignSets)[number]["id"]>("center");
   const [nav, setNav] = React.useState<(typeof navSets)[number]["id"]>("sidebar");
   const [openSections, setOpenSections] = React.useState<Record<SectionKey, boolean>>({
@@ -122,7 +124,9 @@ export function StyleSettingsDrawer() {
     const savedDensity = localStorage.getItem(STORAGE_KEYS.density) ?? "standard";
     const savedAmbient = localStorage.getItem(STORAGE_KEYS.ambient) ?? "off";
     const savedLayout = localStorage.getItem(STORAGE_KEYS.layout) ?? "classic";
-    const savedTerminal = localStorage.getItem(STORAGE_KEYS.terminal) ?? "iterm";
+    const storedTerminal = localStorage.getItem(STORAGE_KEYS.terminal);
+    const defaultTerminal = resolvedTheme === "light" ? "dawn" : "iterm";
+    const savedTerminal = storedTerminal ?? defaultTerminal;
     const savedAlign = localStorage.getItem(STORAGE_KEYS.align) ?? "center";
     const savedNav = localStorage.getItem(STORAGE_KEYS.nav) ?? "sidebar";
     const savedPreset = (localStorage.getItem(STORAGE_KEYS.preset) ?? "custom") as PresetId;
@@ -140,6 +144,10 @@ export function StyleSettingsDrawer() {
     setTerminal(savedTerminal as (typeof terminalSets)[number]["id"]);
     setAlign(savedAlign as (typeof alignSets)[number]["id"]);
     setNav(savedNav as (typeof navSets)[number]["id"]);
+
+    if (!storedTerminal) {
+      localStorage.setItem(STORAGE_KEYS.terminal, savedTerminal);
+    }
 
     const matchedPreset = presets.find((item) =>
       Object.entries(item.values).every(([key, value]) => {
@@ -179,7 +187,7 @@ export function StyleSettingsDrawer() {
     setRootData("terminal", savedTerminal);
     setRootData("align", savedAlign);
     setRootData("nav", savedNav);
-  }, []);
+  }, [resolvedTheme]);
 
   React.useEffect(() => {
     if (isMobile) {
