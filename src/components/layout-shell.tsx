@@ -15,6 +15,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const [isMobile, setIsMobile] = React.useState(false)
     const isLab = pathname?.startsWith("/lab") || pathname?.startsWith("/terminal")
+    const isProjects = pathname?.startsWith("/projects")
 
     React.useEffect(() => {
         const update = () => {
@@ -47,7 +48,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                     )}>
                         <div className={cn(
                             "layout-content animate-rise-in",
-                            isLab && "layout-content-lab"
+                            isLab && "layout-content-lab",
+                            isProjects && "max-w-3xl"
                         )}>
                             {isLab ? (
                                 children
