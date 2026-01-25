@@ -83,8 +83,8 @@ export default function About() {
         United States and a United States citizen.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m currently interested in building with AI agents and pushing cutting edge workflows for AI
-        integration across every level of development. I also focus on design and software consulting.
+        I&apos;m currently interested in building with AI agents and pushing new workflows for AI
+        integration across the stack. I also focus on design and software consulting.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         I&apos;ve done a lot of building recently. Check out my{" "}
@@ -99,6 +99,50 @@ export default function About() {
             Start a project
           </Link>
         </Button>
+      </div>
+      <div className="mt-8 space-y-6">
+        <section className="space-y-3">
+          <h2 className="ui-label text-xl font-semibold font-heading">How I work</h2>
+          <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
+            <li>Start with a rapid audit and align on the highest-impact path.</li>
+            <li>Ship in short cycles with weekly demos and clear updates.</li>
+            <li>Leave behind reusable systems and documentation.</li>
+          </ul>
+        </section>
+        <section className="space-y-2">
+          <h2 className="ui-label text-xl font-semibold font-heading">Explore</h2>
+          <div className="flex flex-wrap gap-3 text-sm">
+            <Link href="/services" className="text-primary font-medium hover:underline">
+              Services
+            </Link>
+            <Link href="/case-studies" className="text-primary font-medium hover:underline">
+              Case studies
+            </Link>
+            <Link href="/insights" className="text-primary font-medium hover:underline">
+              Insights
+            </Link>
+            <Link href="/about/now" className="text-primary font-medium hover:underline">
+              Now
+            </Link>
+            <Link href="/about/uses" className="text-primary font-medium hover:underline">
+              Uses
+            </Link>
+          </div>
+        </section>
+        <section className="space-y-3 rounded-2xl border border-border/70 bg-muted/10 p-5">
+          <h2 className="ui-label text-xl font-semibold font-heading">One level deeper</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
+            If you want a quick snapshot or my current tool stack, these are kept short and up to date.
+          </p>
+          <div className="flex flex-wrap gap-3 text-sm">
+            <Link href="/about/now" className="text-primary font-medium hover:underline">
+              Now
+            </Link>
+            <Link href="/about/uses" className="text-primary font-medium hover:underline">
+              Uses
+            </Link>
+          </div>
+        </section>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { contactLinks } from "@/data/contactData";
 import { siteConfig } from "@/data/siteConfig";
 import { ContactLinks } from "@/components/contact-links";
@@ -90,6 +91,22 @@ export default function Contact() {
           (Do not book a call without prior communication)
         </span>
       </p>
+      <div className="mb-6 sm:mb-8 space-y-3">
+        <h2 className="ui-label text-xl font-semibold font-heading">A strong first note includes</h2>
+        <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
+          <li>What you&apos;re building and who it&apos;s for.</li>
+          <li>Timeline, stage, and any hard constraints.</li>
+          <li>Budget range or engagement size, if known.</li>
+        </ul>
+        <div className="flex flex-wrap gap-3 text-sm">
+          <Link href="/services" className="text-primary font-medium hover:underline">
+            Services
+          </Link>
+          <Link href="/consulting" className="text-primary font-medium hover:underline">
+            Consulting
+          </Link>
+        </div>
+      </div>
       <ContactLinks />
     </div>
   );

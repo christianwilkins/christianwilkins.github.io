@@ -55,8 +55,8 @@ export default function Home() {
         United States<span className="hidden sm:inline"> and a United States citizen</span>.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m currently interested in building with AI agents and pushing cutting edge workflows
-        for AI integration across every level of development.
+        I&apos;m currently interested in building with AI agents and pushing new workflows
+        for AI integration across the stack.
         <span className="hidden sm:inline"> I also focus on design and software consulting.</span>
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
@@ -72,6 +72,30 @@ export default function Home() {
             Start a project
           </Link>
         </Button>
+      </div>
+      <div className="mt-8 space-y-6">
+        <section className="space-y-3">
+          <h2 className="ui-label text-xl font-semibold font-heading">Current focus</h2>
+          <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
+            <li>Agent-assisted product workflows and rapid prototyping.</li>
+            <li>Design systems and UI architecture for fast-moving teams.</li>
+            <li>Shipping production work in Next.js, React, and modern tooling.</li>
+          </ul>
+        </section>
+        <section className="space-y-2">
+          <h2 className="ui-label text-xl font-semibold font-heading">Explore</h2>
+          <div className="flex flex-wrap gap-3 text-sm">
+            <Link href="/services" className="text-primary font-medium hover:underline">
+              Services
+            </Link>
+            <Link href="/case-studies" className="text-primary font-medium hover:underline">
+              Case studies
+            </Link>
+            <Link href="/consulting" className="text-primary font-medium hover:underline">
+              Consulting
+            </Link>
+          </div>
+        </section>
       </div>
     </div>
   );

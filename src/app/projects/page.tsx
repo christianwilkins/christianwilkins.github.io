@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ProjectCard } from "@/components/projects/project-card";
 import { projects } from "@/data/projectsData";
 import { siteConfig } from "@/data/siteConfig";
@@ -83,7 +84,7 @@ export default function Projects() {
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">Projects</h1>
       <p className="mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed text-muted-foreground">
         A curated selection of recent work spanning enterprise tooling,
-        Ai driven products, and mobile applications<span className="hidden sm:inline">. Hover or click any
+        AI-driven products, and mobile applications<span className="hidden sm:inline">. Hover or click any
         card to explore roles, highlights, and impact</span>.
       </p>
 
@@ -92,6 +93,21 @@ export default function Projects() {
           <ProjectCard key={project.title} project={project} />
         ))}
       </div>
+
+      <section className="mt-10 rounded-2xl border border-border/70 bg-muted/10 p-5">
+        <h2 className="ui-label text-xl font-semibold font-heading">Want the full story?</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Browse deeper case studies or see how I structure consulting engagements.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm">
+          <Link href="/case-studies" className="text-primary font-medium hover:underline">
+            Case studies
+          </Link>
+          <Link href="/services" className="text-primary font-medium hover:underline">
+            Services
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
