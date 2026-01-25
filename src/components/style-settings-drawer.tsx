@@ -60,8 +60,8 @@ type SectionKey =
 export function StyleSettingsDrawer() {
   const [open, setOpen] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(false);
-  const [preset, setPreset] = React.useState<PresetId>("studio");
-  const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("studio");
+  const [preset, setPreset] = React.useState<PresetId>("signal");
+  const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("signal");
   const [font, setFont] = React.useState<(typeof fontSets)[number]["id"]>("studio");
   const [caseStyle, setCaseStyle] = React.useState<(typeof caseSets)[number]["id"]>("title");
   const [motion, setMotion] = React.useState<(typeof motionSets)[number]["id"]>("calm");
@@ -112,7 +112,7 @@ export function StyleSettingsDrawer() {
   }, []);
 
   React.useEffect(() => {
-    const savedPalette = localStorage.getItem(STORAGE_KEYS.palette) ?? "studio";
+    const savedPalette = localStorage.getItem(STORAGE_KEYS.palette) ?? "signal";
     const savedFont = localStorage.getItem(STORAGE_KEYS.font) ?? "studio";
     const savedCase = localStorage.getItem(STORAGE_KEYS.case) ?? "title";
     const savedMotion = localStorage.getItem(STORAGE_KEYS.motion) ?? "calm";

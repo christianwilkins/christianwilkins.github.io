@@ -17,6 +17,11 @@ export const STORAGE_KEYS = {
 
 export const palettes = [
   {
+    id: "signal",
+    name: "Signal",
+    description: "Terminal-aligned graphite and soft glow",
+  },
+  {
     id: "studio",
     name: "Studio",
     description: "Warm off white and graphite",
@@ -120,6 +125,26 @@ export const terminalSets = [
 ] as const;
 
 export const presets = [
+  {
+    id: "signal",
+    name: "Signal focus",
+    description: "Terminal-aligned palette with calm motion",
+    values: {
+      palette: "signal",
+      font: "studio",
+      motion: "calm",
+      blur: "soft",
+      radius: "soft",
+      shadow: "low",
+      density: "standard",
+      ambient: "off",
+      layout: "classic",
+      align: "center",
+      nav: "sidebar",
+      case: "title",
+      terminal: "iterm",
+    },
+  },
   {
     id: "studio",
     name: "Studio calm",

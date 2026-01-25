@@ -74,7 +74,7 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
   const [activeModuleId, setActiveModuleId] = React.useState(terminalModules[0]?.id ?? "navigator");
   const [historyIndex, setHistoryIndex] = React.useState<number | null>(null);
   const [styleSnapshot, setStyleSnapshot] = React.useState({
-    palette: "studio",
+    palette: "signal",
     layout: "classic",
     nav: "sidebar",
   });
@@ -122,7 +122,7 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
     if (typeof document === "undefined") return;
     const { palette, layout, nav } = document.documentElement.dataset;
     setStyleSnapshot({
-      palette: palette ?? "studio",
+      palette: palette ?? "signal",
       layout: layout ?? "classic",
       nav: nav ?? "sidebar",
     });
