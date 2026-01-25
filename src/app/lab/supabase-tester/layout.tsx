@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/data/siteConfig";
 import { InspectorProvider } from "./providers/InspectorProvider";
-import styles from "./supabase-tester.module.css";
 
 const testerDescription = "Inspect Supabase endpoints, tables, and write permissions from a single lab workspace.";
 
@@ -36,7 +35,28 @@ export const metadata: Metadata = {
 
 export default function SupabaseTesterLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={styles.supabaseShell}>
+    <div
+      className={
+        "font-sans text-[var(--color-ink)] " +
+        "[--color-paper:var(--background)] " +
+        "[--color-surface:var(--card)] " +
+        "[--color-surface-muted:color-mix(in_oklch,var(--muted)_80%,var(--background))] " +
+        "[--color-ink:var(--foreground)] " +
+        "[--color-ink-muted:var(--muted-foreground)] " +
+        "[--color-accent:var(--primary)] " +
+        "[--color-accent-strong:color-mix(in_oklch,var(--primary)_85%,var(--foreground))] " +
+        "[--color-border:var(--border)] " +
+        "[--color-warning:var(--chart-4)] " +
+        "[--color-danger:var(--destructive)] " +
+        "[--shadow-soft:var(--shadow-1)] " +
+        "[--shadow-card:var(--shadow-2)] " +
+        "[--radius-card:calc(var(--radius)+0.25rem)] " +
+        "[--radius-pill:999px] " +
+        "[--font-display:var(--font-sans)] " +
+        "[--font-serif:var(--font-heading)] " +
+        "[--font-mono:var(--font-mono)]"
+      }
+    >
       <InspectorProvider>{children}</InspectorProvider>
     </div>
   );
