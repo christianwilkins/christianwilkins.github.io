@@ -93,7 +93,7 @@ export default function TablesPage() {
               Back to Lab
             </Link>
           </div>
-          <h1 className="mt-6 max-w-2xl font-[var(--font-serif)] text-4xl leading-tight text-[var(--color-ink)] sm:text-5xl">
+          <h1 className="mt-6 max-w-2xl font-heading text-4xl leading-tight text-[var(--color-ink)] sm:text-5xl">
             Tables and schema
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-ink-muted)]">
