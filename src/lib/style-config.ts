@@ -121,7 +121,8 @@ export const navSets = [
 export const terminalSets = [
   { id: "iterm", name: "iTerm Classic", description: "Deep terminal with neon accents" },
   { id: "noir", name: "Noir", description: "Neutral black and soft glow" },
-  { id: "dawn", name: "Dawn", description: "Bright shell with cool prompt" },
+  { id: "dawn", name: "Dawn", description: "Solarized light/dark, chic and balanced" },
+  { id: "paper", name: "Paper", description: "Warm light with soft ink contrast" },
 ] as const;
 
 export const presets = [
