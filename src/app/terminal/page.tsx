@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function TerminalPage() {
   return (
-    <div className="space-y-6 md:space-y-8 animate-rise-in">
+    <div className="space-y-6 md:space-y-8 animate-rise-in min-h-[70vh]">
       <header className="space-y-3">
         <div className="flex items-center gap-3">
           <Badge variant="secondary" className="text-xs">{terminalPageContent.badge}</Badge>
