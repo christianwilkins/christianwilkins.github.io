@@ -439,6 +439,39 @@ body::after {
     box-shadow: var(--terminal-shadow);
     color: var(--terminal-text);
     overflow: hidden;
+    isolation: isolate;
+  }
+
+  .terminal-window::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--terminal-glow) 25%, transparent), transparent 35%),
+      radial-gradient(120% 140% at 15% 0%, color-mix(in oklch, var(--terminal-glow) 35%, transparent), transparent 60%);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .terminal-window::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 22px,
+      color-mix(in oklch, var(--terminal-border) 12%, transparent) 24px
+    );
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .terminal-window > * {
+    position: relative;
+    z-index: 1;
   }
 
   .terminal-window-desktop {
@@ -463,6 +496,10 @@ body::after {
     background: color-mix(in oklch, var(--terminal-panel) 85%, var(--terminal-bg));
     border-bottom: 1px solid color-mix(in oklch, var(--terminal-border) 80%, transparent);
     cursor: grab;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    backdrop-filter: blur(10px);
   }
 
   .terminal-window.is-dragging .terminal-titlebar {
@@ -523,6 +560,7 @@ body::after {
     flex-direction: column;
     background: radial-gradient(120% 120% at 10% 0%, var(--terminal-glow), transparent 60%),
       var(--terminal-bg);
+    min-height: 0;
   }
 
   .terminal-output {
@@ -538,6 +576,7 @@ body::after {
     -webkit-overflow-scrolling: touch;
     overflow-wrap: anywhere;
     word-break: break-word;
+    min-height: 0;
   }
 
   .terminal-inputbar {
