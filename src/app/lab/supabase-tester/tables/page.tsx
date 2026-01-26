@@ -138,10 +138,10 @@ export default function TablesPage() {
                 </label>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block text-sm text-[var(--color-ink-muted)]">
-                    Table limit
+                    Table limit (0 = all)
                     <input
                       type="number"
-                      min={1}
+                      min={0}
                       max={200}
                       value={tableLimit}
                       onChange={(event) =>
