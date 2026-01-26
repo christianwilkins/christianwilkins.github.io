@@ -267,6 +267,10 @@
 }
 
 :root[data-terminal="iterm"] {
+  --terminal-base: var(--background);
+  --terminal-contrast: var(--foreground);
+  --terminal-text-base: var(--foreground);
+  --terminal-text-contrast: var(--background);
   --terminal-bg-mix: 88%;
   --terminal-panel-mix: 80%;
   --terminal-screen-mix: 92%;
@@ -277,6 +281,10 @@
 }
 
 :root[data-terminal="noir"] {
+  --terminal-base: var(--background);
+  --terminal-contrast: var(--foreground);
+  --terminal-text-base: var(--foreground);
+  --terminal-text-contrast: var(--background);
   --terminal-bg-mix: 92%;
   --terminal-panel-mix: 86%;
   --terminal-screen-mix: 94%;
