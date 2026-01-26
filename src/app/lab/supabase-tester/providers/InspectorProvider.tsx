@@ -1099,8 +1099,13 @@ export type InspectorContextValue = {
   setTableMode: (value: "anon" | "auth" | "service") => void;
   tableLoading: boolean;
   tableError: string;
-  handleViewTable: (entry: TableEntry) => void;
-  loadTableRows: (entry: TableEntry, page: number, append: boolean) => void;
+  handleViewTable: (entry: TableEntry, modeOverride?: "anon" | "auth" | "service") => void;
+  loadTableRows: (
+    entry: TableEntry,
+    page: number,
+    append: boolean,
+    modeOverride?: "anon" | "auth" | "service"
+  ) => void;
   handleLoadMore: () => void;
   writeEnabled: boolean;
   setWriteEnabled: (value: boolean) => void;
@@ -1121,6 +1126,7 @@ export type InspectorContextValue = {
   writeAllowed: boolean;
   runWriteTests: () => Promise<void>;
   tableEntries: TableEntry[];
+  publicTableEntries: TableEntry[];
   tableSchemas: Record<string, Record<string, string>>;
   applySchemaTemplate: () => void;
   applySampleTemplate: (mode: "anon" | "service") => void;
@@ -1143,7 +1149,7 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
   const [bearerTouched, setBearerTouched] = useState(false);
   const [serviceRoleKey, setServiceRoleKey] = useState("");
   const [projectDomains, setProjectDomains] = useState("");
-  const [tableLimit, setTableLimit] = useState(15);
+  const [tableLimit, setTableLimit] = useState(0);
   const [sampleLimit, setSampleLimit] = useState(3);
   const [sendApiKey, setSendApiKey] = useState(true);
   const [sendBearer, setSendBearer] = useState(true);
@@ -1415,6 +1421,18 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
   );
 
   const tableEntries = useMemo(() => deepReport?.tableEntries ?? [], [deepReport]);
+
+  const publicTableEntries = useMemo(() => {
+    if (!deepReport) return [];
+    const map = new Map<string, TableEntry>();
+    deepReport.tables.forEach((table) => {
+      if (typeof table.anonStatus !== "number") return;
+      if (table.anonStatus >= 400) return;
+      const key = `${table.host}::${table.table}`;
+      map.set(key, { host: table.host, table: table.table });
+    });
+    return Array.from(map.values());
+  }, [deepReport]);
 
   const tableSchemas = useMemo(() => deepReport?.tableSchemas ?? {}, [deepReport]);
 
@@ -1764,7 +1782,8 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
         continue;
       }
 
-      const limitedTables = tableNames.slice(0, Math.max(1, tableLimit));
+      const effectiveLimit = tableLimit > 0 ? tableLimit : tableNames.length;
+      const limitedTables = tableNames.slice(0, Math.max(1, effectiveLimit));
 
       for (const table of limitedTables) {
         const tableUrl = `${base}/rest/v1/${encodePathSegment(table)}?select=*&limit=${Math.max(1, sampleLimit)}`;
@@ -1826,6 +1845,10 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
       functionReachable: functionsReachable,
     });
 
+    const publicTables = tables
+      .filter((table) => typeof table.anonStatus === "number" && table.anonStatus < 400)
+      .map((table) => ({ host: table.host, table: table.table }));
+
     setDeepReport({
       createdAt: new Date().toLocaleString(),
       hosts: inspectionHosts,
@@ -1839,11 +1862,11 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
       corsSummaries,
       tableSchemas,
     });
-    if (!writeTable && tableEntryMap.size > 0) {
-      const first = Array.from(tableEntryMap.values())[0];
+    if (!writeTable && (publicTables.length > 0 || tableEntryMap.size > 0)) {
+      const first = publicTables[0] ?? Array.from(tableEntryMap.values())[0];
       if (first) {
         setWriteTable(`${first.host}::${first.table}`);
-        setTableViewer(first);
+        handleViewTable(first, "anon");
       }
     }
     setDeepRunning(false);
@@ -1855,9 +1878,15 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
     return serviceHeaders;
   }
 
-  async function loadTableRows(entry: TableEntry, page: number, append: boolean) {
-    const headers = getHeadersForMode(tableMode);
-    if (!headers || (tableMode === "service" && !serviceHeaders)) {
+  async function loadTableRows(
+    entry: TableEntry,
+    page: number,
+    append: boolean,
+    modeOverride?: "anon" | "auth" | "service"
+  ) {
+    const mode = modeOverride ?? tableMode;
+    const headers = getHeadersForMode(mode);
+    if (!headers || (mode === "service" && !serviceHeaders)) {
       setTableError("Missing headers for selected mode.");
       return;
     }
@@ -1893,13 +1922,16 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
     setTableLoading(false);
   }
 
-  function handleViewTable(entry: TableEntry) {
+  function handleViewTable(entry: TableEntry, modeOverride?: "anon" | "auth" | "service") {
+    if (modeOverride) {
+      setTableMode(modeOverride);
+    }
     setTableViewer(entry);
     setTableRows([]);
     setTableColumns([]);
     setTableTotal(null);
     setTablePage(0);
-    void loadTableRows(entry, 0, false);
+    void loadTableRows(entry, 0, false, modeOverride);
   }
 
   function handleLoadMore() {
@@ -2109,6 +2141,7 @@ export function InspectorProvider({ children }: { children: React.ReactNode }) {
     writeAllowed,
     runWriteTests,
     tableEntries,
+    publicTableEntries,
     tableSchemas,
     applySchemaTemplate,
     applySampleTemplate,
