@@ -36,7 +36,7 @@ export function TerminalConsole() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)] items-start">
-      <section className="terminal-panel flex flex-col min-h-[420px]">
+      <section className="terminal-panel flex flex-col min-h-[420px] max-h-[70vh]">
         <header className="flex items-center justify-between border-b border-border/60 px-4 py-3 sm:px-5">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1">
@@ -55,9 +55,9 @@ export function TerminalConsole() {
           <Badge variant="secondary" className="text-[11px]">{terminalConsoleCopy.windowBadge}</Badge>
         </header>
 
-        <div className="flex flex-1 flex-col gap-4 p-4 sm:p-5">
+        <div className="flex flex-1 min-h-0 flex-col gap-4 p-4 sm:p-5">
           <div
-            className="terminal-screen flex-1 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5 text-xs sm:text-sm font-mono leading-relaxed"
+            className="terminal-screen flex-1 min-h-0 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5 text-xs sm:text-sm font-mono leading-relaxed"
             onClick={() => inputRef.current?.focus()}
             role="log"
             aria-live="polite"
