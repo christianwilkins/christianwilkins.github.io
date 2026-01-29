@@ -100,7 +100,7 @@ export default function ServicesPage() {
         </p>
       </header>
 
-      <section className="space-y-3">
+      <section className="ui-section space-y-3">
         <h2 className="ui-label text-2xl font-semibold font-heading">How I help</h2>
         <p className="text-base text-muted-foreground">{servicesContent.summary}</p>
         <ul className="grid gap-3 sm:grid-cols-3">
@@ -112,7 +112,7 @@ export default function ServicesPage() {
         </ul>
       </section>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">Service areas</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {servicesContent.offerings.map((offering) => (
@@ -124,7 +124,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">Outcomes</h2>
         <ul className="grid gap-3 sm:grid-cols-3">
           {servicesContent.outcomes.map((item) => (
@@ -135,7 +135,7 @@ export default function ServicesPage() {
         </ul>
       </section>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">Industries</h2>
         <div className="flex flex-wrap gap-2">
           {servicesContent.industries.map((item) => (
@@ -146,7 +146,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-border/70 bg-muted/20 p-6">
+      <section className="ui-section space-y-4 rounded-2xl border border-border/70 bg-muted/20 p-6">
         <p className="text-sm text-muted-foreground">{servicesContent.callToAction}</p>
         <div className="flex flex-wrap gap-3">
           <Button asChild>
@@ -154,7 +154,7 @@ export default function ServicesPage() {
               Contact Christian Wilkins
             </Link>
           </Button>
-          <Link href="/projects" className="text-sm text-primary font-medium hover:underline">
+          <Link href="/projects" className="text-sm ui-link">
             View case studies
           </Link>
         </div>
