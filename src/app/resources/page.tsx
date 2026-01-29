@@ -95,7 +95,7 @@ export default function ResourcesPage() {
         <p className="text-base sm:text-lg text-muted-foreground">{resourcesContent.subtitle}</p>
       </header>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">Signature playbooks</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {resourcesContent.playbooks.map((item) => (
@@ -107,7 +107,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">Tools and stack</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {resourcesContent.stack.map((item) => (
@@ -119,7 +119,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">Prompt-ready profile</h2>
         <div className="rounded-2xl border border-border/70 bg-background/70 p-4 text-sm text-muted-foreground space-y-2">
           {resourcesContent.promptProfile.map((line) => (
