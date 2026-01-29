@@ -100,10 +100,10 @@ export default function Projects() {
           Browse deeper case studies or see how I structure consulting engagements.
         </p>
         <div className="mt-4 flex flex-wrap gap-3 text-sm">
-          <Link href="/case-studies" className="text-primary font-medium hover:underline">
+          <Link href="/case-studies" className="ui-link">
             Case studies
           </Link>
-          <Link href="/services" className="text-primary font-medium hover:underline">
+          <Link href="/services" className="ui-link">
             Services
           </Link>
         </div>
