@@ -85,7 +85,7 @@ export default function NowPage() {
         </p>
       </header>
 
-      <section className="space-y-3">
+      <section className="ui-section space-y-3">
         <h2 className="ui-label text-xl font-semibold font-heading">Current focus</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
           <li>AI workflow pilots that move teams from manual steps to reliable automation.</li>
@@ -94,7 +94,7 @@ export default function NowPage() {
         </ul>
       </section>
 
-      <section className="space-y-3">
+      <section className="ui-section space-y-3">
         <h2 className="ui-label text-xl font-semibold font-heading">In the queue</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
           <li>More case study writeups and delivery playbooks.</li>
@@ -102,19 +102,19 @@ export default function NowPage() {
         </ul>
       </section>
 
-      <section className="space-y-3">
+      <section className="ui-section space-y-3">
         <h2 className="ui-label text-xl font-semibold font-heading">If this helps</h2>
         <p className="text-sm sm:text-base text-muted-foreground">
           If you&apos;re building a product and need design, engineering, or AI workflow support, reach out.
         </p>
         <div className="flex flex-wrap gap-3 text-sm">
-          <Link href="/contact" className="text-primary font-medium hover:underline">
+          <Link href="/contact" className="ui-link">
             Contact
           </Link>
-          <Link href="/services" className="text-primary font-medium hover:underline">
+          <Link href="/services" className="ui-link">
             Services
           </Link>
-          <Link href="/projects" className="text-primary font-medium hover:underline">
+          <Link href="/projects" className="ui-link">
             Projects
           </Link>
         </div>
