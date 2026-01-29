@@ -1,8 +1,22 @@
+@import url("https://fonts.cdnfonts.com/css/charter-itc-tt");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./theme.css";
 
 @custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: "Bitstream Charter";
+  src:
+    local("Bitstream Charter"),
+    local("Charter"),
+    local("Charter BT"),
+    local("XCharter"),
+    local("TeX Gyre Charter");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -81,14 +95,22 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    font-size: calc(100% * var(--type-scale));
+  }
+
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans-base);
+    line-height: var(--type-leading);
     background-image: var(--layout-background);
     background-attachment: fixed;
   }
 
   .font-heading {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading-base);
+    font-weight: var(--type-heading-weight);
+    letter-spacing: var(--type-heading-tracking);
   }
 }
 
@@ -224,8 +246,8 @@ body::after {
     padding: var(--page-padding) !important;
     box-sizing: border-box;
     border-right: none !important;
-    border-bottom: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
-    background: color-mix(in oklch, var(--sidebar) 92%, transparent);
+    border-bottom: var(--nav-shell-border);
+    background: var(--nav-shell-bg);
   }
 
   :root[data-nav="top"] .sidebar-inner {
@@ -293,18 +315,61 @@ body::after {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.35rem 0.65rem;
-    border-radius: 999px;
+    padding: var(--nav-link-padding-y) var(--nav-link-padding-x);
+    border-radius: var(--nav-link-radius);
     text-transform: var(--ui-text-transform);
     transition: color var(--motion-duration-fast) var(--motion-ease),
       transform var(--motion-duration-fast) var(--motion-ease),
       background var(--motion-duration-fast) var(--motion-ease),
       border-color var(--motion-duration-fast) var(--motion-ease);
-    border: 1px solid transparent;
+    border: var(--nav-link-border);
+    background: var(--nav-link-bg);
+    text-decoration: var(--nav-link-decoration);
+    font-weight: var(--nav-link-weight);
   }
 
   .ui-label {
     text-transform: var(--ui-text-transform);
+  }
+
+  .ui-section {
+    display: var(--section-display);
+    grid-template-columns: var(--section-columns);
+    column-gap: var(--section-gap);
+    row-gap: var(--section-row-gap);
+    align-items: start;
+  }
+
+  .ui-section > :first-child {
+    grid-column: 1;
+  }
+
+  .ui-section > :not(:first-child) {
+    grid-column: 2;
+  }
+
+  .ui-section + .ui-section {
+    padding-top: var(--section-divider-spacing);
+    border-top: var(--section-divider);
+  }
+
+  .ui-section-full {
+    grid-column: 1 / -1;
+  }
+
+  .ui-link {
+    color: var(--link-color);
+    text-decoration: var(--link-decoration);
+    text-decoration-thickness: var(--link-decoration-thickness);
+    text-underline-offset: var(--link-underline-offset);
+    font-weight: var(--link-weight);
+    transition: color var(--motion-duration-fast) var(--motion-ease),
+      text-decoration-color var(--motion-duration-fast) var(--motion-ease);
+  }
+
+  .ui-link:hover {
+    color: var(--link-hover-color);
+    text-decoration: var(--link-hover-decoration);
   }
 
   .mobile-nav-link {
@@ -314,22 +379,21 @@ body::after {
     justify-content: center;
   }
 
-  :root:not([data-layout="atelier"]) .nav-link:hover {
-    background: color-mix(in oklch, var(--muted) 88%, transparent);
-    border-color: color-mix(in oklch, var(--border) 80%, transparent);
+  .nav-link:hover {
+    background: var(--nav-link-hover-bg);
+    border: var(--nav-link-hover-border);
+    text-decoration: var(--nav-link-hover-decoration);
   }
 
-  :root:not([data-layout="atelier"]) .nav-link[aria-current="page"] {
-    background: color-mix(in oklch, var(--accent) 34%, transparent);
-    border-color: color-mix(in oklch, var(--accent) 55%, transparent);
+  .nav-link[aria-current="page"] {
+    background: var(--nav-link-active-bg);
+    border: var(--nav-link-active-border);
+    text-decoration: var(--nav-link-active-decoration);
   }
 
   :root[data-layout="atelier"] .nav-link {
     font-family: var(--font-heading);
-    font-weight: 600;
     letter-spacing: 0.08em;
-    background: color-mix(in oklch, var(--accent) 36%, transparent);
-    border: 1px solid color-mix(in oklch, var(--accent) 45%, transparent);
   }
 
   :root[data-layout="atelier"] .nav-link:hover {
