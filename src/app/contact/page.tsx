@@ -99,10 +99,10 @@ export default function Contact() {
           <li>Budget range or engagement size, if known.</li>
         </ul>
         <div className="flex flex-wrap gap-3 text-sm">
-          <Link href="/services" className="text-primary font-medium hover:underline">
+          <Link href="/services" className="ui-link">
             Services
           </Link>
-          <Link href="/consulting" className="text-primary font-medium hover:underline">
+          <Link href="/consulting" className="ui-link">
             Consulting
           </Link>
         </div>
