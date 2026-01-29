@@ -192,7 +192,7 @@ export default function LearningPage() {
           </p>
         </section>
 
-        <section className="space-y-6">
+        <section className="ui-section space-y-6">
           <div className="flex items-center justify-between gap-4">
             <h2 className="text-2xl font-semibold font-heading">Active modules</h2>
             <Badge variant="outline" className="text-xs font-semibold">{activeModules.length} live</Badge>
@@ -215,7 +215,7 @@ export default function LearningPage() {
           )}
         </section>
 
-        <section className="space-y-6">
+        <section className="ui-section space-y-6">
           <div className="flex items-center justify-between gap-4">
             <h2 className="text-2xl font-semibold font-heading">Planned and prototypes</h2>
             <Badge variant="outline" className="text-xs font-semibold">{plannedModules.length} queued</Badge>
