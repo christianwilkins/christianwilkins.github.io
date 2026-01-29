@@ -2,7 +2,10 @@ export const STORAGE_KEYS = {
   preset: "style.preset",
   palette: "style.palette",
   font: "style.font",
+  typography: "style.typography",
   motion: "style.motion",
+  section: "style.section",
+  link: "style.link",
   blur: "style.blur",
   radius: "style.radius",
   shadow: "style.shadow",
@@ -20,6 +23,16 @@ export const palettes = [
     id: "signal",
     name: "Signal",
     description: "Terminal-aligned graphite and soft glow",
+  },
+  {
+    id: "chimero",
+    name: "Chimero",
+    description: "Noir canvas with soft ash text",
+  },
+  {
+    id: "amodei",
+    name: "Amodei",
+    description: "Parchment warmth with deep ink",
   },
   {
     id: "studio",
@@ -50,6 +63,16 @@ export const fontSets = [
     description: "Clean and editorial",
   },
   {
+    id: "chimero",
+    name: "IBM Plex Sans and Newsreader",
+    description: "Plex body with classic serif",
+  },
+  {
+    id: "amodei",
+    name: "Charter ITC TT",
+    description: "Charter body and headings",
+  },
+  {
     id: "legacy",
     name: "Geist and Times New Roman Condensed",
     description: "Original pairing",
@@ -58,6 +81,29 @@ export const fontSets = [
     id: "metro",
     name: "Plus Jakarta and Instrument Serif",
     description: "Modern and refined",
+  },
+] as const;
+
+export const typographySets = [
+  {
+    id: "balanced",
+    name: "Balanced",
+    description: "Default scale with relaxed leading",
+  },
+  {
+    id: "editorial",
+    name: "Editorial",
+    description: "Larger scale with airy rhythm",
+  },
+  {
+    id: "classic",
+    name: "Classic",
+    description: "Smaller scale with generous leading",
+  },
+  {
+    id: "compact",
+    name: "Compact",
+    description: "Tighter scale and spacing",
   },
 ] as const;
 
@@ -107,6 +153,16 @@ export const layoutSets = [
   { id: "atelier", name: "Atelier", description: "Editorial card layout with ornaments" },
 ] as const;
 
+export const sectionSets = [
+  { id: "stacked", name: "Stacked", description: "Standard stacked sections" },
+  { id: "chimero", name: "Split", description: "Split columns with section rails" },
+] as const;
+
+export const linkSets = [
+  { id: "clean", name: "Clean", description: "Minimal links with hover underline" },
+  { id: "underline", name: "Underline", description: "Always underlined links" },
+] as const;
+
 export const alignSets = [
   { id: "center", name: "Center", description: "Balanced alignment" },
   { id: "left", name: "Left", description: "Left aligned content rail" },
@@ -133,7 +189,10 @@ export const presets = [
     values: {
       palette: "signal",
       font: "studio",
+      typography: "balanced",
       motion: "calm",
+      section: "stacked",
+      link: "clean",
       blur: "soft",
       radius: "soft",
       shadow: "low",
@@ -147,13 +206,62 @@ export const presets = [
     },
   },
   {
+    id: "amodei",
+    name: "Amodei minimal",
+    description: "Parchment palette with serif type",
+    values: {
+      palette: "amodei",
+      font: "amodei",
+      typography: "classic",
+      motion: "still",
+      section: "stacked",
+      link: "underline",
+      blur: "off",
+      radius: "sharp",
+      shadow: "none",
+      density: "roomy",
+      ambient: "off",
+      layout: "classic",
+      align: "left",
+      nav: "top",
+      case: "title",
+      terminal: "paper",
+    },
+  },
+  {
+    id: "chimero",
+    name: "Chimero noir",
+    description: "Noir palette with split sections",
+    values: {
+      palette: "chimero",
+      font: "chimero",
+      typography: "editorial",
+      motion: "still",
+      section: "chimero",
+      link: "underline",
+      blur: "off",
+      radius: "sharp",
+      shadow: "none",
+      density: "roomy",
+      ambient: "off",
+      layout: "classic",
+      align: "wide",
+      nav: "top",
+      case: "title",
+      terminal: "noir",
+    },
+  },
+  {
     id: "studio",
     name: "Studio calm",
     description: "Studio palette with calm motion",
     values: {
       palette: "studio",
       font: "studio",
+      typography: "balanced",
       motion: "calm",
+      section: "stacked",
+      link: "clean",
       blur: "soft",
       radius: "soft",
       shadow: "low",
@@ -173,7 +281,10 @@ export const presets = [
     values: {
       palette: "gallery",
       font: "metro",
+      typography: "balanced",
       motion: "crisp",
+      section: "stacked",
+      link: "clean",
       blur: "soft",
       radius: "soft",
       shadow: "soft",
@@ -193,7 +304,10 @@ export const presets = [
     values: {
       palette: "cinder",
       font: "metro",
+      typography: "editorial",
       motion: "calm",
+      section: "stacked",
+      link: "clean",
       blur: "glass",
       radius: "round",
       shadow: "deep",
@@ -213,7 +327,10 @@ export const presets = [
     values: {
       palette: "legacy",
       font: "legacy",
+      typography: "compact",
       motion: "crisp",
+      section: "stacked",
+      link: "clean",
       blur: "off",
       radius: "sharp",
       shadow: "none",
@@ -242,8 +359,20 @@ export function setRootData(key: StyleSettingKey, value: string) {
     root.dataset.font = value;
     return;
   }
+  if (key === "typography") {
+    root.dataset.typography = value;
+    return;
+  }
   if (key === "motion") {
     root.dataset.motion = value;
+    return;
+  }
+  if (key === "section") {
+    root.dataset.section = value;
+    return;
+  }
+  if (key === "link") {
+    root.dataset.link = value;
     return;
   }
   if (key === "blur") {
