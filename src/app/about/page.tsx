@@ -88,7 +88,7 @@ export default function About() {
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         I&apos;ve done a lot of building recently. Check out my{" "}
-        <Link href="/projects" className="text-primary hover:underline font-medium">
+        <Link href="/projects" className="ui-link">
           projects
         </Link>
         .
