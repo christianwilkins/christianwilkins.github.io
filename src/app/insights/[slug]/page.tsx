@@ -111,7 +111,10 @@ export default async function InsightPage({ params }: InsightPageProps) {
 
       <div className="space-y-6">
         {post.sections.map((section) => (
-          <section key={section.title ?? section.content[0]} className="space-y-3">
+          <section
+            key={section.title ?? section.content[0]}
+            className={section.title ? "ui-section space-y-3" : "space-y-3"}
+          >
             {section.title && (
               <h2 className="ui-label text-2xl font-semibold font-heading">{section.title}</h2>
             )}
@@ -128,7 +131,7 @@ export default async function InsightPage({ params }: InsightPageProps) {
       <section className="rounded-2xl border border-border/70 bg-background/70 p-6 space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-base font-semibold">More insights</h2>
-          <Link href="/insights" className="text-xs text-primary font-medium hover:underline">
+          <Link href="/insights" className="text-xs ui-link">
             View all
           </Link>
         </div>
@@ -152,7 +155,7 @@ export default async function InsightPage({ params }: InsightPageProps) {
           Need hands-on support with software consulting, design systems, or AI workflows?
         </p>
         <div className="mt-3 flex flex-wrap gap-3 text-sm">
-          <Link href="/contact" className="text-primary font-medium hover:underline">
+          <Link href="/contact" className="ui-link">
             Contact Christian Wilkins
           </Link>
         </div>
