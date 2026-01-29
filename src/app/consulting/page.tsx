@@ -92,7 +92,7 @@ export default function ConsultingPage() {
         </p>
       </header>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">{consultingContent.approachTitle}</h2>
         <ul className="space-y-2 text-sm text-muted-foreground">
           {consultingContent.approach.map((item) => (
@@ -101,7 +101,7 @@ export default function ConsultingPage() {
         </ul>
       </section>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">{consultingContent.focusTitle}</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {consultingContent.focusAreas.map((item) => (
@@ -112,7 +112,7 @@ export default function ConsultingPage() {
         </div>
       </section>
 
-      <section className="space-y-4">
+      <section className="ui-section space-y-4">
         <h2 className="ui-label text-2xl font-semibold font-heading">{consultingContent.engagementTitle}</h2>
         <ul className="space-y-2 text-sm text-muted-foreground">
           {consultingContent.engagement.map((item) => (
@@ -121,7 +121,7 @@ export default function ConsultingPage() {
         </ul>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-border/70 bg-muted/20 p-6">
+      <section className="ui-section space-y-4 rounded-2xl border border-border/70 bg-muted/20 p-6">
         <p className="text-sm text-muted-foreground">{consultingContent.availability}</p>
         <div className="flex flex-wrap gap-3">
           <Button asChild>
