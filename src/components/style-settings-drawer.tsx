@@ -5,11 +5,13 @@ import {
   AlignLeft,
   CaseSensitive,
   ChevronRight,
+  Columns3,
   CornerUpRight,
   Droplet,
   Gauge,
   LayoutGrid,
   Layers,
+  Link,
   Palette,
   PanelLeft,
   SlidersHorizontal,
@@ -25,8 +27,11 @@ import {
   STORAGE_KEYS,
   palettes,
   fontSets,
+  typographySets,
   caseSets,
   motionSets,
+  sectionSets,
+  linkSets,
   blurSets,
   radiusSets,
   shadowSets,
@@ -46,7 +51,10 @@ type SectionKey =
   | "presets"
   | "colorway"
   | "font"
+  | "typography"
   | "layout"
+  | "sections"
+  | "links"
   | "terminal"
   | "motion"
   | "shadow"
@@ -65,8 +73,11 @@ export function StyleSettingsDrawer() {
   const [preset, setPreset] = React.useState<PresetId>("signal");
   const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("signal");
   const [font, setFont] = React.useState<(typeof fontSets)[number]["id"]>("studio");
+  const [typography, setTypography] = React.useState<(typeof typographySets)[number]["id"]>("balanced");
   const [caseStyle, setCaseStyle] = React.useState<(typeof caseSets)[number]["id"]>("title");
   const [motion, setMotion] = React.useState<(typeof motionSets)[number]["id"]>("calm");
+  const [section, setSection] = React.useState<(typeof sectionSets)[number]["id"]>("stacked");
+  const [link, setLink] = React.useState<(typeof linkSets)[number]["id"]>("clean");
   const [blur, setBlur] = React.useState<(typeof blurSets)[number]["id"]>("soft");
   const [radius, setRadius] = React.useState<(typeof radiusSets)[number]["id"]>("soft");
   const [shadow, setShadow] = React.useState<(typeof shadowSets)[number]["id"]>("soft");
@@ -80,8 +91,11 @@ export function StyleSettingsDrawer() {
     presets: false,
     colorway: false,
     font: false,
+    typography: false,
     case: false,
     layout: false,
+    sections: false,
+    links: false,
     terminal: false,
     motion: false,
     shadow: false,
@@ -116,8 +130,11 @@ export function StyleSettingsDrawer() {
   React.useEffect(() => {
     const savedPalette = localStorage.getItem(STORAGE_KEYS.palette) ?? "signal";
     const savedFont = localStorage.getItem(STORAGE_KEYS.font) ?? "studio";
+    const savedTypography = localStorage.getItem(STORAGE_KEYS.typography) ?? "balanced";
     const savedCase = localStorage.getItem(STORAGE_KEYS.case) ?? "title";
     const savedMotion = localStorage.getItem(STORAGE_KEYS.motion) ?? "calm";
+    const savedSection = localStorage.getItem(STORAGE_KEYS.section) ?? "stacked";
+    const savedLink = localStorage.getItem(STORAGE_KEYS.link) ?? "clean";
     const savedBlur = localStorage.getItem(STORAGE_KEYS.blur) ?? "soft";
     const savedRadius = localStorage.getItem(STORAGE_KEYS.radius) ?? "soft";
     const savedShadow = localStorage.getItem(STORAGE_KEYS.shadow) ?? "soft";
@@ -133,8 +150,11 @@ export function StyleSettingsDrawer() {
 
     setPalette(savedPalette as (typeof palettes)[number]["id"]);
     setFont(savedFont as (typeof fontSets)[number]["id"]);
+    setTypography(savedTypography as (typeof typographySets)[number]["id"]);
     setCaseStyle(savedCase as (typeof caseSets)[number]["id"]);
     setMotion(savedMotion as (typeof motionSets)[number]["id"]);
+    setSection(savedSection as (typeof sectionSets)[number]["id"]);
+    setLink(savedLink as (typeof linkSets)[number]["id"]);
     setBlur(savedBlur as (typeof blurSets)[number]["id"]);
     setRadius(savedRadius as (typeof radiusSets)[number]["id"]);
     setShadow(savedShadow as (typeof shadowSets)[number]["id"]);
@@ -153,7 +173,10 @@ export function StyleSettingsDrawer() {
       Object.entries(item.values).every(([key, value]) => {
         if (key === "palette") return value === savedPalette;
         if (key === "font") return value === savedFont;
+        if (key === "typography") return value === savedTypography;
         if (key === "motion") return value === savedMotion;
+        if (key === "section") return value === savedSection;
+        if (key === "link") return value === savedLink;
         if (key === "case") return value === savedCase;
         if (key === "blur") return value === savedBlur;
         if (key === "radius") return value === savedRadius;
@@ -176,8 +199,11 @@ export function StyleSettingsDrawer() {
 
     setRootData("palette", savedPalette);
     setRootData("font", savedFont);
+    setRootData("typography", savedTypography);
     setRootData("case", savedCase);
     setRootData("motion", savedMotion);
+    setRootData("section", savedSection);
+    setRootData("link", savedLink);
     setRootData("blur", savedBlur);
     setRootData("radius", savedRadius);
     setRootData("shadow", savedShadow);
@@ -213,6 +239,14 @@ export function StyleSettingsDrawer() {
     setRootData("font", value);
   };
 
+  const handleTypographyChange = (value: (typeof typographySets)[number]["id"]) => {
+    setTypography(value);
+    localStorage.setItem(STORAGE_KEYS.typography, value);
+    localStorage.setItem(STORAGE_KEYS.preset, "custom");
+    setPreset("custom");
+    setRootData("typography", value);
+  };
+
   const handleCaseChange = (value: (typeof caseSets)[number]["id"]) => {
     setCaseStyle(value);
     localStorage.setItem(STORAGE_KEYS.case, value);
@@ -227,6 +261,22 @@ export function StyleSettingsDrawer() {
     localStorage.setItem(STORAGE_KEYS.preset, "custom");
     setPreset("custom");
     setRootData("motion", value);
+  };
+
+  const handleSectionChange = (value: (typeof sectionSets)[number]["id"]) => {
+    setSection(value);
+    localStorage.setItem(STORAGE_KEYS.section, value);
+    localStorage.setItem(STORAGE_KEYS.preset, "custom");
+    setPreset("custom");
+    setRootData("section", value);
+  };
+
+  const handleLinkChange = (value: (typeof linkSets)[number]["id"]) => {
+    setLink(value);
+    localStorage.setItem(STORAGE_KEYS.link, value);
+    localStorage.setItem(STORAGE_KEYS.preset, "custom");
+    setPreset("custom");
+    setRootData("link", value);
   };
 
   const handleBlurChange = (value: (typeof blurSets)[number]["id"]) => {
@@ -308,8 +358,11 @@ export function StyleSettingsDrawer() {
     const { values } = selectedPreset;
     setPalette(values.palette);
     setFont(values.font);
+    setTypography(values.typography);
     setCaseStyle(values.case);
     setMotion(values.motion);
+    setSection(values.section);
+    setLink(values.link);
     setBlur(values.blur);
     setRadius(values.radius);
     setShadow(values.shadow);
@@ -322,8 +375,11 @@ export function StyleSettingsDrawer() {
 
     localStorage.setItem(STORAGE_KEYS.palette, values.palette);
     localStorage.setItem(STORAGE_KEYS.font, values.font);
+    localStorage.setItem(STORAGE_KEYS.typography, values.typography);
     localStorage.setItem(STORAGE_KEYS.case, values.case);
     localStorage.setItem(STORAGE_KEYS.motion, values.motion);
+    localStorage.setItem(STORAGE_KEYS.section, values.section);
+    localStorage.setItem(STORAGE_KEYS.link, values.link);
     localStorage.setItem(STORAGE_KEYS.blur, values.blur);
     localStorage.setItem(STORAGE_KEYS.radius, values.radius);
     localStorage.setItem(STORAGE_KEYS.shadow, values.shadow);
@@ -337,8 +393,11 @@ export function StyleSettingsDrawer() {
 
     setRootData("palette", values.palette);
     setRootData("font", values.font);
+    setRootData("typography", values.typography);
     setRootData("case", values.case);
     setRootData("motion", values.motion);
+    setRootData("section", values.section);
+    setRootData("link", values.link);
     setRootData("blur", values.blur);
     setRootData("radius", values.radius);
     setRootData("shadow", values.shadow);
@@ -353,8 +412,11 @@ export function StyleSettingsDrawer() {
 
   const selectedPalette = palettes.find((item) => item.id === palette)?.name ?? "";
   const selectedFont = fontSets.find((item) => item.id === font)?.name ?? "";
+  const selectedTypography = typographySets.find((item) => item.id === typography)?.name ?? "";
   const selectedCase = caseSets.find((item) => item.id === caseStyle)?.name ?? "";
   const selectedMotion = motionSets.find((item) => item.id === motion)?.name ?? "";
+  const selectedSection = sectionSets.find((item) => item.id === section)?.name ?? "";
+  const selectedLink = linkSets.find((item) => item.id === link)?.name ?? "";
   const selectedBlur = blurSets.find((item) => item.id === blur)?.name ?? "";
   const selectedRadius = radiusSets.find((item) => item.id === radius)?.name ?? "";
   const selectedShadow = shadowSets.find((item) => item.id === shadow)?.name ?? "";
@@ -553,6 +615,51 @@ export function StyleSettingsDrawer() {
             </div>
           </div>
 
+          <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3">
+            <button
+              type="button"
+              onClick={() => toggleSection("typography")}
+              aria-expanded={openSections.typography}
+              aria-controls="style-typography"
+              className="w-full text-left text-xs font-semibold text-muted-foreground flex items-center justify-between gap-3"
+            >
+              <span className="flex items-center gap-2 text-foreground">
+                <Gauge className="h-4 w-4" />
+                Typography
+              </span>
+              <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                {selectedTypography}
+                <ChevronRight
+                  className={cn(
+                    "h-3 w-3 text-muted-foreground transition-transform",
+                    openSections.typography ? "rotate-90" : ""
+                  )}
+                />
+              </span>
+            </button>
+            <div
+              id="style-typography"
+              className={cn("mt-3 space-y-2", openSections.typography ? "block" : "hidden")}
+            >
+              {typographySets.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleTypographyChange(item.id)}
+                  className={cn(
+                    "w-full rounded-xl border px-3 py-2 text-left transition-colors",
+                    typography === item.id
+                      ? "border-foreground bg-muted text-foreground"
+                      : "border-border bg-background hover:bg-muted"
+                  )}
+                >
+                  <p className="text-sm font-medium">{item.name}</p>
+                  <p className="text-xs text-muted-foreground">{item.description}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="grid gap-3 sm:grid-cols-2 items-start">
             <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3 self-start">
               <button
@@ -627,6 +734,90 @@ export function StyleSettingsDrawer() {
                     className={cn(
                       "rounded-xl border px-3 py-2 text-left transition-colors",
                       layout === item.id
+                        ? "border-foreground bg-muted text-foreground"
+                        : "border-border bg-background hover:bg-muted"
+                    )}
+                  >
+                    <p className="text-sm font-medium">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3 self-start">
+              <button
+                type="button"
+                onClick={() => toggleSection("sections")}
+                aria-expanded={openSections.sections}
+                aria-controls="style-sections"
+                className="w-full text-left text-xs font-semibold text-muted-foreground flex items-center justify-between gap-3"
+              >
+                <span className="flex items-center gap-2 text-foreground">
+                  <Columns3 className="h-4 w-4" />
+                  Sections
+                </span>
+                <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                  {selectedSection}
+                  <ChevronRight
+                    className={cn(
+                      "h-3 w-3 text-muted-foreground transition-transform",
+                      openSections.sections ? "rotate-90" : ""
+                    )}
+                  />
+                </span>
+              </button>
+              <div id="style-sections" className={cn("mt-3 grid gap-2", openSections.sections ? "grid" : "hidden")}>
+                {sectionSets.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleSectionChange(item.id)}
+                    className={cn(
+                      "rounded-xl border px-3 py-2 text-left transition-colors",
+                      section === item.id
+                        ? "border-foreground bg-muted text-foreground"
+                        : "border-border bg-background hover:bg-muted"
+                    )}
+                  >
+                    <p className="text-sm font-medium">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3 self-start">
+              <button
+                type="button"
+                onClick={() => toggleSection("links")}
+                aria-expanded={openSections.links}
+                aria-controls="style-links"
+                className="w-full text-left text-xs font-semibold text-muted-foreground flex items-center justify-between gap-3"
+              >
+                <span className="flex items-center gap-2 text-foreground">
+                  <Link className="h-4 w-4" />
+                  Links
+                </span>
+                <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                  {selectedLink}
+                  <ChevronRight
+                    className={cn(
+                      "h-3 w-3 text-muted-foreground transition-transform",
+                      openSections.links ? "rotate-90" : ""
+                    )}
+                  />
+                </span>
+              </button>
+              <div id="style-links" className={cn("mt-3 grid gap-2", openSections.links ? "grid" : "hidden")}>
+                {linkSets.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleLinkChange(item.id)}
+                    className={cn(
+                      "rounded-xl border px-3 py-2 text-left transition-colors",
+                      link === item.id
                         ? "border-foreground bg-muted text-foreground"
                         : "border-border bg-background hover:bg-muted"
                     )}
