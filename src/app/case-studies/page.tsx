@@ -127,7 +127,7 @@ export default function CaseStudiesPage() {
               ))}
             </div>
             {project.liveLink && (
-              <Link href={project.liveLink} className="mt-4 inline-block text-sm text-primary font-medium hover:underline">
+              <Link href={project.liveLink} className="mt-4 inline-block text-sm ui-link">
                 View live project
               </Link>
             )}
