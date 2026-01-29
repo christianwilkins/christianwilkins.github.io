@@ -61,7 +61,7 @@ export default function Home() {
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         I&apos;ve done a lot of building recently. Check out my{" "}
-        <Link href="/projects" className="text-primary hover:underline font-medium">
+        <Link href="/projects" className="ui-link">
           projects
         </Link>
         .
@@ -74,7 +74,7 @@ export default function Home() {
         </Button>
       </div>
       <div className="mt-8 space-y-6">
-        <section className="space-y-3">
+        <section className="ui-section space-y-3">
           <h2 className="ui-label text-xl font-semibold font-heading">Current focus</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
             <li>Agent-assisted product workflows and rapid prototyping.</li>
@@ -82,16 +82,16 @@ export default function Home() {
             <li>Shipping production work in Next.js, React, and modern tooling.</li>
           </ul>
         </section>
-        <section className="space-y-2">
+        <section className="ui-section space-y-2">
           <h2 className="ui-label text-xl font-semibold font-heading">Explore</h2>
           <div className="flex flex-wrap gap-3 text-sm">
-            <Link href="/services" className="text-primary font-medium hover:underline">
+            <Link href="/services" className="ui-link">
               Services
             </Link>
-            <Link href="/case-studies" className="text-primary font-medium hover:underline">
+            <Link href="/case-studies" className="ui-link">
               Case studies
             </Link>
-            <Link href="/consulting" className="text-primary font-medium hover:underline">
+            <Link href="/consulting" className="ui-link">
               Consulting
             </Link>
           </div>
