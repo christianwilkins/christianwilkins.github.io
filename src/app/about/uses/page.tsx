@@ -94,18 +94,18 @@ export default function UsesPage() {
         ))}
       </section>
 
-      <section className="space-y-3">
+      <section className="ui-section space-y-3">
         <p className="text-sm sm:text-base text-muted-foreground">
           I keep this list short and update it as my workflows change.
         </p>
         <div className="flex flex-wrap gap-3 text-sm">
-          <Link href="/resources" className="text-primary font-medium hover:underline">
+          <Link href="/resources" className="ui-link">
             Resources
           </Link>
-          <Link href="/about" className="text-primary font-medium hover:underline">
+          <Link href="/about" className="ui-link">
             About
           </Link>
-          <Link href="/contact" className="text-primary font-medium hover:underline">
+          <Link href="/contact" className="ui-link">
             Contact
           </Link>
         </div>
