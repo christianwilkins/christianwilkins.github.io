@@ -70,23 +70,23 @@ export function StyleSettingsDrawer() {
   const { resolvedTheme } = useTheme();
   const [open, setOpen] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(false);
-  const [preset, setPreset] = React.useState<PresetId>("signal");
-  const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("signal");
-  const [font, setFont] = React.useState<(typeof fontSets)[number]["id"]>("studio");
-  const [typography, setTypography] = React.useState<(typeof typographySets)[number]["id"]>("balanced");
+  const [preset, setPreset] = React.useState<PresetId>("chimero");
+  const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("chimero");
+  const [font, setFont] = React.useState<(typeof fontSets)[number]["id"]>("chimero");
+  const [typography, setTypography] = React.useState<(typeof typographySets)[number]["id"]>("editorial");
   const [caseStyle, setCaseStyle] = React.useState<(typeof caseSets)[number]["id"]>("title");
-  const [motion, setMotion] = React.useState<(typeof motionSets)[number]["id"]>("calm");
-  const [section, setSection] = React.useState<(typeof sectionSets)[number]["id"]>("stacked");
-  const [link, setLink] = React.useState<(typeof linkSets)[number]["id"]>("clean");
-  const [blur, setBlur] = React.useState<(typeof blurSets)[number]["id"]>("soft");
-  const [radius, setRadius] = React.useState<(typeof radiusSets)[number]["id"]>("soft");
-  const [shadow, setShadow] = React.useState<(typeof shadowSets)[number]["id"]>("soft");
-  const [density, setDensity] = React.useState<(typeof densitySets)[number]["id"]>("standard");
+  const [motion, setMotion] = React.useState<(typeof motionSets)[number]["id"]>("still");
+  const [section, setSection] = React.useState<(typeof sectionSets)[number]["id"]>("chimero");
+  const [link, setLink] = React.useState<(typeof linkSets)[number]["id"]>("underline");
+  const [blur, setBlur] = React.useState<(typeof blurSets)[number]["id"]>("off");
+  const [radius, setRadius] = React.useState<(typeof radiusSets)[number]["id"]>("sharp");
+  const [shadow, setShadow] = React.useState<(typeof shadowSets)[number]["id"]>("none");
+  const [density, setDensity] = React.useState<(typeof densitySets)[number]["id"]>("roomy");
   const [ambient, setAmbient] = React.useState<(typeof ambientSets)[number]["id"]>("off");
   const [layout, setLayout] = React.useState<(typeof layoutSets)[number]["id"]>("classic");
-  const [terminal, setTerminal] = React.useState<(typeof terminalSets)[number]["id"]>("dawn");
-  const [align, setAlign] = React.useState<(typeof alignSets)[number]["id"]>("center");
-  const [nav, setNav] = React.useState<(typeof navSets)[number]["id"]>("sidebar");
+  const [terminal, setTerminal] = React.useState<(typeof terminalSets)[number]["id"]>("noir");
+  const [align, setAlign] = React.useState<(typeof alignSets)[number]["id"]>("wide");
+  const [nav, setNav] = React.useState<(typeof navSets)[number]["id"]>("top");
   const [openSections, setOpenSections] = React.useState<Record<SectionKey, boolean>>({
     presets: false,
     colorway: false,
@@ -128,25 +128,25 @@ export function StyleSettingsDrawer() {
   }, []);
 
   React.useEffect(() => {
-    const savedPalette = localStorage.getItem(STORAGE_KEYS.palette) ?? "signal";
-    const savedFont = localStorage.getItem(STORAGE_KEYS.font) ?? "studio";
-    const savedTypography = localStorage.getItem(STORAGE_KEYS.typography) ?? "balanced";
+    const savedPalette = localStorage.getItem(STORAGE_KEYS.palette) ?? "chimero";
+    const savedFont = localStorage.getItem(STORAGE_KEYS.font) ?? "chimero";
+    const savedTypography = localStorage.getItem(STORAGE_KEYS.typography) ?? "editorial";
     const savedCase = localStorage.getItem(STORAGE_KEYS.case) ?? "title";
-    const savedMotion = localStorage.getItem(STORAGE_KEYS.motion) ?? "calm";
-    const savedSection = localStorage.getItem(STORAGE_KEYS.section) ?? "stacked";
-    const savedLink = localStorage.getItem(STORAGE_KEYS.link) ?? "clean";
-    const savedBlur = localStorage.getItem(STORAGE_KEYS.blur) ?? "soft";
-    const savedRadius = localStorage.getItem(STORAGE_KEYS.radius) ?? "soft";
-    const savedShadow = localStorage.getItem(STORAGE_KEYS.shadow) ?? "soft";
-    const savedDensity = localStorage.getItem(STORAGE_KEYS.density) ?? "standard";
+    const savedMotion = localStorage.getItem(STORAGE_KEYS.motion) ?? "still";
+    const savedSection = localStorage.getItem(STORAGE_KEYS.section) ?? "chimero";
+    const savedLink = localStorage.getItem(STORAGE_KEYS.link) ?? "underline";
+    const savedBlur = localStorage.getItem(STORAGE_KEYS.blur) ?? "off";
+    const savedRadius = localStorage.getItem(STORAGE_KEYS.radius) ?? "sharp";
+    const savedShadow = localStorage.getItem(STORAGE_KEYS.shadow) ?? "none";
+    const savedDensity = localStorage.getItem(STORAGE_KEYS.density) ?? "roomy";
     const savedAmbient = localStorage.getItem(STORAGE_KEYS.ambient) ?? "off";
     const savedLayout = localStorage.getItem(STORAGE_KEYS.layout) ?? "classic";
     const storedTerminal = localStorage.getItem(STORAGE_KEYS.terminal);
-    const defaultTerminal = resolvedTheme === "light" ? "dawn" : "iterm";
+    const defaultTerminal = "noir";
     const savedTerminal = storedTerminal ?? defaultTerminal;
-    const savedAlign = localStorage.getItem(STORAGE_KEYS.align) ?? "center";
-    const savedNav = localStorage.getItem(STORAGE_KEYS.nav) ?? "sidebar";
-    const savedPreset = (localStorage.getItem(STORAGE_KEYS.preset) ?? "custom") as PresetId;
+    const savedAlign = localStorage.getItem(STORAGE_KEYS.align) ?? "wide";
+    const savedNav = localStorage.getItem(STORAGE_KEYS.nav) ?? "top";
+    const savedPreset = (localStorage.getItem(STORAGE_KEYS.preset) ?? "chimero") as PresetId;
 
     setPalette(savedPalette as (typeof palettes)[number]["id"]);
     setFont(savedFont as (typeof fontSets)[number]["id"]);
