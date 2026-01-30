@@ -80,9 +80,9 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
   const [activeModuleId, setActiveModuleId] = React.useState(terminalModules[0]?.id ?? "navigator");
   const [historyIndex, setHistoryIndex] = React.useState<number | null>(null);
   const [styleSnapshot, setStyleSnapshot] = React.useState({
-    palette: "signal",
+    palette: "chimero",
     layout: "classic",
-    nav: "sidebar",
+    nav: "top",
   });
   const inputRef = React.useRef<HTMLInputElement>(null);
   const endRef = React.useRef<HTMLDivElement>(null);
@@ -128,9 +128,9 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
     if (typeof document === "undefined") return;
     const { palette, layout, nav } = document.documentElement.dataset;
     setStyleSnapshot({
-      palette: palette ?? "signal",
+      palette: palette ?? "chimero",
       layout: layout ?? "classic",
-      nav: nav ?? "sidebar",
+      nav: nav ?? "top",
     });
   }, []);
 
