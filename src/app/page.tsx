@@ -62,16 +62,12 @@ export default function Home() {
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         Explore my{" "}
-        <Link href="/services" className="ui-link">
-          services
+        <Link href="/consulting" className="ui-link">
+          consulting
         </Link>
-        ,{" "}
-        <Link href="/case-studies" className="ui-link">
-          case studies
-        </Link>
-        , or{" "}
+        and{" "}
         <Link href="/projects" className="ui-link">
-          projects
+          project work
         </Link>
         .
       </p>
@@ -94,14 +90,11 @@ export default function Home() {
         <section className="ui-section space-y-2">
           <h2 className="ui-label text-xl font-semibold font-heading">Explore</h2>
           <div className="flex flex-wrap gap-3 text-sm">
-            <Link href="/services" className="ui-link">
-              Services
-            </Link>
-            <Link href="/case-studies" className="ui-link">
-              Case studies
-            </Link>
             <Link href="/consulting" className="ui-link">
               Consulting
+            </Link>
+            <Link href="/projects" className="ui-link">
+              Projects
             </Link>
           </div>
         </section>
