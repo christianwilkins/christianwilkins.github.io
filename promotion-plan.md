@@ -20,5 +20,5 @@
 - Example format:
   - Christian Wilkins
   - Software Consultant & Engineer
-  - https://christianwilkins.github.io
+  - https://chriswiki.com
   - Book a Call: https://cal.com/christianwilkins/book?duration=15

@@ -49,18 +49,27 @@ export default function Home() {
   return (
     <div className="animate-rise-in">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
-      <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">About</h1>
+      <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">
+        Software consulting for modern startups
+      </h1>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m a software consultant and engineer focused on startups and product design. Based in the
-        United States<span className="hidden sm:inline"> and a United States citizen</span>.
+        I&apos;m a software consultant and product engineer helping early-stage and growth teams ship polished
+        web products fast. Based in the United States<span className="hidden sm:inline"> and a United States citizen</span>.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m currently interested in building with AI agents and pushing new workflows
-        for AI integration across the stack.
-        <span className="hidden sm:inline"> I also focus on design and software consulting.</span>
+        I focus on design systems, front-end architecture, and AI workflow automation that keeps teams moving
+        without sacrificing quality.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;ve done a lot of building recently. Check out my{" "}
+        Explore my{" "}
+        <Link href="/services" className="ui-link">
+          services
+        </Link>
+        ,{" "}
+        <Link href="/case-studies" className="ui-link">
+          case studies
+        </Link>
+        , or{" "}
         <Link href="/projects" className="ui-link">
           projects
         </Link>
@@ -77,9 +86,9 @@ export default function Home() {
         <section className="ui-section space-y-3">
           <h2 className="ui-label text-xl font-semibold font-heading">Current focus</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
-            <li>Agent-assisted product workflows and rapid prototyping.</li>
+            <li>Rapid product audits and 2–6 week delivery plans.</li>
             <li>Design systems and UI architecture for fast-moving teams.</li>
-            <li>Shipping production work in Next.js, React, and modern tooling.</li>
+            <li>AI workflow automation and production-ready Next.js delivery.</li>
           </ul>
         </section>
         <section className="ui-section space-y-2">
