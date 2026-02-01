@@ -27,7 +27,7 @@ export function Sidebar() {
                     </Link>
                     <h1 className="sidebar-role m-0 leading-[1.05] p-0 text-xl font-normal font-heading">
                         <span className="sidebar-role-part">Software</span>
-                        <span className="sidebar-role-part">Engineer</span>
+                        <span className="sidebar-role-part">Consultant</span>
                     </h1>
                 </div>
                 <nav className="flex flex-col gap-4 mt-8">
