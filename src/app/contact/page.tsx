@@ -88,7 +88,7 @@ export default function Contact() {
       <p className="mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed">
         Feel free to reach out and connect with me. <br /> <br />
         <span className="hidden sm:inline text-sm text-muted-foreground">
-          (Do not book a call without prior communication)
+          (Prefer to start with email? Send a short note and we can book if it&apos;s a fit.)
         </span>
       </p>
       <div className="mb-6 sm:mb-8 space-y-3">

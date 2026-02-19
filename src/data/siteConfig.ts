@@ -5,7 +5,7 @@ export const siteConfig = {
     "Portfolio of Christian Wilkins. Software consultancy for startups, freelance product design, and hiring support for top CS candidates in the United States.",
   shortDescription:
     "Christian Wilkins is a software consultant and engineer focused on startups, freelance product design, and hiring support for top CS candidates in the United States.",
-  url: "https://christianwilkins.github.io",
+  url: "https://chriswiki.com",
   locale: "en_US",
   twitterHandle: "@christian_wilki",
   keywords: [
