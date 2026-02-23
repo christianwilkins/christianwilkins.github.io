@@ -222,7 +222,7 @@ export const presets = [
       density: "roomy",
       ambient: "off",
       layout: "classic",
-      align: "left",
+      align: "center",
       nav: "top",
       case: "title",
       terminal: "paper",
