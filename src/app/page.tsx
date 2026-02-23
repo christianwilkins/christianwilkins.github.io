@@ -64,7 +64,7 @@ export default function Home() {
         Explore my{" "}
         <Link href="/consulting" className="ui-link">
           consulting
-        </Link>
+        </Link>{" "}
         and{" "}
         <Link href="/projects" className="ui-link">
           project work
