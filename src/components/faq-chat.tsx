@@ -200,12 +200,12 @@ export function FAQChat() {
     };
 
     return (
-        <div className="flex flex-col h-[600px] w-full max-w-2xl border rounded-lg overflow-hidden bg-card shadow-soft animate-rise-in">
+        <div className="flex h-[min(72dvh,600px)] w-full max-w-2xl flex-col overflow-hidden rounded-lg border bg-card shadow-soft animate-rise-in sm:h-[600px]">
             <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={messagesContainerRef}>
                 {messages.map((message) => (
                     <div key={message.id} className={cn("flex flex-col animate-rise-in", message.sender === "user" ? "items-end" : "items-start")}>
                         <div className={cn(
-                            "max-w-[80%] p-3 rounded-lg text-sm",
+                            "max-w-[92%] rounded-lg p-3 text-sm sm:max-w-[80%]",
                             message.sender === "user"
                                 ? "bg-primary text-primary-foreground rounded-br-none"
                                 : "bg-muted text-muted-foreground rounded-bl-none"
@@ -233,7 +233,7 @@ export function FAQChat() {
                 ))}
             </div>
 
-            <form onSubmit={handleInputSubmit} className="p-4 border-t bg-background flex gap-2">
+            <form onSubmit={handleInputSubmit} className="flex flex-col gap-2 border-t bg-background p-3 sm:flex-row sm:p-4">
                 <Input
                     type="text"
                     value={inputValue}
@@ -242,7 +242,7 @@ export function FAQChat() {
                     className="flex-1"
                     disabled={isStreaming}
                 />
-                <Button type="submit" disabled={isStreaming}>
+                <Button type="submit" disabled={isStreaming} className="w-full sm:w-auto">
                     {isStreaming ? "..." : "Send"}
                 </Button>
                 <Button
@@ -250,6 +250,7 @@ export function FAQChat() {
                     variant="secondary"
                     onClick={handleStartOver}
                     disabled={isStreaming}
+                    className="w-full sm:w-auto"
                 >
                     Start Over
                 </Button>
