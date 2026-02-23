@@ -907,3 +907,17 @@
     --section-divider-spacing: 1rem;
   }
 }
+
+@media (max-width: 767px) {
+  :root {
+    --content-width: 100%;
+    --content-margin-left: 0;
+    --content-margin-right: 0;
+    --layout-card-padding: clamp(1rem, 4vw, 1.35rem);
+    --section-display: block;
+    --section-columns: 1fr;
+    --section-gap: 0;
+    --section-row-gap: 0.9rem;
+    --section-divider-spacing: 1rem;
+  }
+}
