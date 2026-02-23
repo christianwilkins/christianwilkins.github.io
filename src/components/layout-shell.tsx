@@ -36,18 +36,18 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             <div className="layout-shell flex min-h-screen">
                 <Sidebar />
 
-                <div className="layout-main flex-1 flex flex-col min-h-screen transition-all duration-300">
+                <div className="layout-main flex-1 min-w-0 flex flex-col min-h-screen transition-all duration-300">
                     <MobileHeader />
                     <HamburgerMenu isVisible={true} />
                     <StyleSettingsDrawer />
 
                     <main className={cn(
-                        "flex-1 page-shell flex flex-col animate-fade-in",
+                        "flex-1 page-shell flex flex-col animate-fade-in overflow-x-hidden",
                         !isLab && "justify-center items-center",
                         isMobile && "mobile-content-offset"
                     )}>
                         <div className={cn(
-                            "layout-content animate-rise-in",
+                            "layout-content min-w-0 animate-rise-in",
                             isLab && "layout-content-lab",
                             isProjects && "max-w-3xl"
                         )}>
