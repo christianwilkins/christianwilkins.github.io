@@ -659,9 +659,9 @@
 }
 
 :root[data-palette="amodei"] {
-  --content-width: 36rem;
-  --nav-link-padding-y: 0.15rem;
-  --nav-link-padding-x: 0.35rem;
+  --content-width: 46rem;
+  --nav-link-padding-y: 0.3rem;
+  --nav-link-padding-x: 0.6rem;
   --nav-link-radius: 0.35rem;
   --nav-link-border: 1px solid transparent;
   --nav-link-bg: transparent;
