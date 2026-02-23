@@ -61,15 +61,8 @@ export default function Home() {
         without sacrificing quality.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        Explore my{" "}
-        <Link href="/consulting" className="ui-link">
-          consulting
-        </Link>{" "}
-        and{" "}
-        <Link href="/projects" className="ui-link">
-          project work
-        </Link>
-        .
+        Explore my <Link href="/consulting" className="ui-link">consulting</Link>{" and "}
+        <Link href="/projects" className="ui-link">project work</Link>.
       </p>
       <div className="mt-6">
         <Button asChild size="lg">
