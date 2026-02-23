@@ -434,18 +434,19 @@ export function StyleSettingsDrawer() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[1100]">
+    <div className="fixed bottom-4 right-4 z-[1100] sm:bottom-6 sm:right-6">
       <button
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "style-trigger flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold",
+          "style-trigger flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold sm:px-4",
           open && "opacity-0 pointer-events-none"
         )}
         aria-label="Open style settings"
       >
         <SlidersHorizontal className="h-4 w-4" />
-        Style me!
+        <span className="hidden sm:inline">Style me!</span>
+        <span className="sm:hidden">Style</span>
       </button>
 
       <div
@@ -461,7 +462,7 @@ export function StyleSettingsDrawer() {
         role="dialog"
         aria-label="Style settings"
         className={cn(
-          "fixed left-4 right-4 bottom-4 w-auto max-w-[92vw] rounded-2xl border text-card-foreground shadow-deep max-h-[80vh] flex flex-col sm:left-auto sm:right-6 sm:bottom-6 sm:w-[420px]",
+          "fixed inset-x-2 bottom-2 w-auto rounded-2xl border text-card-foreground shadow-deep max-h-[82dvh] flex flex-col sm:inset-x-auto sm:left-auto sm:right-6 sm:bottom-6 sm:w-[420px] sm:max-h-[80vh]",
           "surface-panel",
           "transition-all duration-300",
           open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
