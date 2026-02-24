@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowRight, Beaker, BookOpenText, Bot, Compass, Layers3, MessageSquareText, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/data/siteConfig";
 
-const labDescription = "The Lab by Christian Wilkins, experiments in product design, UI systems, and new workflows.";
+const labDescription = "The Lab by Christian Wilkins: real experiments in system design, tooling, and agentic product workflows.";
 
 export const metadata: Metadata = {
   title: "The Lab | Christian Wilkins",
   description: labDescription,
-  keywords: [...siteConfig.keywords, "product design experiments", "ui systems lab"],
+  keywords: [...siteConfig.keywords, "agentic engineering", "system design lab", "product experiments"],
   alternates: {
     canonical: `${siteConfig.url}/lab`,
   },
@@ -28,203 +28,133 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "The Lab | Christian Wilkins",
-    description: labDescription,
-    images: [siteConfig.image],
+};
+
+type LabNode = {
+  title: string;
+  href: string;
+  description: string;
+  state: "live" | "beta" | "building";
+  icon: React.ComponentType<{ className?: string }>;
+  note: string;
+};
+
+const nodes: LabNode[] = [
+  {
+    title: "Learning Hub",
+    href: "/lab/learning",
+    description: "Curriculum modules for system design, prompting, and agentic execution.",
+    state: "live",
+    icon: Compass,
+    note: "Start here",
   },
+  {
+    title: "The Library",
+    href: "/lab/books",
+    description: "Private, cloud synced reading workflows for PDFs and EPUBs.",
+    state: "beta",
+    icon: BookOpenText,
+    note: "Reader system",
+  },
+  {
+    title: "ChrisWiki OS",
+    href: "/terminal",
+    description: "Command driven shell for routing, tooling, and style control.",
+    state: "live",
+    icon: Bot,
+    note: "Power surface",
+  },
+  {
+    title: "Supabase Tester",
+    href: "/lab/supabase-tester",
+    description: "Exposure checks for endpoints, table access, and write paths.",
+    state: "live",
+    icon: ShieldCheck,
+    note: "Security probe",
+  },
+  {
+    title: "FAQ",
+    href: "/lab/faq",
+    description: "Interactive profile Q and A with conversational context.",
+    state: "building",
+    icon: MessageSquareText,
+    note: "Utility",
+  },
+];
+
+const stateClass = {
+  live: "status-chip status-live",
+  beta: "status-chip status-beta",
+  building: "status-chip status-prototype",
 };
 
 export default function LabPage() {
-  const labSchema = {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "The Lab",
     description: labDescription,
     url: `${siteConfig.url}/lab`,
-    about: {
-      "@type": "Person",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    hasPart: [
-      {
-        "@type": "CreativeWork",
-        name: "The Library",
-        url: `${siteConfig.url}/lab/books`,
-        description: "A private, cloud-synced book reader for PDFs and EPUBs.",
-      },
-      {
-        "@type": "CreativeWork",
-        name: "Learning Hub",
-        url: `${siteConfig.url}/lab/learning`,
-        description: "A shelf for experiments in UI systems, state models, and interaction design.",
-      },
-      {
-        "@type": "CreativeWork",
-        name: "FAQ",
-        url: `${siteConfig.url}/lab/faq`,
-        description: "A quick interactive guide to learn more about me.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        name: "Supabase Tester",
-        url: `${siteConfig.url}/lab/supabase-tester`,
-        description: "Supabase exposure explorer for endpoints, tables, and write permissions.",
-        applicationCategory: "DeveloperApplication",
-      },
-      {
-        "@type": "SoftwareApplication",
-        name: "ChrisWiki OS",
-        url: `${siteConfig.url}/terminal`,
-        description: "Command driven terminal with live routing and style control.",
-        applicationCategory: "DeveloperApplication",
-      },
-    ],
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteConfig.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Lab",
-        item: `${siteConfig.url}/lab`,
-      },
-    ],
   };
 
   return (
-    <div className="min-h-screen p-6 md:p-12 lg:p-24 space-y-12 animate-rise-in">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(labSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <header className="space-y-4 max-w-2xl">
-        <div className="flex items-center gap-4">
-          <span className="h-2.5 w-2.5 rounded-full bg-primary/70" aria-hidden="true" />
-          <h1 className="ui-label text-4xl font-bold tracking-tight font-heading">The Lab</h1>
-        </div>
-        <p className="text-xl text-muted-foreground leading-relaxed">
-          A collection of experimental tools, features, and ideas.
-          Some are useful, some are just for fun. All are built by me.
-        </p>
-      </header>
+    <div className="relative min-h-screen px-5 py-10 md:px-10 lg:px-16 animate-rise-in">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Link href="/lab/books" className="group block h-full">
-          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
-                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">Beta</Badge>
-              </div>
-              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">The Library</CardTitle>
-              <CardDescription className="text-base mt-2">
-                A private, cloud-synced book reader for PDFs and EPUBs.
-                Tracks progress across devices.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
-                Enter Library <ArrowRight className="ml-2 h-4 w-4" />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
+      <div className="pointer-events-none absolute -top-16 left-10 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-24 h-72 w-72 rounded-full bg-muted/40 blur-3xl" />
 
-        <Link href="/lab/learning" className="group block h-full">
-          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
-                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">New</Badge>
-              </div>
-              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">Learning Hub</CardTitle>
-              <CardDescription className="text-base mt-2">
-                A shelf for experiments in UI systems, state models, and interaction design.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
-                Explore Modules <ArrowRight className="ml-2 h-4 w-4" />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
+      <div className="relative z-10 mx-auto w-full max-w-6xl space-y-10">
+        <header className="rounded-3xl border border-border/70 bg-card/55 p-6 md:p-8">
+          <div className="flex flex-wrap items-center gap-2 text-primary">
+            <Beaker className="h-6 w-6" />
+            <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">The Lab</span>
+          </div>
+          <h1 className="mt-4 ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">Build surface, not just demos</h1>
+          <p className="mt-4 max-w-4xl text-lg text-muted-foreground leading-relaxed">
+            This is where I run product experiments that need to survive real use.
+            Every module is part of a larger operating system for shipping fast without losing quality.
+          </p>
+        </header>
 
-        <Link href="/lab/faq" className="group block h-full">
-          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
-                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">Info</Badge>
-              </div>
-              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">FAQ</CardTitle>
-              <CardDescription className="text-base mt-2">
-                A quick interactive guide to learn more about me.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
-                Start Chat <ArrowRight className="ml-2 h-4 w-4" />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {nodes.map((node) => {
+            const Icon = node.icon;
+            return (
+              <Link key={node.title} href={node.href} className="group block h-full">
+                <Card className="h-full border-border/70 bg-card/60 transition-all duration-300 hover:border-foreground/30 hover:shadow-deep">
+                  <CardHeader className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="inline-flex items-center rounded-full border border-border/70 p-2 text-muted-foreground">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <Badge variant="outline" className={stateClass[node.state]}>
+                        {node.state}
+                      </Badge>
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl group-hover:text-primary transition-colors">{node.title}</CardTitle>
+                      <CardDescription className="mt-2 text-base leading-relaxed">{node.description}</CardDescription>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">{node.note}</span>
+                    <span className="inline-flex items-center gap-1 text-primary transition-transform group-hover:translate-x-1">
+                      Enter <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
+        </section>
 
-        <Link href="/lab/supabase-tester" className="group block h-full">
-          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
-                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">New</Badge>
-              </div>
-              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">Supabase Tester</CardTitle>
-              <CardDescription className="text-base mt-2">
-                Inspect Supabase endpoints, tables, and write permissions in one workspace.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
-                Open Tester <ArrowRight className="ml-2 h-4 w-4" />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link href="/terminal" className="group block h-full">
-          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
-                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">New</Badge>
-              </div>
-              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">ChrisWiki OS</CardTitle>
-              <CardDescription className="text-base mt-2">
-                Command driven terminal with live routing and style control.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
-                Launch Terminal <ArrowRight className="ml-2 h-4 w-4" />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Card className="h-full border-dashed bg-muted/10 flex items-center justify-center min-h-[250px] hover:bg-muted/20 transition-colors">
-          <CardContent className="text-center">
-            <p className="text-sm font-medium text-muted-foreground">More coming soon...</p>
-          </CardContent>
-        </Card>
+        <section className="rounded-3xl border border-dashed border-border/70 bg-muted/20 p-6">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <Layers3 className="h-4 w-4" />
+            <span>Principle: English is the control plane. Architecture is the moat. Automation is leverage.</span>
+          </div>
+        </section>
       </div>
     </div>
   );
