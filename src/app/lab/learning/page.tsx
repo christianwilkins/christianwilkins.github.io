@@ -2,13 +2,16 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ArrowLeft, ArrowUpRight, Layers, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Compass, Layers3, Orbit } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { learningModules, type LearningModule } from "@/data/learningModules";
 import { siteConfig } from "@/data/siteConfig";
+
+const learningDescription =
+  "Learning Hub experiments in systems thinking, agentic workflows, and product execution for modern builders.";
 
 const statusLabel: Record<LearningModule["status"], string> = {
   live: "Live",
@@ -24,35 +27,42 @@ const statusStyles: Record<LearningModule["status"], string> = {
   planned: "status-chip status-planned",
 };
 
-const learningDescription = "Learning Hub experiments in UI systems, state models, and interaction design.";
+const trackLabel: Record<NonNullable<LearningModule["track"]>, string> = {
+  foundation: "Foundation",
+  systems: "Systems",
+  product: "Product",
+  execution: "Execution",
+};
 
-function ModuleCard({ module }: { module: LearningModule }) {
-  const card = (
+function ModuleTile({ module }: { module: LearningModule }) {
+  const body = (
     <Card
       className={cn(
-        "h-full transition-all duration-300 hover:border-foreground/30 hover:shadow-deep bg-card/60",
-        !module.href && "opacity-80"
+        "h-full border-border/70 bg-card/60 transition-all duration-300 hover:border-foreground/30 hover:shadow-deep",
+        !module.href && "opacity-85",
       )}
     >
       <CardHeader className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <Badge variant="outline" className={cn("rounded-full", statusStyles[module.status])}>
             {statusLabel[module.status]}
           </Badge>
-          {module.href && (
-            <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+          {module.track && (
+            <Badge variant="secondary" className="rounded-full text-xs">
+              {trackLabel[module.track]}
+            </Badge>
           )}
         </div>
         <div>
-          <CardTitle className="text-2xl group-hover:text-primary transition-colors">
-            {module.title}
-          </CardTitle>
-          <CardDescription className="text-base mt-2">
-            {module.description}
-          </CardDescription>
+          <CardTitle className="text-xl leading-tight group-hover:text-primary transition-colors">{module.title}</CardTitle>
+          <CardDescription className="mt-2 text-sm leading-relaxed">{module.description}</CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-4">
+        <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+          {module.duration && <span className="rounded-full border border-border/70 px-2 py-1">{module.duration}</span>}
+          {module.level && <span className="rounded-full border border-border/70 px-2 py-1 capitalize">{module.level}</span>}
+        </div>
         <div className="flex flex-wrap gap-2">
           {module.topics.map((topic) => (
             <Badge key={topic} variant="outline" className="text-xs font-medium">
@@ -60,32 +70,26 @@ function ModuleCard({ module }: { module: LearningModule }) {
             </Badge>
           ))}
         </div>
-        <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-          {module.stack.map((item) => (
-            <span key={item} className="rounded-full border border-border/60 px-2 py-1">
-              {item}
-            </span>
-          ))}
-        </div>
+        {module.outcome && <p className="text-sm text-muted-foreground">Outcome: {module.outcome}</p>}
       </CardContent>
     </Card>
   );
 
   if (!module.href) {
-    return <div className="h-full">{card}</div>;
+    return <div className="group block h-full">{body}</div>;
   }
 
   if (module.href.startsWith("/")) {
     return (
       <Link href={module.href} className="group block h-full">
-        {card}
+        {body}
       </Link>
     );
   }
 
   return (
     <a href={module.href} className="group block h-full" target="_blank" rel="noreferrer">
-      {card}
+      {body}
     </a>
   );
 }
@@ -93,35 +97,33 @@ function ModuleCard({ module }: { module: LearningModule }) {
 export default function LearningPage() {
   const topics = useMemo(() => {
     const set = new Set<string>();
-    learningModules.forEach((module) => {
-      module.topics.forEach((topic) => set.add(topic));
-    });
+    learningModules.forEach((module) => module.topics.forEach((topic) => set.add(topic)));
     return ["All", ...Array.from(set).sort()];
   }, []);
 
   const [activeTopic, setActiveTopic] = useState("All");
 
-  const filteredModules = useMemo(() => {
-    if (activeTopic === "All") {
-      return learningModules;
-    }
+  const filtered = useMemo(() => {
+    if (activeTopic === "All") return learningModules;
     return learningModules.filter((module) => module.topics.includes(activeTopic));
   }, [activeTopic]);
 
-  const activeModules = filteredModules.filter((module) => module.status !== "planned");
-  const plannedModules = filteredModules.filter((module) => module.status === "planned");
+  const sorted = useMemo(() => {
+    const order: Record<LearningModule["status"], number> = {
+      live: 0,
+      beta: 1,
+      prototype: 2,
+      planned: 3,
+    };
+    return [...filtered].sort((a, b) => order[a.status] - order[b.status]);
+  }, [filtered]);
 
-  const learningSchema = {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Learning Hub",
     description: learningDescription,
     url: `${siteConfig.url}/lab/learning`,
-    isPartOf: {
-      "@type": "WebSite",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
   };
 
   const breadcrumbSchema = {
@@ -135,47 +137,45 @@ export default function LearningPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden px-6 py-10 md:px-10 lg:px-16 animate-rise-in">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningSchema) }} />
+    <div className="relative min-h-screen px-5 py-10 md:px-10 lg:px-16 animate-rise-in">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <div className="pointer-events-none absolute -top-40 right-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-muted/40 blur-3xl" />
 
-      <div className="relative z-10 space-y-10">
-        <div className="flex items-start justify-between gap-6">
-          <div className="space-y-6 max-w-3xl">
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/lab" aria-label="Back to The Lab">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
+      <div className="pointer-events-none absolute left-8 top-20 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute right-4 top-40 h-72 w-72 rounded-full bg-muted/30 blur-3xl" />
 
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-primary">
-                <Sparkles className="h-7 w-7" />
-                <span className="text-sm font-semibold text-muted-foreground">Learning hub</span>
-              </div>
-              <h1 className="ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                A modular shelf of experiments built while exploring UI systems, state models,
-                data storytelling, and interaction design. Each module can stand alone or connect into a larger narrative.
-              </p>
-            </div>
+      <div className="relative z-10 mx-auto w-full max-w-6xl space-y-10">
+        <Button variant="ghost" size="icon" asChild>
+          <Link href="/lab" aria-label="Back to The Lab">
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+        </Button>
+
+        <header className="rounded-3xl border border-border/70 bg-card/55 p-6 md:p-8">
+          <div className="flex flex-wrap items-center gap-3 text-primary">
+            <Orbit className="h-6 w-6" />
+            <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Module Atlas</span>
           </div>
-
-          <div className="hidden lg:flex flex-col gap-4 text-right">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 px-4 py-2 text-sm font-medium">
-              <Layers className="h-4 w-4" />
-              <span>{learningModules.length} modules tracked</span>
-            </div>
-            <div className="text-xs text-muted-foreground">
-              Add new modules in <span className="font-mono">src/data/learningModules.ts</span>
-            </div>
+          <h1 className="mt-4 ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
+          <p className="mt-4 max-w-4xl text-lg text-muted-foreground leading-relaxed">
+            A curated map of modules for the new engineering paradigm: systems first, prompting as leverage,
+            and execution quality that survives real production pressure.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <Badge variant="outline" className="rounded-full">{learningModules.length} modules</Badge>
+            <Badge variant="outline" className="rounded-full inline-flex items-center gap-1">
+              <Compass className="h-3.5 w-3.5" />
+              Language agnostic
+            </Badge>
+            <Badge variant="outline" className="rounded-full inline-flex items-center gap-1">
+              <Layers3 className="h-3.5 w-3.5" />
+              System design centered
+            </Badge>
           </div>
-        </div>
+        </header>
 
         <section className="space-y-4">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             {topics.map((topic) => (
               <Button
                 key={topic}
@@ -187,55 +187,25 @@ export default function LearningPage() {
               </Button>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground">
-            Filter modules by topic to keep the lab focused while new experiments land.
+          <p className="text-sm text-muted-foreground">Filter modules by concept area. The atlas updates instantly.</p>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {sorted.map((module) => (
+            <ModuleTile key={module.id} module={module} />
+          ))}
+        </section>
+
+        <section className="rounded-3xl border border-dashed border-border/70 bg-muted/20 p-6 text-sm text-muted-foreground">
+          <p>
+            Want this to become a cohort or workshop format? I can package this atlas into guided sprints with live reviews.
           </p>
-        </section>
-
-        <section className="ui-section space-y-6">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-2xl font-semibold font-heading">Active modules</h2>
-            <Badge variant="outline" className="text-xs font-semibold">{activeModules.length} live</Badge>
+          <div className="mt-3">
+            <Link href="/contact" className="inline-flex items-center gap-1 text-primary hover:underline">
+              Talk to me about custom learning tracks
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
-          {activeModules.length === 0 ? (
-            <Card className="border-dashed bg-muted/20">
-              <CardContent className="py-10 text-center space-y-2">
-                <p className="text-base font-medium">No active modules yet.</p>
-                <p className="text-sm text-muted-foreground">
-                  Drop your first learning app into the data file and it will appear here.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {activeModules.map((module) => (
-                <ModuleCard key={module.id} module={module} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        <section className="ui-section space-y-6">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-2xl font-semibold font-heading">Planned and prototypes</h2>
-            <Badge variant="outline" className="text-xs font-semibold">{plannedModules.length} queued</Badge>
-          </div>
-          {plannedModules.length === 0 ? (
-            <Card className="border-dashed bg-muted/20">
-              <CardContent className="py-10 text-center space-y-2">
-                <p className="text-base font-medium">Everything is live.</p>
-                <p className="text-sm text-muted-foreground">
-                  Add planned modules when you want to sketch what&apos;s next.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {plannedModules.map((module) => (
-                <ModuleCard key={module.id} module={module} />
-              ))}
-            </div>
-          )}
         </section>
       </div>
     </div>
