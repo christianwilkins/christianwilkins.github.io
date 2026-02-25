@@ -7,6 +7,27 @@ import { siteConfig } from "@/data/siteConfig";
 const projectsDescription =
   "Projects by Christian Wilkins, a software consultant and engineer focused on startups, product design, and practical delivery.";
 
+const pastPortfolios = [
+  {
+    year: "2023",
+    title: "Portfolio v1",
+    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio",
+    note: "Original version of my personal portfolio.",
+  },
+  {
+    year: "2024",
+    title: "Portfolio v2",
+    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio2",
+    note: "Second portfolio iteration with new UI direction.",
+  },
+  {
+    year: "2025",
+    title: "Portfolio 2025",
+    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio2025",
+    note: "Portfolio refresh from 2025.",
+  },
+] as const;
+
 export const metadata: Metadata = {
   title: "Projects | Christian Wilkins",
   description: projectsDescription,
@@ -83,9 +104,8 @@ export default function Projects() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">Projects</h1>
       <p className="mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed text-muted-foreground">
-        A curated selection of recent work spanning enterprise tooling,
-        AI-driven products, and mobile applications<span className="hidden sm:inline">. Hover or click any
-        card to explore roles, highlights, and impact</span>.
+        Recent work across enterprise tooling, AI enabled products, and mobile applications
+        <span className="hidden sm:inline">. Hover or click any card to view role, scope, and impact</span>.
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -93,6 +113,40 @@ export default function Projects() {
           <ProjectCard key={project.title} project={project} />
         ))}
       </div>
+
+      <section className="mt-10 rounded-2xl border border-border/70 bg-muted/10 p-5">
+        <h2 className="ui-label text-xl font-semibold font-heading">Past portfolio versions</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Older portfolio versions are archived as branches in this same repository.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {pastPortfolios.map((portfolio) => (
+            <a
+              key={portfolio.href}
+              href={portfolio.href}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl border border-border/70 bg-background/70 p-4 transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <p className="text-xs text-muted-foreground">{portfolio.year}</p>
+              <p className="mt-1 text-base font-semibold">{portfolio.title}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{portfolio.note}</p>
+            </a>
+          ))}
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Imagine Software is live at{" "}
+          <a
+            href="https://www.imagine-software.org/"
+            target="_blank"
+            rel="noreferrer"
+            className="ui-link"
+          >
+            imagine-software.org
+          </a>
+          .
+        </p>
+      </section>
 
       <section className="mt-10 rounded-2xl border border-border/70 bg-muted/10 p-5">
         <h2 className="ui-label text-xl font-semibold font-heading">Want the full story?</h2>
