@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --check './{src}/**/*.{js,ts,tsx,jsx}'"
