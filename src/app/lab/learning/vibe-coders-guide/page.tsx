@@ -9,7 +9,7 @@ import { vibeCoderArcs, vibeCoderCapstoneTracks } from "@/data/vibeCoderCurricul
 
 const pageTitle = "Vibe Coder's Guide to the Galaxy";
 const pageDescription =
-  "A language agnostic curriculum for agentic engineers who build systems with AI, using English as the control plane and architecture as the edge.";
+  "A language agnostic curriculum for engineers building real systems with AI support.";
 
 export const metadata: Metadata = {
   title: `${pageTitle} | Learning Hub | Christian Wilkins`,
@@ -67,9 +67,8 @@ export default function VibeCodersGuidePage() {
           </div>
           <h1 className="ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">{pageTitle}</h1>
           <p className="max-w-4xl text-lg text-muted-foreground leading-relaxed">
-            This curriculum trains a new kind of engineer: one who uses English as the control plane,
-            AI as leverage, and systems thinking as the real moat. No syntax drills. No framework worship.
-            Just architecture, prompting, product judgment, and execution quality.
+            This curriculum focuses on architecture, prompting, product judgment, and execution quality.
+            It is practical, language agnostic, and built for real delivery work.
           </p>
           <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
             <div className="inline-flex items-center gap-2 rounded-full border border-border/70 px-3 py-1">
@@ -89,7 +88,7 @@ export default function VibeCodersGuidePage() {
 
         <section className="space-y-5">
           <h2 className="text-2xl font-heading font-semibold">Curriculum arcs</h2>
-          <p className="text-sm text-muted-foreground">Each arc is now clickable with a focused interactive activity and concise curriculum briefing.</p>
+          <p className="text-sm text-muted-foreground">Each arc includes a focused activity and a short brief.</p>
           <div className="grid gap-5 md:grid-cols-2">
             {vibeCoderArcs.map((arc) => {
               const Icon = arcIconMap[arc.id as keyof typeof arcIconMap] ?? Compass;
@@ -128,8 +127,8 @@ export default function VibeCodersGuidePage() {
         </section>
 
         <section className="rounded-3xl border border-border/70 bg-card/40 p-6 md:p-8 space-y-4">
-          <h2 className="text-2xl font-heading font-semibold">Capstone: agentic engineer in the wild</h2>
-          <p className="text-muted-foreground">Graduate by shipping one real system and proving quality under real constraints.</p>
+          <h2 className="text-2xl font-heading font-semibold">Capstone: ship one real system</h2>
+          <p className="text-muted-foreground">Graduate by delivering one production ready system under real constraints.</p>
           <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
             {vibeCoderCapstoneTracks.map((track) => (
               <li key={track}>{track}</li>
