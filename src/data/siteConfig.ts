@@ -2,9 +2,9 @@ export const siteConfig = {
   name: "Christian Wilkins",
   title: "Christian Wilkins Software Consultant and Engineer",
   description:
-    "Portfolio of Christian Wilkins. Software consultancy for startups, freelance product design, and hiring support for top CS candidates in the United States.",
+    "Portfolio of Christian Wilkins. Software consulting for startups, product design systems, AI workflow automation, and hiring support in the United States.",
   shortDescription:
-    "Christian Wilkins is a software consultant and engineer focused on startups, freelance product design, and hiring support for top CS candidates in the United States.",
+    "Christian Wilkins is a software consultant and engineer focused on startups, product design systems, AI workflow automation, and hiring support in the United States.",
   url: "https://chriswiki.com",
   locale: "en_US",
   twitterHandle: "@christian_wilki",
