@@ -53,12 +53,11 @@ export default function Home() {
         Software consulting for modern startups
       </h1>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m a software consultant and product engineer helping early-stage and growth teams ship polished
-        web products fast. Based in the United States<span className="hidden sm:inline"> and a United States citizen</span>.
+        I&apos;m a software consultant and product engineer helping early stage and growth teams ship web products quickly.
+        Based in the United States<span className="hidden sm:inline"> and a United States citizen</span>.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I focus on design systems, front-end architecture, and AI workflow automation that keeps teams moving
-        without sacrificing quality.
+        I focus on design systems, front end architecture, and AI workflow automation that improves delivery speed and quality.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         Explore my <Link href="/consulting" className="ui-link">consulting</Link>{" and "}
@@ -75,9 +74,9 @@ export default function Home() {
         <section className="ui-section space-y-3">
           <h2 className="ui-label text-xl font-semibold font-heading">Current focus</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
-            <li>Rapid product audits and 2–6 week delivery plans.</li>
-            <li>Design systems and UI architecture for fast-moving teams.</li>
-            <li>AI workflow automation and production-ready Next.js delivery.</li>
+            <li>Rapid product audits and 2 to 6 week delivery plans.</li>
+            <li>Design systems and UI architecture for fast moving teams.</li>
+            <li>AI workflow automation and production ready Next.js delivery.</li>
           </ul>
         </section>
         <section className="ui-section space-y-2">
