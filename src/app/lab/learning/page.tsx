@@ -11,7 +11,7 @@ import { learningModules, type LearningModule } from "@/data/learningModules";
 import { siteConfig } from "@/data/siteConfig";
 
 const learningDescription =
-  "Learning Hub experiments in systems thinking, agentic workflows, and product execution for modern builders.";
+  "Learning Hub with practical modules on system design, prompting, and product execution.";
 
 const statusLabel: Record<LearningModule["status"], string> = {
   live: "Live",
@@ -158,8 +158,7 @@ export default function LearningPage() {
           </div>
           <h1 className="mt-4 ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
           <p className="mt-4 max-w-4xl text-lg text-muted-foreground leading-relaxed">
-            A curated map of modules for the new engineering paradigm: systems first, prompting as leverage,
-            and execution quality that survives real production pressure.
+            A focused map of modules on system design, prompting, and shipping reliable products.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Badge variant="outline" className="rounded-full">{learningModules.length} modules</Badge>
@@ -187,7 +186,7 @@ export default function LearningPage() {
               </Button>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground">Filter modules by concept area. The atlas updates instantly.</p>
+          <p className="text-sm text-muted-foreground">Filter by topic to find the right module fast.</p>
         </section>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -197,9 +196,7 @@ export default function LearningPage() {
         </section>
 
         <section className="rounded-3xl border border-dashed border-border/70 bg-muted/20 p-6 text-sm text-muted-foreground">
-          <p>
-            Want this to become a cohort or workshop format? I can package this atlas into guided sprints with live reviews.
-          </p>
+          <p>Need this as a team workshop? I can turn these modules into guided sprints with live reviews.</p>
           <div className="mt-3">
             <Link href="/contact" className="inline-flex items-center gap-1 text-primary hover:underline">
               Talk to me about custom learning tracks
