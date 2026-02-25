@@ -63,7 +63,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
                     {/* Footer */}
                     <footer className="page-footer text-center text-sm text-muted-foreground mt-auto">
-                        <h4>Copyright © 2025 Christian J Wilkins. All rights reserved.</h4>
+                        <h4>Copyright © 2026 Christian J Wilkins. All rights reserved.</h4>
                         <div className="mt-2 flex flex-wrap justify-center gap-3 text-xs text-muted-foreground">
                             {seoFooterLinks.map((link) => (
                                 <a key={link.href} href={link.href} className="hover:text-foreground">
