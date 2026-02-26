@@ -7,6 +7,24 @@ import { siteConfig } from "@/data/siteConfig";
 
 const labDescription = "The Lab by Christian Wilkins, experiments in product design, UI systems, and new workflows.";
 
+const pastPortfolios = [
+  {
+    year: "2023",
+    title: "Portfolio v1",
+    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio",
+  },
+  {
+    year: "2024",
+    title: "Portfolio v2",
+    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio2",
+  },
+  {
+    year: "2025",
+    title: "Portfolio 2025",
+    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio2025",
+  },
+] as const;
+
 export const metadata: Metadata = {
   title: "The Lab | Christian Wilkins",
   description: labDescription,
@@ -226,6 +244,34 @@ export default function LabPage() {
           </CardContent>
         </Card>
       </div>
+
+      <section className="rounded-2xl border border-border/70 bg-muted/10 p-5">
+        <h2 className="ui-label text-xl font-semibold font-heading">Past Portfolios:</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Archived portfolio versions from earlier years.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {pastPortfolios.map((portfolio) => (
+            <a
+              key={portfolio.href}
+              href={portfolio.href}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl border border-border/70 bg-background/70 p-4 transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <p className="text-xs text-muted-foreground">{portfolio.year}</p>
+              <p className="mt-1 text-base font-semibold">{portfolio.title}</p>
+            </a>
+          ))}
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Imagine Software is live at{" "}
+          <a href="https://www.imagine-software.org/" target="_blank" rel="noreferrer" className="ui-link">
+            imagine-software.org
+          </a>
+          .
+        </p>
+      </section>
     </div>
   );
 }
