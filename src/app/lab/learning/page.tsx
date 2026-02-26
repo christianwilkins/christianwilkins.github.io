@@ -24,7 +24,7 @@ const statusStyles: Record<LearningModule["status"], string> = {
   planned: "status-chip status-planned",
 };
 
-const learningDescription = "Learning Hub experiments in UI systems, state models, and interaction design.";
+const learningDescription = "Learning Hub with practical experiments in UI systems, state models, and interaction design.";
 
 function ModuleCard({ module }: { module: LearningModule }) {
   const card = (
@@ -157,8 +157,7 @@ export default function LearningPage() {
               </div>
               <h1 className="ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                A modular shelf of experiments built while exploring UI systems, state models,
-                data storytelling, and interaction design. Each module can stand alone or connect into a larger narrative.
+                Practical modules for UI systems, state modeling, interaction patterns, and data storytelling.
               </p>
             </div>
           </div>
@@ -167,9 +166,6 @@ export default function LearningPage() {
             <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 px-4 py-2 text-sm font-medium">
               <Layers className="h-4 w-4" />
               <span>{learningModules.length} modules tracked</span>
-            </div>
-            <div className="text-xs text-muted-foreground">
-              Add new modules in <span className="font-mono">src/data/learningModules.ts</span>
             </div>
           </div>
         </div>
@@ -187,9 +183,7 @@ export default function LearningPage() {
               </Button>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground">
-            Filter modules by topic to keep the lab focused while new experiments land.
-          </p>
+          <p className="text-sm text-muted-foreground">Filter by topic to quickly find the modules you want.</p>
         </section>
 
         <section className="ui-section space-y-6">
@@ -201,9 +195,7 @@ export default function LearningPage() {
             <Card className="border-dashed bg-muted/20">
               <CardContent className="py-10 text-center space-y-2">
                 <p className="text-base font-medium">No active modules yet.</p>
-                <p className="text-sm text-muted-foreground">
-                  Drop your first learning app into the data file and it will appear here.
-                </p>
+                <p className="text-sm text-muted-foreground">This section will fill as modules go live.</p>
               </CardContent>
             </Card>
           ) : (
@@ -217,16 +209,14 @@ export default function LearningPage() {
 
         <section className="ui-section space-y-6">
           <div className="flex items-center justify-between gap-4">
-            <h2 className="text-2xl font-semibold font-heading">Planned and prototypes</h2>
+            <h2 className="text-2xl font-semibold font-heading">Planned modules</h2>
             <Badge variant="outline" className="text-xs font-semibold">{plannedModules.length} queued</Badge>
           </div>
           {plannedModules.length === 0 ? (
             <Card className="border-dashed bg-muted/20">
               <CardContent className="py-10 text-center space-y-2">
-                <p className="text-base font-medium">Everything is live.</p>
-                <p className="text-sm text-muted-foreground">
-                  Add planned modules when you want to sketch what&apos;s next.
-                </p>
+                <p className="text-base font-medium">No modules in queue.</p>
+                <p className="text-sm text-muted-foreground">Add future modules when you decide what to build next.</p>
               </CardContent>
             </Card>
           ) : (

@@ -1,95 +1,89 @@
 export const servicesContent = {
-  heroTitle: "Software consulting for modern startups",
+  heroTitle: "Software consulting for startups",
   heroSubtitle:
-    "Christian Wilkins helps early stage and growth teams ship fast, design refined interfaces, and build durable engineering systems.",
+    "Christian Wilkins helps early stage and growth teams ship faster with clear product direction and strong engineering execution.",
   summary:
-    "I partner with founders, product teams, and engineering leaders to deliver modern web experiences, product strategy, and AI-ready workflows.",
+    "I work with founders, product teams, and engineering leaders on product strategy, UI systems, and AI workflow automation.",
   highlights: [
     "Fractional product and engineering leadership",
-    "Design systems and front-end architecture",
+    "Design systems and front end architecture",
     "AI workflow automation and prototyping",
   ],
   offerings: [
     {
       title: "Product strategy",
-      description: "Define scope, milestones, and technical direction for new products or feature launches.",
+      description: "Define scope, milestones, and technical direction for new products and major features.",
     },
     {
       title: "Design systems",
-      description: "Create scalable UI systems with clear component patterns and visual governance.",
+      description: "Build scalable UI systems with clear component patterns and visual consistency.",
     },
     {
       title: "Engineering execution",
-      description: "Ship production-ready experiences in Next.js, React, and modern tooling.",
+      description: "Ship production ready experiences in Next.js, React, and modern tooling.",
     },
     {
       title: "AI integration",
-      description: "Prototype agentic workflows, internal tools, and automation for product teams.",
+      description: "Build practical internal tools and automation for product and engineering teams.",
     },
   ],
   outcomes: [
-    "Faster product launches with a clear technical roadmap",
-    "Consistent UI patterns and reusable components",
-    "Improved developer workflows and engineering velocity",
+    "Faster launches with a clear technical plan",
+    "Consistent UI systems across product surfaces",
+    "Better team velocity with fewer delivery blockers",
   ],
-  industries: [
-    "Startup platforms",
-    "AI product teams",
-    "Design-forward SaaS",
-    "Developer tools",
-  ],
-  callToAction: "Ready to collaborate? Book a discovery call or send a quick note.",
+  industries: ["Startup platforms", "AI product teams", "Design forward SaaS", "Developer tools"],
+  callToAction: "Ready to work together? Book a call or send a quick note.",
 } as const;
 
 export const consultingContent = {
   heroTitle: "Christian Wilkins software consultant",
   heroSubtitle:
-    "Hands-on software consulting for founders, startups, and teams who need speed without losing quality.",
+    "Hands on consulting for founders and product teams that need speed, quality, and clear communication.",
   approachTitle: "Consulting approach",
   approach: [
-    "Start with a rapid audit of product, UI, and delivery workflows.",
-    "Define the highest-impact fixes and a roadmap for the next 2-6 weeks.",
-    "Ship alongside your team with transparent updates and weekly demos.",
+    "Start with a fast audit of product, UI, and delivery workflow.",
+    "Set priorities and a 2 to 6 week plan.",
+    "Ship with your team through weekly updates and demos.",
   ],
   focusTitle: "What I focus on",
   focusAreas: [
     "Product design and UI architecture",
-    "Front-end engineering and performance",
-    "AI automation, agents, and internal tooling",
+    "Front end engineering and performance",
+    "AI automation and internal tooling",
     "Hiring support and technical evaluation",
   ],
   engagementTitle: "Engagement formats",
   engagement: [
-    "Fractional leadership for product and engineering",
-    "Sprints for MVPs and prototyping",
-    "Ongoing advisory and roadmap reviews",
+    "Fractional product and engineering leadership",
+    "MVP and prototype delivery sprints",
+    "Advisory support and roadmap reviews",
   ],
-  availability: "Based in the United States and available for remote engagements worldwide.",
+  availability: "Based in the United States and available for remote work worldwide.",
 } as const;
 
 export const faqContent = {
   title: "Software consulting FAQ",
-  subtitle: "Answers to common questions about working with Christian Wilkins.",
+  subtitle: "Common questions about working with Christian Wilkins.",
   items: [
     {
       question: "What types of startups do you work with?",
       answer:
-        "I work with early stage and growth startups building SaaS products, AI tooling, and design-forward web platforms.",
+        "I work with early stage and growth startups across SaaS products, AI tooling, and design forward web platforms.",
     },
     {
       question: "Can you help with both design and engineering?",
       answer:
-        "Yes. I blend product design, UI systems, and front-end engineering so teams can ship cohesive experiences.",
+        "Yes. I combine product design, UI systems, and front end engineering so teams can ship cohesive products.",
     },
     {
       question: "Do you offer fractional leadership?",
       answer:
-        "Yes. I offer fractional product and engineering leadership for teams that need senior guidance without a full-time hire.",
+        "Yes. I provide fractional product and engineering leadership for teams that need senior support without a full time hire.",
     },
     {
       question: "Where are you located?",
-      answer:
-        "I am based in the United States and work remotely with teams across the US and internationally.",
+      answer: "I am based in the United States and work remotely with teams in the US and internationally.",
     },
   ],
 } as const;
@@ -109,7 +103,7 @@ export const llmProfile = {
   specialties: [
     "Software consulting",
     "Product design systems",
-    "Front-end engineering",
+    "Front end engineering",
     "AI tooling and automation",
   ],
   services: [

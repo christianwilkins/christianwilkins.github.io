@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/data/siteConfig";
 
-const labDescription = "The Lab by Christian Wilkins, experiments in product design, UI systems, and new workflows.";
+const labDescription = "The Lab by Christian Wilkins with practical tools for product design, UI systems, and workflow testing.";
 
 const pastPortfolios = [
   {
@@ -71,13 +71,13 @@ export default function LabPage() {
         "@type": "CreativeWork",
         name: "The Library",
         url: `${siteConfig.url}/lab/books`,
-        description: "A private, cloud-synced book reader for PDFs and EPUBs.",
+        description: "A private, cloud synced book reader for PDFs and EPUBs.",
       },
       {
         "@type": "CreativeWork",
         name: "Learning Hub",
         url: `${siteConfig.url}/lab/learning`,
-        description: "A shelf for experiments in UI systems, state models, and interaction design.",
+        description: "A set of modules for UI systems, state models, and interaction design.",
       },
       {
         "@type": "CreativeWork",
@@ -131,8 +131,7 @@ export default function LabPage() {
           <h1 className="ui-label text-4xl font-bold tracking-tight font-heading">The Lab</h1>
         </div>
         <p className="text-xl text-muted-foreground leading-relaxed">
-          A collection of experimental tools, features, and ideas.
-          Some are useful, some are just for fun. All are built by me.
+          Practical tools, experiments, and prototypes. Built to test ideas fast and keep what works.
         </p>
       </header>
 
@@ -146,7 +145,7 @@ export default function LabPage() {
               </div>
               <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">The Library</CardTitle>
               <CardDescription className="text-base mt-2">
-                A private, cloud-synced book reader for PDFs and EPUBs.
+                A private, cloud synced book reader for PDFs and EPUBs.
                 Tracks progress across devices.
               </CardDescription>
             </CardHeader>
@@ -167,7 +166,7 @@ export default function LabPage() {
               </div>
               <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">Learning Hub</CardTitle>
               <CardDescription className="text-base mt-2">
-                A shelf for experiments in UI systems, state models, and interaction design.
+                A set of modules for UI systems, state models, and interaction design.
               </CardDescription>
             </CardHeader>
             <CardContent>
