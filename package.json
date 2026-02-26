@@ -28,7 +28,7 @@
     "react-pdf": "^10.2.0",
     "react-reader": "^2.0.15",
     "tailwind-merge": "^3.4.0",
-    "vercel": "^41.0.2"
+    "vercel": "^50.23.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
