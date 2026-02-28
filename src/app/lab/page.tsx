@@ -11,17 +11,17 @@ const pastPortfolios = [
   {
     year: "2023",
     title: "Portfolio v1",
-    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio",
+    href: "/legacy/2023/",
   },
   {
     year: "2024",
     title: "Portfolio v2",
-    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio2",
+    href: "/legacy/2024/",
   },
   {
     year: "2025",
     title: "Portfolio 2025",
-    href: "https://github.com/christianwilkins/christianwilkins.github.io/tree/archive/portfolio2025",
+    href: "/legacy/2025/",
   },
 ] as const;
 
