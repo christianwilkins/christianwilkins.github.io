@@ -17,14 +17,21 @@ export const cookingContent = {
   title: "Cooking blog",
   subtitle:
     "Recipe scorecards and current kitchen inventory. This is a practical log, not a polished food magazine.",
-  updatedAt: "2026-03-14T10:02:00-04:00",
+  updatedAt: "2026-03-14T10:17:00-04:00",
   recipes: [
     {
       title: "Best Lentil Soup",
       link: "https://cookieandkate.com/best-lentil-soup-recipe/",
-      rating: 5,
+      rating: 4,
       cookAgain: true,
-      notes: "Worth remaking. Reliable and easy to batch.",
+      notes: "Worth remaking.",
+    },
+    {
+      title: "Chicken Stew (Budget Bytes)",
+      link: "https://www.budgetbytes.com/chicken-stew/",
+      rating: 3,
+      cookAgain: false,
+      notes: "Decent, but there are better chicken soups. Prefers chicken noodle.",
     },
   ] satisfies CookingRecipeEntry[],
   inventory: [
