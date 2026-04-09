@@ -1,3 +1,5 @@
+import { siteConfig } from "@/data/siteConfig";
+
 export interface Project {
   title: string;
   summary: string;
@@ -83,7 +85,7 @@ export const projects: Project[] = [
     description: "Designed a clean visual system, built modular components, and optimized layout for clarity and responsiveness.",
     image: "",
     technologies: ["Next.js", "Tailwind CSS", "Shadcn UI"],
-    liveLink: "https://chriswiki.com",
+    liveLink: siteConfig.url,
     githubLink: "https://github.com/christianwilkins/christianwilkins.github.io",
     featured: true,
     role: "Designer and Developer",

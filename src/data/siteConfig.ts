@@ -1,3 +1,15 @@
+const defaultSiteUrl = "https://chriswiki.com";
+
+function getSiteUrl() {
+  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
+  if (!configuredUrl) {
+    return defaultSiteUrl;
+  }
+
+  return configuredUrl.replace(/\/+$/, "");
+}
+
 export const siteConfig = {
   name: "Christian Wilkins",
   title: "Christian Wilkins Software Consultant and Engineer",
@@ -5,7 +17,7 @@ export const siteConfig = {
     "Portfolio of Christian Wilkins. Software consulting for startups, product design systems, AI workflow automation, and hiring support in the United States.",
   shortDescription:
     "Christian Wilkins is a software consultant and engineer focused on startups, product design systems, AI workflow automation, and hiring support in the United States.",
-  url: "https://chriswiki.com",
+  url: getSiteUrl(),
   locale: "en_US",
   twitterHandle: "@christian_wilki",
   keywords: [

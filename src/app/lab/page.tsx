@@ -99,6 +99,13 @@ export default function LabPage() {
         description: "Command driven terminal with live routing and style control.",
         applicationCategory: "DeveloperApplication",
       },
+      {
+        "@type": "SoftwareApplication",
+        name: "EasyClaw",
+        url: "https://easyclaw.chriswiki.com",
+        description: "Managed hosting layer for OpenClaw with a separate product surface and portable domain model.",
+        applicationCategory: "BusinessApplication",
+      },
     ],
   };
 
@@ -237,11 +244,30 @@ export default function LabPage() {
           </Card>
         </Link>
 
-        <Card className="h-full border-dashed bg-muted/10 flex items-center justify-center min-h-[250px] hover:bg-muted/20 transition-colors">
-          <CardContent className="text-center">
-            <p className="text-sm font-medium text-muted-foreground">More coming soon...</p>
-          </CardContent>
-        </Card>
+        <a
+          href="https://easyclaw.chriswiki.com"
+          target="_blank"
+          rel="noreferrer"
+          className="group block h-full"
+        >
+          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
+            <CardHeader>
+              <div className="flex items-center justify-between mb-4">
+                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
+                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">Pilot</Badge>
+              </div>
+              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">EasyClaw</CardTitle>
+              <CardDescription className="text-base mt-2">
+                Managed OpenClaw hosting with a separate product surface, deploy flow, and portable domain model.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
+                Visit EasyClaw <ArrowRight className="ml-2 h-4 w-4" />
+              </div>
+            </CardContent>
+          </Card>
+        </a>
       </div>
 
       <section className="rounded-2xl border border-border/70 bg-muted/10 p-5">
