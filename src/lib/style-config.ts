@@ -54,6 +54,11 @@ export const palettes = [
     name: "Cinder",
     description: "Smoky stone and deep ink",
   },
+  {
+    id: "barbie",
+    name: "Barbie",
+    description: "Glossy pink with playful contrast",
+  },
 ] as const;
 
 export const fontSets = [
@@ -81,6 +86,11 @@ export const fontSets = [
     id: "metro",
     name: "Plus Jakarta and Instrument Serif",
     description: "Modern and refined",
+  },
+  {
+    id: "barbie",
+    name: "Manrope and Parisienne",
+    description: "Playful script headings with a clean body",
   },
 ] as const;
 
@@ -318,6 +328,29 @@ export const presets = [
       nav: "sidebar",
       case: "title",
       terminal: "iterm",
+    },
+  },
+  {
+    id: "barbie",
+    name: "Barbie dream",
+    description: "Pink gloss palette with playful script headings",
+    values: {
+      palette: "barbie",
+      font: "barbie",
+      typography: "editorial",
+      motion: "calm",
+      section: "stacked",
+      link: "clean",
+      blur: "glass",
+      radius: "round",
+      shadow: "soft",
+      density: "roomy",
+      ambient: "on",
+      layout: "atelier",
+      align: "center",
+      nav: "top",
+      case: "title",
+      terminal: "paper",
     },
   },
   {

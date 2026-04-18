@@ -3,10 +3,11 @@ import {
   Geist,
   Geist_Mono,
   IBM_Plex_Sans,
+  Instrument_Serif,
   Manrope,
   Newsreader,
+  Parisienne,
   Plus_Jakarta_Sans,
-  Instrument_Serif,
 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -49,6 +50,12 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const parisienne = Parisienne({
+  variable: "--font-parisienne",
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -183,7 +190,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${manrope.variable} ${plexSans.variable} ${newsreader.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${manrope.variable} ${plexSans.variable} ${newsreader.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${parisienne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script
           type="application/ld+json"
