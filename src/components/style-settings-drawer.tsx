@@ -75,6 +75,11 @@ const STYLE_SYSTEM_PLAN = [
   "Behavior: motion, links, case, terminal",
 ] as const;
 
+const STARRED_PRESET_IDS = new Set(["amodei", "chimero"]);
+
+const formatPresetName = (id: string, name: string) =>
+  STARRED_PRESET_IDS.has(id) ? `★ ${name}` : name;
+
 export function StyleSettingsDrawer() {
   const { resolvedTheme } = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -429,7 +434,10 @@ export function StyleSettingsDrawer() {
   const selectedAlign = alignSets.find((item) => item.id === align)?.name ?? "";
   const selectedNav = navSets.find((item) => item.id === nav)?.name ?? "";
   const navLabel = isMobile ? "Hamburger" : selectedNav;
-  const selectedPreset = presets.find((item) => item.id === preset)?.name ?? "Custom";
+  const selectedPresetOption = presets.find((item) => item.id === preset);
+  const selectedPreset = selectedPresetOption
+    ? formatPresetName(selectedPresetOption.id, selectedPresetOption.name)
+    : "Custom";
 
   const toggleSection = (key: SectionKey) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -545,7 +553,7 @@ export function StyleSettingsDrawer() {
                       : "border-border bg-background hover:bg-muted"
                   )}
                 >
-                  <p className="text-xs font-semibold">{item.name}</p>
+                  <p className="text-xs font-semibold">{formatPresetName(item.id, item.name)}</p>
                   <p className="text-[11px] text-muted-foreground">{item.description}</p>
                 </button>
               ))}
