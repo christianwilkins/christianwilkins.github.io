@@ -340,10 +340,10 @@
   --type-heading-tracking: 0.015em;
 }
 
-:root[data-font="barbie"] .font-heading,
-:root[data-font="barbie"] .ui-label,
-:root[data-font="barbie"] .nav-link,
-:root[data-font="barbie"] .style-trigger {
+:root[data-preset="barbie"] .font-heading,
+:root[data-preset="barbie"] .ui-label,
+:root[data-preset="barbie"] .nav-link,
+:root[data-preset="barbie"] .style-trigger {
   font-family: var(--font-heading-base);
   letter-spacing: 0.015em;
 }

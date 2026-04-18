@@ -43,6 +43,8 @@ import {
   terminalSets,
   presets,
   setRootData,
+  setRootPreset,
+  styleControlGroups,
   type PresetId,
 } from "@/lib/style-config";
 import { useTheme } from "next-themes";
@@ -65,6 +67,13 @@ type SectionKey =
   | "alignment"
   | "navigation"
   | "case";
+
+const STYLE_SYSTEM_PLAN = [
+  "Foundation: palette, font, typography",
+  "Structure: layout, sections, alignment, nav, density",
+  "Surface: radius, shadow, blur, ambient",
+  "Behavior: motion, links, case, terminal",
+] as const;
 
 export function StyleSettingsDrawer() {
   const { resolvedTheme } = useTheme();
@@ -193,8 +202,10 @@ export function StyleSettingsDrawer() {
     if (matchedPreset) {
       setPreset(matchedPreset.id);
       localStorage.setItem(STORAGE_KEYS.preset, matchedPreset.id);
+      setRootPreset(matchedPreset.id);
     } else {
       setPreset(savedPreset);
+      setRootPreset(savedPreset);
     }
 
     setRootData("palette", savedPalette);
@@ -223,123 +234,114 @@ export function StyleSettingsDrawer() {
     setRootData("nav", nav);
   }, [isMobile, nav]);
 
+  const markPresetCustom = () => {
+    localStorage.setItem(STORAGE_KEYS.preset, "custom");
+    setPreset("custom");
+    setRootPreset("custom");
+  };
+
   const handlePaletteChange = (value: (typeof palettes)[number]["id"]) => {
     setPalette(value);
     localStorage.setItem(STORAGE_KEYS.palette, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("palette", value);
   };
 
   const handleFontChange = (value: (typeof fontSets)[number]["id"]) => {
     setFont(value);
     localStorage.setItem(STORAGE_KEYS.font, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("font", value);
   };
 
   const handleTypographyChange = (value: (typeof typographySets)[number]["id"]) => {
     setTypography(value);
     localStorage.setItem(STORAGE_KEYS.typography, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("typography", value);
   };
 
   const handleCaseChange = (value: (typeof caseSets)[number]["id"]) => {
     setCaseStyle(value);
     localStorage.setItem(STORAGE_KEYS.case, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("case", value);
   };
 
   const handleMotionChange = (value: (typeof motionSets)[number]["id"]) => {
     setMotion(value);
     localStorage.setItem(STORAGE_KEYS.motion, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("motion", value);
   };
 
   const handleSectionChange = (value: (typeof sectionSets)[number]["id"]) => {
     setSection(value);
     localStorage.setItem(STORAGE_KEYS.section, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("section", value);
   };
 
   const handleLinkChange = (value: (typeof linkSets)[number]["id"]) => {
     setLink(value);
     localStorage.setItem(STORAGE_KEYS.link, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("link", value);
   };
 
   const handleBlurChange = (value: (typeof blurSets)[number]["id"]) => {
     setBlur(value);
     localStorage.setItem(STORAGE_KEYS.blur, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("blur", value);
   };
 
   const handleRadiusChange = (value: (typeof radiusSets)[number]["id"]) => {
     setRadius(value);
     localStorage.setItem(STORAGE_KEYS.radius, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("radius", value);
   };
 
   const handleShadowChange = (value: (typeof shadowSets)[number]["id"]) => {
     setShadow(value);
     localStorage.setItem(STORAGE_KEYS.shadow, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("shadow", value);
   };
 
   const handleDensityChange = (value: (typeof densitySets)[number]["id"]) => {
     setDensity(value);
     localStorage.setItem(STORAGE_KEYS.density, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("density", value);
   };
 
   const handleAmbientChange = (value: (typeof ambientSets)[number]["id"]) => {
     setAmbient(value);
     localStorage.setItem(STORAGE_KEYS.ambient, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("ambient", value);
   };
 
   const handleLayoutChange = (value: (typeof layoutSets)[number]["id"]) => {
     setLayout(value);
     localStorage.setItem(STORAGE_KEYS.layout, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("layout", value);
   };
 
   const handleTerminalChange = (value: (typeof terminalSets)[number]["id"]) => {
     setTerminal(value);
     localStorage.setItem(STORAGE_KEYS.terminal, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("terminal", value);
   };
 
   const handleAlignChange = (value: (typeof alignSets)[number]["id"]) => {
     setAlign(value);
     localStorage.setItem(STORAGE_KEYS.align, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("align", value);
   };
 
@@ -347,8 +349,7 @@ export function StyleSettingsDrawer() {
     if (isMobile) return;
     setNav(value);
     localStorage.setItem(STORAGE_KEYS.nav, value);
-    localStorage.setItem(STORAGE_KEYS.preset, "custom");
-    setPreset("custom");
+    markPresetCustom();
     setRootData("nav", value);
   };
 
@@ -390,6 +391,7 @@ export function StyleSettingsDrawer() {
     localStorage.setItem(STORAGE_KEYS.align, values.align);
     localStorage.setItem(STORAGE_KEYS.nav, values.nav);
     localStorage.setItem(STORAGE_KEYS.preset, id);
+    setRootPreset(id);
 
     setRootData("palette", values.palette);
     setRootData("font", values.font);
@@ -484,6 +486,27 @@ export function StyleSettingsDrawer() {
         </div>
 
         <div className="px-4 py-4 space-y-4 overflow-y-auto">
+          <div className="rounded-2xl border border-border/60 bg-background/20 px-3 py-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              Style system
+            </p>
+            <div className="mt-2 space-y-1 text-xs text-muted-foreground">
+              {STYLE_SYSTEM_PLAN.map((line) => (
+                <p key={line}>{line}</p>
+              ))}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {styleControlGroups.map((group) => (
+                <span
+                  key={group.id}
+                  className="rounded-full border border-border/60 bg-background px-2 py-1 text-[11px] text-muted-foreground"
+                >
+                  {group.title}
+                </span>
+              ))}
+            </div>
+          </div>
+
           <div className="group rounded-2xl border border-border/60 bg-background/30 px-3 py-3">
             <button
               type="button"

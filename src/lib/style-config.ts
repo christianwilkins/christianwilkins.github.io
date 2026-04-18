@@ -381,6 +381,57 @@ export const presets = [
 export type PresetId = (typeof presets)[number]["id"] | "custom";
 export type StyleSettingKey = Exclude<keyof typeof STORAGE_KEYS, "preset">;
 
+export const styleOptions = {
+  palette: palettes,
+  font: fontSets,
+  typography: typographySets,
+  motion: motionSets,
+  section: sectionSets,
+  link: linkSets,
+  blur: blurSets,
+  radius: radiusSets,
+  shadow: shadowSets,
+  density: densitySets,
+  ambient: ambientSets,
+  layout: layoutSets,
+  align: alignSets,
+  nav: navSets,
+  case: caseSets,
+  terminal: terminalSets,
+} as const satisfies Record<StyleSettingKey, readonly { id: string; name: string; description: string }[]>;
+
+export const styleControlGroups = [
+  {
+    id: "foundation",
+    title: "Foundation",
+    description: "Core identity controls that define the look first",
+    keys: ["palette", "font", "typography"] as const,
+  },
+  {
+    id: "structure",
+    title: "Structure",
+    description: "Layout, alignment, sections, and navigation",
+    keys: ["layout", "section", "align", "nav", "density"] as const,
+  },
+  {
+    id: "surface",
+    title: "Surface",
+    description: "Shape, depth, blur, and ambient feel",
+    keys: ["radius", "shadow", "blur", "ambient"] as const,
+  },
+  {
+    id: "behavior",
+    title: "Behavior",
+    description: "Interaction rhythm and content treatment",
+    keys: ["motion", "link", "case", "terminal"] as const,
+  },
+] as const;
+
+export function setRootPreset(preset: PresetId) {
+  if (typeof document === "undefined") return;
+  document.documentElement.dataset.preset = preset;
+}
+
 export function setRootData(key: StyleSettingKey, value: string) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
