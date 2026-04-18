@@ -107,6 +107,7 @@ export const terminalPingMessage = "Signal check: all systems nominal.";
 const labRoutes: TerminalRoute[] = [
   { id: "books", label: "Library", path: "/lab/books" },
   { id: "learning", label: "Learning Hub", path: "/lab/learning" },
+  { id: "pretext", label: "Pretext Demo", path: "/lab/pretext" },
   { id: "lab-faq", label: "FAQ", path: "/lab/faq" },
 ];
 

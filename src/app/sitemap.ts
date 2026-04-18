@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/case-studies",
     "/lab",
     "/lab/learning",
+    "/lab/pretext",
     "/lab/faq",
     "/lab/supabase-tester",
     "/llms.txt",

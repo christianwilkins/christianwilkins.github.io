@@ -5,7 +5,7 @@ import { contactLinks } from "@/data/contactData";
 import { siteConfig } from "@/data/siteConfig";
 
 const aboutDescription =
-  "Christian Wilkins is a software consultant and engineer focused on startups, product design, and AI workflow systems.";
+  "Christian Wilkins is a software consultant and engineer focused on startups, product design systems, and AI workflow automation.";
 
 export const metadata: Metadata = {
   title: "About | Christian Wilkins",
@@ -83,11 +83,11 @@ export default function About() {
         United States and a United States citizen.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m currently interested in building with AI agents and pushing new workflows for AI
-        integration across the stack. I also focus on design and software consulting.
+        I work across product design, front end engineering, and AI workflow automation.
+        Most of my projects are built for teams that need speed and reliability at the same time.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;ve done a lot of building recently. Check out my{" "}
+        You can review recent{" "}
         <Link href="/projects" className="ui-link">
           projects
         </Link>
