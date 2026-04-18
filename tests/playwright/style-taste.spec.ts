@@ -2,12 +2,24 @@ import { expect, test, type Page } from "@playwright/test";
 
 const STARRED_PRESET_LABELS = ["★ Amodei Minimal", "★ Chimero Noir"] as const;
 const DRAWER_LABEL = "Style settings";
+const PRESET_SNAPSHOTS = [
+  { id: "signal-focus", label: /signal focus/i },
+  { id: "amodei-minimal", label: /amodei minimal/i },
+  { id: "chimero-noir", label: /chimero noir/i },
+  { id: "studio-calm", label: /studio calm/i },
+  { id: "gallery-crisp", label: /gallery crisp/i },
+  { id: "atelier-editorial", label: /atelier editorial/i },
+  { id: "barbie", label: /barbie/i },
+  { id: "legacy-original", label: /legacy original/i },
+] as const;
 
 async function visitHome(page: Page) {
-  await page.addInitScript(() => {
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  await page.evaluate(() => {
     window.localStorage.clear();
   });
-  await page.goto("/");
+  await page.reload();
   await page.waitForLoadState("networkidle");
 }
 
@@ -28,6 +40,23 @@ async function openPresetsSection(page: Page) {
   const presetGrid = page.locator("#style-presets");
   await expect(presetGrid).toBeVisible();
   await expect(presetGrid.getByRole("button", { name: /chimero noir/i })).toBeVisible();
+}
+
+async function ensureTheme(page: Page, mode: "light" | "dark") {
+  await page.evaluate((nextMode) => {
+    window.localStorage.setItem("theme", nextMode);
+  }, mode);
+  await page.reload();
+  await page.waitForLoadState("networkidle");
+
+  const html = page.locator("html");
+  await expect
+    .poll(async () => ((await html.getAttribute("class"))?.includes("dark") ?? false) === (mode === "dark"))
+    .toBeTruthy();
+}
+
+async function readBackgroundToken(page: Page) {
+  return page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--background").trim());
 }
 
 test.describe("style system smoke", () => {
@@ -79,6 +108,43 @@ test.describe("style system smoke", () => {
         body: await page.screenshot({ fullPage: true }),
         contentType: "image/png",
       });
+    }
+  });
+
+  test("theme mode stays independent when presets change and every preset has distinct light and dark tokens", async ({ page }) => {
+    test.setTimeout(60_000);
+
+    await visitHome(page);
+
+    const modeBackgrounds = {
+      light: new Map<string, string>(),
+      dark: new Map<string, string>(),
+    };
+
+    await ensureTheme(page, "light");
+    await openStyleDrawer(page);
+    await openPresetsSection(page);
+    let presetGrid = page.locator("#style-presets");
+
+    for (const preset of PRESET_SNAPSHOTS) {
+      await presetGrid.getByRole("button", { name: preset.label }).click();
+      await expect(page.locator("html")).not.toHaveClass(/dark/);
+      modeBackgrounds.light.set(preset.id, await readBackgroundToken(page));
+    }
+
+    await ensureTheme(page, "dark");
+    await openStyleDrawer(page);
+    await openPresetsSection(page);
+    presetGrid = page.locator("#style-presets");
+
+    for (const preset of PRESET_SNAPSHOTS) {
+      await presetGrid.getByRole("button", { name: preset.label }).click();
+      await expect(page.locator("html")).toHaveClass(/dark/);
+      modeBackgrounds.dark.set(preset.id, await readBackgroundToken(page));
+    }
+
+    for (const preset of PRESET_SNAPSHOTS) {
+      expect(modeBackgrounds.light.get(preset.id)).not.toBe(modeBackgrounds.dark.get(preset.id));
     }
   });
 });

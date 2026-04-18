@@ -47,7 +47,6 @@ import {
   styleControlGroups,
   type PresetId,
 } from "@/lib/style-config";
-import { useTheme } from "next-themes";
 
 type SectionKey =
   | "presets"
@@ -81,7 +80,6 @@ const formatPresetName = (id: string, name: string) =>
   STARRED_PRESET_IDS.has(id) ? `★ ${name}` : name;
 
 export function StyleSettingsDrawer() {
-  const { resolvedTheme } = useTheme();
   const [open, setOpen] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(false);
   const [preset, setPreset] = React.useState<PresetId>("chimero");
@@ -156,8 +154,7 @@ export function StyleSettingsDrawer() {
     const savedAmbient = localStorage.getItem(STORAGE_KEYS.ambient) ?? "off";
     const savedLayout = localStorage.getItem(STORAGE_KEYS.layout) ?? "classic";
     const storedTerminal = localStorage.getItem(STORAGE_KEYS.terminal);
-    const defaultTerminal = "noir";
-    const savedTerminal = storedTerminal ?? defaultTerminal;
+    const savedTerminal = storedTerminal ?? "noir";
     const savedAlign = localStorage.getItem(STORAGE_KEYS.align) ?? "wide";
     const savedNav = localStorage.getItem(STORAGE_KEYS.nav) ?? "top";
     const savedPreset = (localStorage.getItem(STORAGE_KEYS.preset) ?? "chimero") as PresetId;
@@ -204,14 +201,14 @@ export function StyleSettingsDrawer() {
         return false;
       })
     );
+
+    const nextPreset = matchedPreset?.id ?? savedPreset;
     if (matchedPreset) {
-      setPreset(matchedPreset.id);
       localStorage.setItem(STORAGE_KEYS.preset, matchedPreset.id);
-      setRootPreset(matchedPreset.id);
-    } else {
-      setPreset(savedPreset);
-      setRootPreset(savedPreset);
     }
+
+    setPreset(nextPreset);
+    setRootPreset(nextPreset);
 
     setRootData("palette", savedPalette);
     setRootData("font", savedFont);
@@ -229,7 +226,7 @@ export function StyleSettingsDrawer() {
     setRootData("terminal", savedTerminal);
     setRootData("align", savedAlign);
     setRootData("nav", savedNav);
-  }, [resolvedTheme]);
+  }, []);
 
   React.useEffect(() => {
     if (isMobile) {
