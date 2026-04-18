@@ -89,8 +89,8 @@ export const fontSets = [
   },
   {
     id: "barbie",
-    name: "Manrope and Parisienne",
-    description: "Playful script headings with a clean body",
+    name: "Manrope and Yellowtail",
+    description: "Bold script headings with a clean body",
   },
 ] as const;
 
@@ -333,7 +333,7 @@ export const presets = [
   {
     id: "barbie",
     name: "Barbie dream",
-    description: "Pink gloss palette with playful script headings",
+    description: "Hot pink palette with bold script headings",
     values: {
       palette: "barbie",
       font: "barbie",

@@ -6,8 +6,8 @@ import {
   Instrument_Serif,
   Manrope,
   Newsreader,
-  Parisienne,
   Plus_Jakarta_Sans,
+  Yellowtail,
 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -54,8 +54,8 @@ const instrumentSerif = Instrument_Serif({
   weight: ["400"],
 });
 
-const parisienne = Parisienne({
-  variable: "--font-parisienne",
+const yellowtail = Yellowtail({
+  variable: "--font-yellowtail",
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -190,7 +190,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${manrope.variable} ${plexSans.variable} ${newsreader.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${parisienne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${manrope.variable} ${plexSans.variable} ${newsreader.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${yellowtail.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script
           type="application/ld+json"
