@@ -188,10 +188,12 @@ export default function RootLayout({
   ];
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${manrope.variable} ${plexSans.variable} ${newsreader.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${yellowtail.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${manrope.variable} ${plexSans.variable} ${newsreader.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${yellowtail.variable} ${geistSans.variable} ${geistMono.variable}`}
+    >
+      <body className="antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
