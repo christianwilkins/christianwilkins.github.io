@@ -13,14 +13,19 @@ const PRESET_SNAPSHOTS = [
   { id: "legacy-original", label: /legacy original/i },
 ] as const;
 
+async function waitForHomeReady(page: Page) {
+  await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Open style settings" })).toBeVisible();
+}
+
 async function visitHome(page: Page) {
-  await page.goto("/");
-  await page.waitForLoadState("networkidle");
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await waitForHomeReady(page);
   await page.evaluate(() => {
     window.localStorage.clear();
   });
-  await page.reload();
-  await page.waitForLoadState("networkidle");
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await waitForHomeReady(page);
 }
 
 async function openStyleDrawer(page: Page) {
@@ -46,8 +51,8 @@ async function ensureTheme(page: Page, mode: "light" | "dark") {
   await page.evaluate((nextMode) => {
     window.localStorage.setItem("theme", nextMode);
   }, mode);
-  await page.reload();
-  await page.waitForLoadState("networkidle");
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await waitForHomeReady(page);
 
   const html = page.locator("html");
   await expect
@@ -57,6 +62,10 @@ async function ensureTheme(page: Page, mode: "light" | "dark") {
 
 async function readBackgroundToken(page: Page) {
   return page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--background").trim());
+}
+
+async function readHeadingFontFamily(page: Page) {
+  return page.locator("h1").first().evaluate((element) => getComputedStyle(element).fontFamily);
 }
 
 test.describe("style system smoke", () => {
@@ -104,6 +113,11 @@ test.describe("style system smoke", () => {
     for (const snapshot of snapshots) {
       await presetGrid.getByRole("button", { name: snapshot.label }).click();
       await page.waitForTimeout(250);
+
+      if (snapshot.name === "barbie") {
+        await expect.poll(async () => (await readHeadingFontFamily(page)).toLowerCase()).toContain("yellowtail");
+      }
+
       await testInfo.attach(snapshot.name, {
         body: await page.screenshot({ fullPage: true }),
         contentType: "image/png",
