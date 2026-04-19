@@ -115,7 +115,7 @@ test.describe("style system smoke", () => {
       await page.waitForTimeout(250);
 
       if (snapshot.name === "barbie") {
-        await expect.poll(async () => (await readHeadingFontFamily(page)).toLowerCase()).toContain("yellowtail");
+        await expect.poll(async () => (await readHeadingFontFamily(page)).toLowerCase()).toContain("parisienne");
       }
 
       await testInfo.attach(snapshot.name, {

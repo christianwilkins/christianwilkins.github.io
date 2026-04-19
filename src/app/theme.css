@@ -334,7 +334,7 @@
 
 :root[data-font="barbie"] {
   --font-sans-base: var(--font-manrope);
-  --font-heading-base: var(--font-yellowtail), "Brush Script MT", cursive;
+  --font-heading-base: var(--font-parisienne), "Brush Script MT", cursive;
   --font-mono-base: var(--font-geist-mono);
   --type-heading-weight: 400;
   --type-heading-tracking: 0.015em;
