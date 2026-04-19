@@ -54,6 +54,11 @@ export const palettes = [
     name: "Cinder",
     description: "Smoky stone and deep ink",
   },
+  {
+    id: "barbie",
+    name: "Barbie",
+    description: "Glossy pink with playful contrast",
+  },
 ] as const;
 
 export const fontSets = [
@@ -81,6 +86,11 @@ export const fontSets = [
     id: "metro",
     name: "Plus Jakarta and Instrument Serif",
     description: "Modern and refined",
+  },
+  {
+    id: "barbie",
+    name: "Manrope and Yellowtail",
+    description: "Bold script headings with a clean body",
   },
 ] as const;
 
@@ -321,6 +331,29 @@ export const presets = [
     },
   },
   {
+    id: "barbie",
+    name: "Barbie dream",
+    description: "Hot pink palette with bold script headings",
+    values: {
+      palette: "barbie",
+      font: "barbie",
+      typography: "editorial",
+      motion: "calm",
+      section: "stacked",
+      link: "clean",
+      blur: "glass",
+      radius: "round",
+      shadow: "soft",
+      density: "roomy",
+      ambient: "on",
+      layout: "atelier",
+      align: "center",
+      nav: "top",
+      case: "title",
+      terminal: "paper",
+    },
+  },
+  {
     id: "legacy",
     name: "Legacy original",
     description: "Original pairing and contrast",
@@ -347,6 +380,57 @@ export const presets = [
 
 export type PresetId = (typeof presets)[number]["id"] | "custom";
 export type StyleSettingKey = Exclude<keyof typeof STORAGE_KEYS, "preset">;
+
+export const styleOptions = {
+  palette: palettes,
+  font: fontSets,
+  typography: typographySets,
+  motion: motionSets,
+  section: sectionSets,
+  link: linkSets,
+  blur: blurSets,
+  radius: radiusSets,
+  shadow: shadowSets,
+  density: densitySets,
+  ambient: ambientSets,
+  layout: layoutSets,
+  align: alignSets,
+  nav: navSets,
+  case: caseSets,
+  terminal: terminalSets,
+} as const satisfies Record<StyleSettingKey, readonly { id: string; name: string; description: string }[]>;
+
+export const styleControlGroups = [
+  {
+    id: "foundation",
+    title: "Foundation",
+    description: "Core identity controls that define the look first",
+    keys: ["palette", "font", "typography"] as const,
+  },
+  {
+    id: "structure",
+    title: "Structure",
+    description: "Layout, alignment, sections, and navigation",
+    keys: ["layout", "section", "align", "nav", "density"] as const,
+  },
+  {
+    id: "surface",
+    title: "Surface",
+    description: "Shape, depth, blur, and ambient feel",
+    keys: ["radius", "shadow", "blur", "ambient"] as const,
+  },
+  {
+    id: "behavior",
+    title: "Behavior",
+    description: "Interaction rhythm and content treatment",
+    keys: ["motion", "link", "case", "terminal"] as const,
+  },
+] as const;
+
+export function setRootPreset(preset: PresetId) {
+  if (typeof document === "undefined") return;
+  document.documentElement.dataset.preset = preset;
+}
 
 export function setRootData(key: StyleSettingKey, value: string) {
   if (typeof document === "undefined") return;

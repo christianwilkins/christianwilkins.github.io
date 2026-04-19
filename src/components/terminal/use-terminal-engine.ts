@@ -19,23 +19,9 @@ import {
 import {
   STORAGE_KEYS,
   presets,
-  palettes,
-  fontSets,
-  typographySets,
-  caseSets,
-  motionSets,
-  sectionSets,
-  linkSets,
-  blurSets,
-  radiusSets,
-  shadowSets,
-  densitySets,
-  ambientSets,
-  layoutSets,
-  alignSets,
-  navSets,
-  terminalSets,
+  styleOptions,
   setRootData,
+  setRootPreset,
   type StyleSettingKey,
 } from "@/lib/style-config";
 
@@ -52,23 +38,23 @@ interface UseTerminalEngineOptions {
   bootOnMount?: boolean;
 }
 
-const styleOptions: Record<StyleSettingKey, string[]> = {
-  palette: palettes.map((item) => item.id),
-  font: fontSets.map((item) => item.id),
-  typography: typographySets.map((item) => item.id),
-  motion: motionSets.map((item) => item.id),
-  section: sectionSets.map((item) => item.id),
-  link: linkSets.map((item) => item.id),
-  blur: blurSets.map((item) => item.id),
-  radius: radiusSets.map((item) => item.id),
-  shadow: shadowSets.map((item) => item.id),
-  density: densitySets.map((item) => item.id),
-  ambient: ambientSets.map((item) => item.id),
-  layout: layoutSets.map((item) => item.id),
-  align: alignSets.map((item) => item.id),
-  nav: navSets.map((item) => item.id),
-  case: caseSets.map((item) => item.id),
-  terminal: terminalSets.map((item) => item.id),
+const styleOptionIds: Record<StyleSettingKey, string[]> = {
+  palette: styleOptions.palette.map((item) => item.id),
+  font: styleOptions.font.map((item) => item.id),
+  typography: styleOptions.typography.map((item) => item.id),
+  motion: styleOptions.motion.map((item) => item.id),
+  section: styleOptions.section.map((item) => item.id),
+  link: styleOptions.link.map((item) => item.id),
+  blur: styleOptions.blur.map((item) => item.id),
+  radius: styleOptions.radius.map((item) => item.id),
+  shadow: styleOptions.shadow.map((item) => item.id),
+  density: styleOptions.density.map((item) => item.id),
+  ambient: styleOptions.ambient.map((item) => item.id),
+  layout: styleOptions.layout.map((item) => item.id),
+  align: styleOptions.align.map((item) => item.id),
+  nav: styleOptions.nav.map((item) => item.id),
+  case: styleOptions.case.map((item) => item.id),
+  terminal: styleOptions.terminal.map((item) => item.id),
 };
 
 export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
@@ -193,6 +179,7 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
       localStorage.setItem(STORAGE_KEYS[key], value);
       if (markCustom) {
         localStorage.setItem(STORAGE_KEYS.preset, "custom");
+        setRootPreset("custom");
       }
       setRootData(key, value);
       refreshStyleSnapshot();
@@ -211,6 +198,7 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
       setStyleValue(key as StyleSettingKey, value, false);
     });
     localStorage.setItem(STORAGE_KEYS.preset, preset.id);
+    setRootPreset(preset.id);
     refreshStyleSnapshot();
     pushOutput([`Preset applied: ${preset.name}`], "success");
   }, [pushOutput, refreshStyleSnapshot, setStyleValue]);
@@ -231,7 +219,7 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
       }
 
       if (first === "list") {
-        const lines = Object.entries(styleOptions).map(
+        const lines = Object.entries(styleOptionIds).map(
           ([key, values]) => `${key.padEnd(10)} ${values.join(" | ")}`
         );
         pushOutput(["Style keys:", ...lines], "system");
@@ -248,13 +236,13 @@ export function useTerminalEngine(options: UseTerminalEngineOptions = {}) {
         return;
       }
 
-      if (!Object.keys(styleOptions).includes(first)) {
+      if (!Object.keys(styleOptionIds).includes(first)) {
         pushOutput([`Unknown style key: ${first}. Use 'style list'.`], "error");
         return;
       }
 
       const key = first as StyleSettingKey;
-      const available = styleOptions[key];
+      const available = styleOptionIds[key];
       if (!second) {
         pushOutput([`${key} options: ${available.join(" | ")}`], "system");
         return;
