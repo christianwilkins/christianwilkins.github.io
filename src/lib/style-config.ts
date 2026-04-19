@@ -89,7 +89,7 @@ export const fontSets = [
   },
   {
     id: "barbie",
-    name: "Manrope and Yellowtail",
+    name: "Manrope and Parisienne",
     description: "Bold script headings with a clean body",
   },
 ] as const;
