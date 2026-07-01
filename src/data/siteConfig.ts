@@ -44,6 +44,6 @@ export const siteConfig = {
     "fractional engineering leadership",
     "startup product consultant",
   ],
-  image: "/opengraph-image",
+  image: "/opengraph-image.png",
   rss: "/rss.xml",
 } as const;
