@@ -1,5 +1,7 @@
+import { headers } from "next/headers";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FiltersStudio } from "@/components/filters/filters-studio";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/data/siteConfig";
 
@@ -32,7 +34,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const host = (await headers()).get("x-forwarded-host") ?? (await headers()).get("host");
+
+  if (host?.split(":")[0].toLowerCase() === "filters.chriswiki.com") {
+    return <FiltersStudio />;
+  }
+
   const homeSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
