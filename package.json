@@ -34,6 +34,7 @@
     "react-reader": "^2.0.15",
     "react-router-dom": "^7.10.1",
     "tailwind-merge": "^3.4.0",
+    "three": "^0.185.1",
     "vite": "^7.3.0"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.185.1",
     "@vitejs/plugin-react": "^5.1.2",
     "eslint": "^9",
     "jest": "^30.2.0",
