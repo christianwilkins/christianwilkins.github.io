@@ -965,7 +965,7 @@ body::after {
 }
 
 @layer components {
-  .filters-page { --filters-ink: #3d2639; --filters-rose: #d87d77; --filters-paper: #f8f1eb; width: min(1180px, calc(100% - 3rem)); min-height: 100vh; margin: 0 auto; padding: clamp(2rem, 5vw, 5rem) 0 2rem; color: var(--filters-ink); font-family: var(--font-manrope), ui-sans-serif, sans-serif; }
+  .filters-page { --filters-asset-revision: 2; --filters-ink: #3d2639; --filters-rose: #d87d77; --filters-paper: #f8f1eb; width: min(1180px, calc(100% - 3rem)); min-height: 100vh; margin: 0 auto; padding: clamp(2rem, 5vw, 5rem) 0 2rem; color: var(--filters-ink); font-family: var(--font-manrope), ui-sans-serif, sans-serif; }
   .filters-hero, .filters-controls-heading, .filters-footer, .filters-slider-label, .filters-slider-scale, .filters-stage-caption { display: flex; justify-content: space-between; align-items: center; }
   .filters-hero { align-items: flex-end; gap: 2rem; border-bottom: 1px solid color-mix(in srgb, var(--filters-ink) 18%, transparent); padding-bottom: 2rem; }
   .filters-kicker { margin: 0 0 0.8rem; color: var(--filters-rose); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
