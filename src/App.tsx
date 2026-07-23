@@ -24,6 +24,9 @@ import { CloudflarePendingPage } from "@/routes/CloudflarePendingPage";
 import { NotFoundPage } from "@/routes/NotFoundPage";
 import { siteConfig } from "@/data/siteConfig";
 import { contactLinks } from "@/data/contactData";
+import { FiltersStudio } from "@/components/filters/filters-studio";
+
+const FILTERS_HOSTS = new Set(["filters.chriswiki.com", "www.filters.chriswiki.com"]);
 
 function RouteMetadata() {
   const location = useLocation();
@@ -95,6 +98,10 @@ function RootStructuredData() {
 }
 
 export default function App() {
+  if (FILTERS_HOSTS.has(window.location.hostname.toLowerCase())) {
+    return <FiltersStudio />;
+  }
+
   return (
     <>
       <RouteMetadata />
