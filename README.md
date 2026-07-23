@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Christian Wilkins
 
-## Getting Started
+The source for [chriswiki.com](https://chriswiki.com), built with Vite and deployed through Cloudflare Pages.
 
-First, run the development server:
+## Local development
+
+Requires Node.js 22 or newer.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Vite prints the local URL when the development server starts.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Pushing to `main` runs [the Cloudflare Pages deployment workflow](.github/workflows/deploy-cloudflare-pages.yml). It installs dependencies, runs the checks above, builds the Vite site, and deploys the `dist` directory to the `chriswiki` Cloudflare Pages project.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Cloudflare logs also show an immutable `*.pages.dev` deployment URL. That is the deployment alias, not a separate environment: the production deployment is served at [chriswiki.com](https://chriswiki.com).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### GitHub Actions secrets
 
-## Deploy on Vercel
+The repository requires these GitHub Actions secrets:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Secret | Purpose |
+| --- | --- |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account that owns the Pages project. |
+| `CLOUDFLARE_API_TOKEN` | Token used by Wrangler to deploy the Pages project. |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For a repository that only deploys an existing Cloudflare Pages project, those two secrets are sufficient. The API token needs Cloudflare Pages deployment access for the target account/project.
+
+Managing DNS, custom domains, or Workers is separate from a Pages deploy. Extend the API token with the relevant zone DNS, zone/domain, or Workers permissions only when the automation must perform those actions. Keep token values in GitHub Secrets or a local untracked `.env` file; never commit or paste them into source files.
+
+## Manual deploy
+
+With `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` available in the environment:
+
+```bash
+npm run build
+npm run deploy:cloudflare
+```
