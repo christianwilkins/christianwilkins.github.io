@@ -84,8 +84,8 @@ function HumanModel({ shape, appearance }: { shape: Shape; appearance: Appearanc
     const height = mount.clientHeight || 620;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(28, width / height, 0.1, 100);
-    camera.position.set(0, 1.65, 7.2);
-    camera.lookAt(0, 1.55, 0);
+    camera.position.set(0, 2.05, 9.5);
+    camera.lookAt(0, 2.05, 0);
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(width, height);
@@ -99,6 +99,8 @@ function HumanModel({ shape, appearance }: { shape: Shape; appearance: Appearanc
     rim.position.set(4, 3, -3);
     scene.add(rim);
     const root = new THREE.Group();
+    root.scale.setScalar(0.25);
+    root.position.y = 2.05;
     scene.add(root);
     let disposed = false;
     const loader = new OBJLoader();
