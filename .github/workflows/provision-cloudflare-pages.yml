@@ -1,0 +1,80 @@
+name: Provision Cloudflare Pages Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: Cloudflare Pages project name, for example chriswiki-filters
+        required: true
+        type: string
+      custom_domain:
+        description: Fully qualified hostname, for example filters.chriswiki.com
+        required: true
+        type: string
+      production_branch:
+        description: Production branch for deployments
+        required: false
+        default: main
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      PROJECT_NAME: ${{ inputs.project_name }}
+      CUSTOM_DOMAIN: ${{ inputs.custom_domain }}
+      PRODUCTION_BRANCH: ${{ inputs.production_branch }}
+    steps:
+      - name: Validate inputs
+        run: |
+          case "$PROJECT_NAME" in
+            *[!a-z0-9-]* | '') echo 'Project name must contain only lowercase letters, digits, and hyphens.' >&2; exit 1 ;;
+          esac
+          case "$CUSTOM_DOMAIN" in
+            *.chriswiki.com) ;;
+            *) echo 'Custom domain must be a chriswiki.com subdomain.' >&2; exit 1 ;;
+          esac
+
+      - name: Create Pages project and attach domain
+        run: |
+          set -euo pipefail
+          api_url="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
+          auth_header="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+
+          project_response=$(curl --silent --show-error --request GET \
+            --header "$auth_header" \
+            "$api_url/$PROJECT_NAME")
+
+          if [ "$(jq -r '.success' <<<"$project_response")" != 'true' ]; then
+            create_response=$(curl --silent --show-error --request POST \
+              --header "$auth_header" \
+              --header 'Content-Type: application/json' \
+              --data "{\"name\":\"$PROJECT_NAME\",\"production_branch\":\"$PRODUCTION_BRANCH\"}" \
+              "$api_url")
+            jq -e '.success == true' <<<"$create_response" >/dev/null
+            echo "Created Pages project: $PROJECT_NAME"
+          else
+            echo "Pages project already exists: $PROJECT_NAME"
+          fi
+
+          domains_response=$(curl --silent --show-error \
+            --header "$auth_header" \
+            "$api_url/$PROJECT_NAME/domains")
+
+          if jq -e --arg domain "$CUSTOM_DOMAIN" '.result[]? | select(.name == $domain)' <<<"$domains_response" >/dev/null; then
+            echo "Custom domain already attached: $CUSTOM_DOMAIN"
+            exit 0
+          fi
+
+          domain_response=$(curl --silent --show-error --request POST \
+            --header "$auth_header" \
+            --header 'Content-Type: application/json' \
+            --data "{\"name\":\"$CUSTOM_DOMAIN\"}" \
+            "$api_url/$PROJECT_NAME/domains")
+          jq -e '.success == true' <<<"$domain_response" >/dev/null
+          echo "Attached custom domain: $CUSTOM_DOMAIN"

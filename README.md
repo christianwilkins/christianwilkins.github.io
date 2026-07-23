@@ -41,6 +41,14 @@ For a repository that only deploys an existing Cloudflare Pages project, those t
 
 Managing DNS, custom domains, or Workers is separate from a Pages deploy. Extend the API token with the relevant zone DNS, zone/domain, or Workers permissions only when the automation must perform those actions. Keep token values in GitHub Secrets or a local untracked `.env` file; never commit or paste them into source files.
 
+### Provision another Pages app
+
+Use the **Provision Cloudflare Pages Project** workflow from the Actions tab when a new repository needs its own subdomain. Provide the Pages project name (for example, `chriswiki-filters`) and its fully qualified hostname (for example, `filters.chriswiki.com`). The workflow is safe to rerun: it creates the Pages project only when it does not already exist, then attaches the domain only when it is not already attached.
+
+The token needs **Pages: Edit** access to create the project and attach the custom domain. Because `chriswiki.com` is already an active zone in the same Cloudflare account, Cloudflare creates and manages the required DNS CNAME record during domain attachment. A newly attached hostname can remain in `initializing` state while certificate provisioning completes.
+
+For local Wrangler commands, this repository's untracked `.env` uses `CLOUDFLARE_TOKEN`; Wrangler expects the same value in `CLOUDFLARE_API_TOKEN`.
+
 ## Manual deploy
 
 With `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` available in the environment:
