@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
 type Shape = {
   height: number;
@@ -57,70 +59,103 @@ const hairColors = [
   { label: "Silver", value: "#9a9694" },
 ];
 
-function Hair({ style, color }: { style: Appearance["hairStyle"]; color: string }) {
-  const common = { fill: color, stroke: color, strokeWidth: 2, strokeLinejoin: "round" as const };
-  if (style === "bob") {
-    return <path {...common} d="M131 55 Q128 23 150 20 Q174 23 169 57 Q164 45 159 39 Q148 48 131 55Z" />;
-  }
-  if (style === "curly") {
-    return <path {...common} d="M129 57 Q120 40 130 27 Q130 13 143 18 Q153 8 162 19 Q177 17 174 32 Q181 45 169 59 Q166 42 157 37 Q144 47 129 57Z" />;
-  }
-  if (style === "updo") {
-    return <path {...common} d="M132 53 Q124 30 139 25 Q132 12 149 14 Q162 4 169 19 Q180 27 168 54 Q160 39 156 35 Q144 47 132 53Z" />;
-  }
-  return <path {...common} d="M130 57 Q124 21 150 19 Q177 22 170 59 Q165 43 157 36 Q146 48 130 57Z" />;
-}
+const skinTextures: Record<string, string> = {
+  "#6f4435": "/assets/filters/makehuman/skins/dark.png",
+  "#986047": "/assets/filters/makehuman/skins/dark.png",
+  "#c18762": "/assets/filters/makehuman/skins/beige.png",
+  "#d9a17e": "/assets/filters/makehuman/skins/beige.png",
+  "#e7b79e": "/assets/filters/makehuman/skins/light.png",
+};
 
-function BodyFigure({ shape, appearance }: { shape: Shape; appearance: Appearance }) {
-  const figure = useMemo(() => {
-    const torsoScale = 0.95 + shape.height / 100 * 0.1;
-    const shoulder = 30 + shape.shoulders * 0.12;
-    const bust = 25 + shape.bust * 0.12;
-    const waist = 21 + shape.waist * 0.095;
-    const hip = 29 + shape.hips * 0.14;
-    const top = 21 + (1 - torsoScale) * 9;
-    const hipY = 128 - shape.legs * 0.08;
-    const kneeY = hipY + 48;
-    const ankleY = 232 - shape.legs * 0.035;
-    return { shoulder, bust, waist, hip, top, hipY, kneeY, ankleY };
-  }, [shape]);
+const hairAssets: Record<Appearance["hairStyle"], string> = {
+  long: "/assets/filters/makehuman/hair/long01.obj",
+  bob: "/assets/filters/makehuman/hair/bob01.obj",
+  curly: "/assets/filters/makehuman/hair/afro01.obj",
+  updo: "/assets/filters/makehuman/hair/ponytail01.obj",
+};
 
-  const center = 150;
-  const headY = figure.top + 21;
-  const neckY = figure.top + 40;
-  const shoulderY = figure.top + 48;
-  const bustY = figure.top + 72;
-  const skinShadow = appearance.skin;
+function HumanModel({ shape, appearance }: { shape: Shape; appearance: Appearance }) {
+  const mountRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <svg className="filters-figure" viewBox="0 0 300 270" role="img" aria-label="A stylized adult woman figure with adjustable proportions, skin tone, and hair">
-      <defs>
-        <linearGradient id="figure-fill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor={appearance.skin} />
-          <stop offset="1" stopColor={skinShadow} stopOpacity="0.82" />
-        </linearGradient>
-        <filter id="figure-shadow" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="0" dy="10" stdDeviation="10" floodColor="var(--filters-ink)" floodOpacity="0.16" />
-        </filter>
-      </defs>
-      <ellipse cx="150" cy="248" rx="74" ry="8" fill="var(--filters-ink)" opacity="0.12" />
-      <g filter="url(#figure-shadow)" fill="url(#figure-fill)" stroke={skinShadow} strokeWidth="1.8" strokeLinejoin="round">
-        <ellipse cx={center} cy={headY} rx="18" ry="21" />
-        <Hair style={appearance.hairStyle} color={appearance.hairColor} />
-        <path d={`M ${center - 8} ${neckY - 2} L ${center - 9} ${shoulderY - 3} Q ${center - figure.shoulder} ${shoulderY} ${center - figure.bust} ${bustY} Q ${center - figure.waist} ${figure.hipY - 25} ${center - figure.hip} ${figure.hipY} Q ${center - 16} ${figure.hipY + 12} ${center - 14} ${figure.hipY + 18} L ${center - 9} ${figure.ankleY} L ${center - 2} ${figure.ankleY} L ${center} ${figure.hipY + 20} L ${center + 2} ${figure.ankleY} L ${center + 9} ${figure.ankleY} L ${center + 14} ${figure.hipY + 18} Q ${center + 16} ${figure.hipY + 12} ${center + figure.hip} ${figure.hipY} Q ${center + figure.waist} ${figure.hipY - 25} ${center + figure.bust} ${bustY} Q ${center + figure.shoulder} ${shoulderY} ${center + 9} ${shoulderY - 3} L ${center + 8} ${neckY - 2}Z`} />
-        <path d={`M ${center - figure.shoulder + 2} ${shoulderY} Q ${center - figure.shoulder - 8} ${shoulderY + 25} ${center - figure.shoulder - 4} ${shoulderY + 58} L ${center - figure.shoulder + 3} ${shoulderY + 58} Q ${center - figure.shoulder + 7} ${shoulderY + 27} ${center - figure.shoulder + 11} ${shoulderY + 6}Z`} />
-        <path d={`M ${center + figure.shoulder - 2} ${shoulderY} Q ${center + figure.shoulder + 8} ${shoulderY + 25} ${center + figure.shoulder + 4} ${shoulderY + 58} L ${center + figure.shoulder - 3} ${shoulderY + 58} Q ${center + figure.shoulder - 7} ${shoulderY + 27} ${center + figure.shoulder - 11} ${shoulderY + 6}Z`} />
-      </g>
-      <g fill="none" stroke={skinShadow} strokeWidth="1.8" strokeLinecap="round" opacity="0.72">
-        <path d={`M ${center - 5} ${headY + 5} Q ${center} ${headY + 8} ${center + 5} ${headY + 5}`} />
-        <path d={`M ${center - 7} ${headY - 4} L ${center - 3} ${headY - 4} M ${center + 3} ${headY - 4} L ${center + 7} ${headY - 4}`} />
-        <path d={`M ${center - figure.bust + 6} ${bustY + 4} Q ${center} ${bustY + 11} ${center + figure.bust - 6} ${bustY + 4}`} />
-        <path d={`M ${center - figure.waist} ${figure.hipY - 25} Q ${center} ${figure.hipY - 18} ${center + figure.waist} ${figure.hipY - 25}`} />
-        <path d={`M ${center - 12} ${figure.kneeY} Q ${center - 8} ${figure.kneeY + 3} ${center - 4} ${figure.kneeY}`} />
-        <path d={`M ${center + 4} ${figure.kneeY} Q ${center + 8} ${figure.kneeY + 3} ${center + 12} ${figure.kneeY}`} />
-      </g>
-    </svg>
-  );
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return;
+    const width = mount.clientWidth || 520;
+    const height = mount.clientHeight || 620;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(28, width / height, 0.1, 100);
+    camera.position.set(0, 1.65, 7.2);
+    camera.lookAt(0, 1.55, 0);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    mount.appendChild(renderer.domElement);
+    scene.add(new THREE.HemisphereLight(0xfff8ed, 0x54463d, 2.2));
+    const key = new THREE.DirectionalLight(0xffffff, 2.4);
+    key.position.set(-3, 5, 5);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0xc8d7ff, 1.3);
+    rim.position.set(4, 3, -3);
+    scene.add(rim);
+    const root = new THREE.Group();
+    scene.add(root);
+    let disposed = false;
+    const loader = new OBJLoader();
+    const textureLoader = new THREE.TextureLoader();
+    const skinTexture = textureLoader.load(skinTextures[appearance.skin] ?? skinTextures["#c18762"]);
+    skinTexture.colorSpace = THREE.SRGBColorSpace;
+    loader.load("/assets/filters/makehuman/female1605.obj", (body) => {
+      if (disposed) return;
+      body.traverse((child) => {
+        if (!(child instanceof THREE.Mesh)) return;
+        child.material = new THREE.MeshStandardMaterial({ map: skinTexture, roughness: 0.72, metalness: 0 });
+        const geometry = child.geometry as THREE.BufferGeometry;
+        geometry.computeBoundingBox();
+        const box = geometry.boundingBox;
+        if (!box) return;
+        const minY = box.min.y;
+        const rangeY = Math.max(box.max.y - minY, 0.001);
+        const positions = geometry.attributes.position;
+        const vector = new THREE.Vector3();
+        for (let index = 0; index < positions.count; index += 1) {
+          vector.fromBufferAttribute(positions, index);
+          const normalizedY = (vector.y - minY) / rangeY;
+          let widthFactor = 1;
+          if (normalizedY > 0.73) widthFactor = 0.92 + shape.shoulders / 100 * 0.18;
+          else if (normalizedY > 0.56) widthFactor = 0.94 + shape.bust / 100 * 0.16;
+          else if (normalizedY > 0.38) widthFactor = 1.12 - shape.waist / 100 * 0.22;
+          else if (normalizedY > 0.2) widthFactor = 0.94 + shape.hips / 100 * 0.2;
+          vector.x *= widthFactor;
+          vector.y = minY + (vector.y - minY) * (0.93 + shape.height / 100 * 0.14);
+          positions.setXYZ(index, vector.x, vector.y, vector.z);
+        }
+        positions.needsUpdate = true;
+        geometry.computeVertexNormals();
+      });
+      root.add(body);
+    });
+    loader.load(hairAssets[appearance.hairStyle], (hair) => {
+      if (disposed) return;
+      hair.traverse((child) => {
+        if (child instanceof THREE.Mesh) child.material = new THREE.MeshStandardMaterial({ color: appearance.hairColor, roughness: 0.86 });
+      });
+      root.add(hair);
+    });
+    const ground = new THREE.Mesh(new THREE.CircleGeometry(1.5, 64), new THREE.MeshBasicMaterial({ color: 0x231f1c, transparent: true, opacity: 0.1 }));
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = 0.03;
+    ground.scale.set(1.25, 0.35, 1);
+    scene.add(ground);
+    let frame = 0;
+    const animate = () => { frame = requestAnimationFrame(animate); root.rotation.y = Math.sin(performance.now() / 3200) * 0.045; renderer.render(scene, camera); };
+    animate();
+    const resize = () => { const nextWidth = mount.clientWidth || width; const nextHeight = mount.clientHeight || height; camera.aspect = nextWidth / nextHeight; camera.updateProjectionMatrix(); renderer.setSize(nextWidth, nextHeight); };
+    window.addEventListener("resize", resize);
+    return () => { disposed = true; cancelAnimationFrame(frame); window.removeEventListener("resize", resize); renderer.dispose(); skinTexture.dispose(); mount.removeChild(renderer.domElement); };
+  }, [appearance.hairColor, appearance.hairStyle, appearance.skin, shape]);
+
+  return <div ref={mountRef} className="filters-human-model" role="img" aria-label="A MakeHuman adult woman model with adjustable proportions, skin tone, and hair" />;
 }
 
 export function FiltersStudio({ embedded = false }: { embedded?: boolean }) {
@@ -156,7 +191,7 @@ export function FiltersStudio({ embedded = false }: { embedded?: boolean }) {
         <div className="filters-stage">
           <div className="filters-stage-grid" />
           <div className="filters-stage-caption"><span>FIG. 01</span><span>FRONT VIEW · ADULT</span></div>
-          <BodyFigure shape={shape} appearance={appearance} />
+          <HumanModel shape={shape} appearance={appearance} />
           <div className="filters-axis" aria-hidden="true" />
         </div>
 
