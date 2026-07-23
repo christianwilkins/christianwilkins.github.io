@@ -123,7 +123,7 @@ function BodyFigure({ shape, appearance }: { shape: Shape; appearance: Appearanc
   );
 }
 
-export function FiltersStudio() {
+export function FiltersStudio({ embedded = false }: { embedded?: boolean }) {
   const [shape, setShape] = useState(initialShape);
   const [appearance, setAppearance] = useState(initialAppearance);
   const shapeChanged = JSON.stringify(shape) !== JSON.stringify(initialShape);
@@ -142,7 +142,7 @@ export function FiltersStudio() {
   }
 
   return (
-    <main className="filters-page">
+    <main className={`filters-page${embedded ? " filters-page-embed" : ""}`}>
       <section className="filters-hero">
         <div>
           <p className="filters-kicker">filters / figure study 01</p>
@@ -185,7 +185,7 @@ export function FiltersStudio() {
         </aside>
       </section>
 
-      <footer className="filters-footer"><span>filters.chriswiki.com</span><span>an illustrative instrument — no measurements or racial categories implied</span></footer>
+      {!embedded && <footer className="filters-footer"><span>filters.chriswiki.com</span><span>an illustrative instrument — no measurements or racial categories implied</span></footer>}
     </main>
   );
 }
