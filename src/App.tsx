@@ -99,7 +99,8 @@ function RootStructuredData() {
 
 export default function App() {
   if (FILTERS_HOSTS.has(window.location.hostname.toLowerCase())) {
-    return <FiltersStudio />;
+    const embedded = new URLSearchParams(window.location.search).get("embed") === "1";
+    return <FiltersStudio embedded={embedded} />;
   }
 
   return (
