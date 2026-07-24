@@ -13,6 +13,8 @@ type Shape = {
   legs: number;
 };
 
+type ReferenceStyle = "flat" | "medium" | "threeD";
+
 type Appearance = {
   skin: string;
   hairStyle: "bob" | "long" | "curly" | "updo";
@@ -58,6 +60,12 @@ const hairColors = [
   { label: "Honey", value: "#c18a42" },
   { label: "Silver", value: "#9a9694" },
 ];
+
+const referenceStyles: Record<ReferenceStyle, { label: string; src: string; className: string }> = {
+  flat: { label: "Flat illustration", src: "/assets/filters/references/woman-standing-flat.svg", className: "filters-reference-flat" },
+  medium: { label: "Alternate tone", src: "/assets/filters/references/woman-standing-medium.svg", className: "filters-reference-flat" },
+  threeD: { label: "3D reference", src: "/assets/filters/references/woman-standing-3d.png", className: "filters-reference-3d" },
+};
 
 const skinTextures: Record<string, string> = {
   "#6f4435": "/assets/filters/makehuman/skins/dark.png",
@@ -163,8 +171,10 @@ function HumanModel({ shape, appearance }: { shape: Shape; appearance: Appearanc
 export function FiltersStudio({ embedded = false }: { embedded?: boolean }) {
   const [shape, setShape] = useState(initialShape);
   const [appearance, setAppearance] = useState(initialAppearance);
+  const [reference, setReference] = useState<ReferenceStyle>("flat");
   const shapeChanged = JSON.stringify(shape) !== JSON.stringify(initialShape);
   const appearanceChanged = JSON.stringify(appearance) !== JSON.stringify(initialAppearance);
+  const referenceChanged = reference !== "flat";
   const changedCount = Object.keys(shape).filter((key) => shape[key as keyof Shape] !== initialShape[key as keyof Shape]).length;
   const skinLabel = skinTones.find((tone) => tone.value === appearance.skin)?.label ?? "Custom tone";
   const hairLabel = hairColors.find((tone) => tone.value === appearance.hairColor)?.label ?? "Custom color";
@@ -176,6 +186,7 @@ export function FiltersStudio({ embedded = false }: { embedded?: boolean }) {
   function reset() {
     setShape(initialShape);
     setAppearance(initialAppearance);
+    setReference("flat");
   }
 
   return (
@@ -193,7 +204,7 @@ export function FiltersStudio({ embedded = false }: { embedded?: boolean }) {
         <div className="filters-stage">
           <div className="filters-stage-grid" />
           <div className="filters-stage-caption"><span>FIG. 01</span><span>FRONT VIEW · ADULT</span></div>
-          <HumanModel shape={shape} appearance={appearance} />
+          <img className={`filters-reference-image ${referenceStyles[reference].className}`} src={referenceStyles[reference].src} alt={`${referenceStyles[reference].label}, clothed adult woman reference`} style={{ transform: `translateY(${(50 - shape.height) * 0.08}px) scale(${0.92 + shape.height / 100 * 0.16}, ${0.94 + shape.legs / 100 * 0.12})` }} />
           <div className="filters-axis" aria-hidden="true" />
         </div>
 
@@ -213,12 +224,13 @@ export function FiltersStudio({ embedded = false }: { embedded?: boolean }) {
           </div>
           <div className="filters-appearance">
             <div className="filters-controls-heading"><div><p className="filters-kicker">appearance</p><h2>Make it yours</h2></div></div>
+            <label className="filters-select-row">Reference <select value={reference} onChange={(event) => setReference(event.target.value as ReferenceStyle)}>{Object.entries(referenceStyles).map(([value, option]) => <option key={value} value={value}>{option.label}</option>)}</select></label>
             <label className="filters-select-row">Skin tone <select value={appearance.skin} onChange={(event) => setAppearance((current) => ({ ...current, skin: event.target.value }))}>{skinTones.map((tone) => <option key={tone.value} value={tone.value}>{tone.label}</option>)}</select></label>
             <label className="filters-select-row">Hair style <select value={appearance.hairStyle} onChange={(event) => setAppearance((current) => ({ ...current, hairStyle: event.target.value as Appearance["hairStyle"] }))}><option value="long">Long</option><option value="bob">Bob</option><option value="curly">Curly</option><option value="updo">Updo</option></select></label>
             <label className="filters-select-row">Hair color <select value={appearance.hairColor} onChange={(event) => setAppearance((current) => ({ ...current, hairColor: event.target.value }))}>{hairColors.map((tone) => <option key={tone.value} value={tone.value}>{tone.label}</option>)}</select></label>
             <p className="filters-appearance-note">{skinLabel} skin · {hairLabel} hair</p>
           </div>
-          <button type="button" className="filters-reset" onClick={reset} disabled={!shapeChanged && !appearanceChanged}>Reset to starting point <span>↺</span></button>
+          <button type="button" className="filters-reset" onClick={reset} disabled={!shapeChanged && !appearanceChanged && !referenceChanged}>Reset to starting point <span>↺</span></button>
         </aside>
       </section>
 
