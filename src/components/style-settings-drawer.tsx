@@ -446,7 +446,7 @@ export function StyleSettingsDrawer() {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "style-trigger flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold sm:px-4",
+          "style-trigger flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:px-4",
           open && "opacity-0 pointer-events-none"
         )}
         aria-label="Open style settings"

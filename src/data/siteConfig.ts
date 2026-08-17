@@ -1,7 +1,8 @@
 const defaultSiteUrl = "https://chriswiki.com";
 
 function getSiteUrl() {
-  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const configuredUrl =
+    typeof process === "undefined" ? undefined : process.env.NEXT_PUBLIC_SITE_URL?.trim();
 
   if (!configuredUrl) {
     return defaultSiteUrl;

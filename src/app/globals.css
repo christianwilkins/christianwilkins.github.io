@@ -823,14 +823,14 @@ body::after {
   }
 
   .style-trigger {
-    position: relative;
-    border: 1px solid color-mix(in oklch, var(--foreground) 35%, transparent);
-    color: var(--primary-foreground);
-    background: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--foreground);
+    background: color-mix(in oklch, var(--card) 92%, var(--background));
+    font-family: var(--font-heading-base);
+    font-weight: var(--nav-link-weight);
     text-transform: var(--ui-text-transform);
-    box-shadow:
-      0 14px 32px color-mix(in oklch, var(--foreground) 18%, transparent),
-      inset 0 1px 0 color-mix(in oklch, var(--primary-foreground) 30%, transparent);
+    box-shadow: var(--shadow-1);
     font-size: 0.95rem;
     padding: 0.65rem 1.2rem;
     transition: transform var(--motion-duration-fast) var(--motion-ease),
@@ -839,31 +839,12 @@ body::after {
       background var(--motion-duration-fast) var(--motion-ease);
   }
 
-  .style-trigger::after {
-    content: "";
-    position: absolute;
-    inset: -6px;
-    border-radius: 999px;
-    background: radial-gradient(
-      circle at top left,
-      color-mix(in oklch, var(--accent) 55%, transparent),
-      transparent 62%
-    );
-    opacity: 0.65;
-    filter: blur(18px);
-    z-index: -1;
-  }
-
   .style-trigger:hover {
     transform: translateY(-1px);
-    border-color: color-mix(in oklch, var(--primary-foreground) 70%, transparent);
-    box-shadow:
-      0 18px 40px color-mix(in oklch, var(--foreground) 22%, transparent),
-      inset 0 1px 0 color-mix(in oklch, var(--primary-foreground) 40%, transparent);
-  }
-
-  .style-trigger:hover::after {
-    opacity: 0.6;
+    color: var(--foreground);
+    background: var(--muted);
+    border-color: color-mix(in oklch, var(--foreground) 35%, var(--border));
+    box-shadow: var(--shadow-1);
   }
 
   .style-trigger:focus-visible {
@@ -873,19 +854,39 @@ body::after {
   }
 
   .theme-toggle {
+    display: inline-flex;
     width: fit-content;
-    font-size: 0.85rem;
-    font-weight: 600;
+    min-width: calc(1.1rem + (2 * var(--nav-link-padding-x)));
+    min-height: calc(1.1rem + (2 * var(--nav-link-padding-y)));
+    align-items: center;
+    justify-content: center;
+    padding: var(--nav-link-padding-y) var(--nav-link-padding-x);
+    border-radius: var(--nav-link-radius);
     color: var(--muted-foreground);
-    background: color-mix(in oklch, var(--muted) 60%, transparent);
-    border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
-    text-transform: var(--ui-text-transform);
+    background: var(--nav-link-bg);
+    border: var(--nav-link-border);
+    transition: color var(--motion-duration-fast) var(--motion-ease),
+      background var(--motion-duration-fast) var(--motion-ease),
+      border-color var(--motion-duration-fast) var(--motion-ease),
+      transform var(--motion-duration-fast) var(--motion-ease);
+  }
+
+  .theme-toggle svg,
+  .theme-toggle-placeholder {
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
   }
 
   .theme-toggle:hover {
     color: var(--foreground);
-    background: color-mix(in oklch, var(--muted) 80%, transparent);
-    border-color: color-mix(in oklch, var(--border) 85%, transparent);
+    background: var(--nav-link-hover-bg);
+    border: var(--nav-link-hover-border);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 40%, transparent);
   }
 
   .page-shell {
@@ -940,10 +941,7 @@ body::after {
     right: 1rem;
   }
 
-  .theme-toggle {
-    min-height: 2.75rem;
-    padding-inline: 0.9rem;
-  }
+  .theme-toggle { min-width: 2.75rem; min-height: 2.75rem; }
 }
 
 @media (min-width: 768px) {

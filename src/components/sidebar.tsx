@@ -41,9 +41,7 @@ export function Sidebar() {
                             {item.label}
                         </Link>
                     ))}
-                    <div className="mt-2">
-                        <ThemeToggle />
-                    </div>
+                    <ThemeToggle />
                 </nav>
             </div>
         </div>
