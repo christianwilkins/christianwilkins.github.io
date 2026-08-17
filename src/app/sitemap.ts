@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/data/siteConfig";
 import { insightPosts } from "@/data/insightsContent";
+import { thoughtPosts } from "@/data/thoughtsContent";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -14,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/consulting",
     "/faq",
     "/insights",
+    "/thoughts",
     "/resources",
     "/case-studies",
     "/lab",
@@ -26,8 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const insightRoutes = insightPosts.map((post) => `/insights/${post.slug}`);
+  const thoughtRoutes = thoughtPosts.map((post) => `/thoughts/${post.slug}`);
 
-  return [...routes, ...insightRoutes].map((route) => ({
+  return [...routes, ...insightRoutes, ...thoughtRoutes].map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly",

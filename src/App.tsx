@@ -11,6 +11,7 @@ import Projects from "@/app/projects/page";
 import Contact from "@/app/contact/page";
 import FaqPage from "@/app/faq/page";
 import InsightsPage from "@/app/insights/page";
+import ThoughtsPage from "@/app/thoughts/page";
 import ResourcesPage from "@/app/resources/page";
 import CaseStudiesPage from "@/app/case-studies/page";
 import LabPage from "@/app/lab/page";
@@ -20,11 +21,13 @@ import VibeCodersGuidePage from "@/app/lab/learning/vibe-coders-guide/page";
 import VibeArcPage from "@/app/lab/learning/vibe-coders-guide/[arc]/page";
 import TerminalPage from "@/app/terminal/page";
 import { InsightPostPage } from "@/routes/InsightPostPage";
+import { ThoughtPostPage } from "@/routes/ThoughtPostPage";
 import { CloudflarePendingPage } from "@/routes/CloudflarePendingPage";
 import { NotFoundPage } from "@/routes/NotFoundPage";
 import { siteConfig } from "@/data/siteConfig";
 import { contactLinks } from "@/data/contactData";
 import { FiltersStudio } from "@/components/filters/filters-studio";
+import { thoughtPosts } from "@/data/thoughtsContent";
 
 const FILTERS_HOSTS = new Set(["filters.chriswiki.com", "www.filters.chriswiki.com"]);
 
@@ -41,6 +44,7 @@ function RouteMetadata() {
     "/contact": "Contact | Christian Wilkins",
     "/faq": "FAQ | Christian Wilkins",
     "/insights": "Insights | Christian Wilkins",
+    "/thoughts": "Thoughts | Christian Wilkins",
     "/resources": "Resources | Christian Wilkins",
     "/case-studies": "Case Studies | Christian Wilkins",
     "/lab": "The Lab | Christian Wilkins",
@@ -50,7 +54,11 @@ function RouteMetadata() {
     "/terminal": "Terminal | Christian Wilkins",
   };
 
-  document.title = titleByPath[location.pathname] ?? siteConfig.title;
+  const thoughtSlug = location.pathname.match(/^\/thoughts\/([^/]+)$/)?.[1];
+  const thought = thoughtPosts.find((entry) => entry.slug === thoughtSlug);
+  document.title = thought
+    ? `${thought.title} | Christian Wilkins`
+    : (titleByPath[location.pathname] ?? siteConfig.title);
 
   const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
   if (canonical) {
@@ -120,6 +128,8 @@ export default function App() {
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/insights/:slug" element={<InsightPostPage />} />
+          <Route path="/thoughts" element={<ThoughtsPage />} />
+          <Route path="/thoughts/:slug" element={<ThoughtPostPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/lab" element={<LabPage />} />

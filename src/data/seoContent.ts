@@ -93,6 +93,7 @@ export const seoFooterLinks = [
   { href: "/consulting", label: "Consulting" },
   { href: "/faq", label: "FAQ" },
   { href: "/insights", label: "Insights" },
+  { href: "/thoughts", label: "Thoughts" },
   { href: "/resources", label: "Resources" },
   { href: "/case-studies", label: "Case Studies" },
 ] as const;

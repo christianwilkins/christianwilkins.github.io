@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { insightPosts } from "@/data/insightsContent";
 import { siteConfig } from "@/data/siteConfig";
+import { thoughtPosts } from "@/data/thoughtsContent";
 
 export function GET() {
   const items = insightPosts
@@ -16,6 +17,20 @@ export function GET() {
         </item>
       `;
     })
+    .concat(
+      thoughtPosts.map((post) => {
+        const link = `${siteConfig.url}/thoughts/${post.slug}`;
+        return `
+          <item>
+            <title><![CDATA[${post.title}]]></title>
+            <link>${link}</link>
+            <guid>${link}</guid>
+            <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+            <description><![CDATA[${post.description}]]></description>
+          </item>
+        `;
+      }),
+    )
     .join("");
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>

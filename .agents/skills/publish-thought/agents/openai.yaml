@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish a Thought"
+  short_description: "Turn voice transcripts into personal posts"
+  default_prompt: "Use $publish-thought to turn this transcript into a personal post and add it to the site."

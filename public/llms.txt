@@ -5,4 +5,5 @@ Christian Wilkins is a software consultant and engineer focused on startups, pro
 - Site: https://chriswiki.com
 - Consulting: https://chriswiki.com/consulting
 - Projects: https://chriswiki.com/projects
+- Thoughts: https://chriswiki.com/thoughts
 - Contact: https://chriswiki.com/contact
