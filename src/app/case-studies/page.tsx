@@ -126,11 +126,18 @@ export default function CaseStudiesPage() {
                 </span>
               ))}
             </div>
-            {project.liveLink && (
-              <Link href={project.liveLink} className="mt-4 inline-block text-sm ui-link">
-                View live project
-              </Link>
-            )}
+            <div className="mt-4 flex flex-wrap gap-3 text-sm">
+              {project.liveLink && (
+                <Link href={project.liveLink} className="ui-link">
+                  View live project
+                </Link>
+              )}
+              {project.appStoreLink && (
+                <Link href={project.appStoreLink} className="ui-link">
+                  View on the App Store
+                </Link>
+              )}
+            </div>
           </div>
         ))}
       </section>

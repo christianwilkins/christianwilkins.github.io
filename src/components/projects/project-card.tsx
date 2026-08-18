@@ -187,6 +187,16 @@ function ProjectCard({ project }: ProjectCardProps) {
                 Live demo
               </Link>
             ) : null}
+            {project.appStoreLink ? (
+              <Link
+                href={project.appStoreLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border/70 px-4 py-2 text-xs font-semibold tracking-wide text-foreground transition hover:border-foreground/40"
+              >
+                App Store
+              </Link>
+            ) : null}
             {project.githubLink ? (
               <Link
                 href={project.githubLink}

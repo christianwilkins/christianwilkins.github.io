@@ -7,6 +7,7 @@ export interface Project {
   image: string;
   technologies: string[];
   liveLink?: string;
+  appStoreLink?: string;
   githubLink?: string;
   featured: boolean;
   role: string;
@@ -64,8 +65,8 @@ export const projects: Project[] = [
     description: "Designed backend architecture and messaging features for paired matches, focusing on reliable real time experiences.",
     image: "",
     technologies: ["React Native", "Firebase", "Node.js"],
-    liveLink: "https://paira.app",
-    githubLink: "https://github.com/christianwilkins/paira",
+    liveLink: "https://www.joinpaira.com/",
+    appStoreLink: "https://apps.apple.com/us/app/paira-double-dating/id6757456545",
     featured: true,
     role: "Backend Engineer",
     timeline: "Product prototype",
