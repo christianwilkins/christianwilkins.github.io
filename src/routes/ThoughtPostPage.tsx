@@ -1,8 +1,46 @@
+import type { ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
+import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { getThoughtReadingTime, thoughtPosts } from "@/data/thoughtsContent";
+import {
+  getThoughtParagraphText,
+  getThoughtReadingTime,
+  getThoughtSourceUrls,
+  thoughtPosts,
+  type ThoughtParagraph,
+} from "@/data/thoughtsContent";
 import { siteConfig } from "@/data/siteConfig";
 import { NotFoundPage } from "@/routes/NotFoundPage";
+
+function renderThoughtParagraph(paragraph: ThoughtParagraph) {
+  if (typeof paragraph === "string") return paragraph;
+
+  const content: ReactNode[] = [];
+  let cursor = 0;
+
+  paragraph.links.forEach((link) => {
+    const linkStart = paragraph.text.indexOf(link.text, cursor);
+    if (linkStart === -1) return;
+
+    content.push(paragraph.text.slice(cursor, linkStart));
+    content.push(
+      <a
+        key={`${link.href}-${linkStart}`}
+        href={link.href}
+        target="_blank"
+        rel="noreferrer"
+        className="thought-source-link"
+      >
+        {link.text}
+        <ExternalLink aria-hidden="true" />
+      </a>,
+    );
+    cursor = linkStart + link.text.length;
+  });
+
+  content.push(paragraph.text.slice(cursor));
+  return content;
+}
 
 export function ThoughtPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -23,17 +61,18 @@ export function ThoughtPostPage() {
     },
     keywords: post.tags.join(", "),
     mainEntityOfPage: `${siteConfig.url}/thoughts/${post.slug}`,
+    citation: getThoughtSourceUrls(post),
   };
 
   const relatedPosts = thoughtPosts.filter((entry) => entry.slug !== post.slug).slice(0, 3);
 
   return (
-    <article className="animate-rise-in space-y-8">
+    <article className="thought-article animate-rise-in space-y-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <header className="space-y-4">
+      <header className="thought-header space-y-4">
         <Badge variant="secondary" className="text-xs">
           Thought
         </Badge>
@@ -43,26 +82,31 @@ export function ThoughtPostPage() {
           <span>•</span>
           <span>{getThoughtReadingTime(post)}</span>
         </div>
-        <p className="text-base text-muted-foreground sm:text-lg">{post.description}</p>
+        <p className="thought-description text-base text-muted-foreground sm:text-lg">
+          {post.description}
+        </p>
       </header>
 
-      <div className="space-y-6">
+      <div className="thought-prose">
         {post.sections.map((section) => (
           <section
-            key={section.title ?? section.paragraphs[0]}
-            className={section.title ? "ui-section space-y-3" : "space-y-3"}
+            key={section.title ?? getThoughtParagraphText(section.paragraphs[0])}
+            className={
+              section.title
+                ? "thought-section ui-section"
+                : "thought-section thought-section-unheaded"
+            }
           >
             {section.title && (
               <h2 className="ui-label text-2xl font-semibold font-heading">{section.title}</h2>
             )}
-            {section.paragraphs.map((paragraph) => (
-              <p
-                key={paragraph}
-                className="text-sm leading-relaxed text-muted-foreground sm:text-base"
-              >
-                {paragraph}
-              </p>
-            ))}
+            <div className="thought-section-body">
+              {section.paragraphs.map((paragraph) => (
+                <p key={getThoughtParagraphText(paragraph)} className="thought-paragraph">
+                  {renderThoughtParagraph(paragraph)}
+                </p>
+              ))}
+            </div>
           </section>
         ))}
       </div>
