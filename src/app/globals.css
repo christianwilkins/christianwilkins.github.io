@@ -989,7 +989,7 @@ body::after {
     padding-right: calc(1rem + 3.25rem);
     display: flex;
     align-items: center;
-    background: color-mix(in oklch, var(--background) 92%, transparent);
+    background: var(--background);
     border-bottom: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
     backdrop-filter: blur(var(--surface-blur));
     -webkit-backdrop-filter: blur(var(--surface-blur));
@@ -1143,6 +1143,11 @@ dialog:not([open]) { display: none; }
   .mobile-nav-dialog, .style-dialog { transition: none; }
 }
 :root[data-nav="top"] .sidebar-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
-:root[data-nav="top"] .sidebar-role { max-width: 26ch; font-size: 0.8rem; line-height: 1.4; }
+:root[data-nav="top"] .sidebar-role { display: none; }
 :root[data-nav="top"] .sidebar-shell nav { justify-content: flex-end; }
+/* Sticky navigation must cover scrolling text, including transparent presets. */
+:root[data-nav="top"] .sidebar-shell {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+}
 .terminal-dialog { overflow: hidden; }
