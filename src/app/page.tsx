@@ -1,3 +1,4 @@
+import { personalBrand } from "@/data/personalBrand";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -50,14 +51,14 @@ export default function Home() {
     <div className="animate-rise-in">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">
-        Software consulting for startups
+        {personalBrand.role}
       </h1>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m a software consultant and product engineer helping early stage and growth teams ship faster.
+        I build products, design systems, and AI workflows.
         Based in the United States<span className="hidden sm:inline"> and a United States citizen</span>.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I focus on design systems, front end architecture, and AI workflow automation.
+        I founded <a href={personalBrand.company.url} className="ui-link">{personalBrand.company.name}</a>, where I work with founders on technical direction and software delivery.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
         Explore my <Link href="/consulting" className="ui-link">consulting</Link>{" and "}
@@ -82,6 +83,7 @@ export default function Home() {
         <section className="ui-section space-y-2">
           <h2 className="ui-label text-xl font-semibold font-heading">Explore</h2>
           <div className="flex flex-wrap gap-3 text-sm">
+            <Link href="/about" className="ui-link">About and experience</Link>
             <Link href="/consulting" className="ui-link">
               Consulting
             </Link>
