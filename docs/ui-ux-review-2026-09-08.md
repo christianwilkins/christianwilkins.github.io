@@ -92,6 +92,10 @@ The first pass improved usability but left the homepage reading like a biography
 
 Screenshot source: `https://www.forgepeakventures.com`. The portrait is the existing `public/assets/pfp.jpg`. No generated portraits or simulated product screenshots were introduced.
 
+### Sticky navigation correction
+
+The Amodei preset left the sticky header transparent, allowing page text to show through while scrolling. Its header also repeated the role already shown in the homepage introduction. Desktop top navigation and the mobile header now use a solid theme background. The role remains in the page introduction and sidebar layouts, and is hidden in top navigation across presets. Added desktop and mobile regressions for the scrolled Amodei header in both themes. All 10 style tests, lint, and TypeScript checks passed.
+
 This branch uses Cloudflare Pages preview deployment. The production branch is unchanged. The workflow log records the immutable deployment URL; the stable preview alias is `https://feature-dev-ui-ux-release.chriswiki.pages.dev`.
 
 For brand copy and rollout rules, see [brand-guidelines.md](brand-guidelines.md).
