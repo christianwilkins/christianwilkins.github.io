@@ -63,7 +63,7 @@ export default function Home() {
           </div>
         </div>
         <figure className="home-portrait">
-          <img src="/assets/pfp.jpg" width="7911" height="7911" alt="Christian Wilkins" fetchPriority="high" />
+          <img src="/assets/christian-wilkins-portrait.png" width="1086" height="992" alt="Christian Wilkins" fetchPriority="high" />
           <figcaption>Founder of <a href={personalBrand.company.url}>{personalBrand.company.name}</a></figcaption>
         </figure>
       </section>
