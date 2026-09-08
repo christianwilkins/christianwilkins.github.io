@@ -82,7 +82,7 @@ The self hosted font files and licenses are in `public/brand/fonts`. Exported PN
 
 Keep the mark square. Leave at least one stroke width of clear space and use a larger margin for circular avatar crops. Do not stretch it, add effects, or substitute the company logo for the personal mark. Use the full wordmark whenever the person needs to be identified without surrounding profile text.
 
-The homepage uses the existing real portrait in `public/assets/pfp.jpg`. The exported profile avatar remains the geometric mark. If adopting the portrait across accounts, use one consistent crop and retain the person's actual appearance.
+Christian selected `IMG_0351.PNG` as the homepage portrait on September 8, 2026. The unchanged source image is stored in `public/assets/christian-wilkins-portrait.png`. The exported profile avatar remains the geometric mark. If adopting the portrait across accounts, use one consistent crop and retain the person's actual appearance.
 
 Visitor selected site presets are optional presentation settings; exported profiles and share images use the canonical look. A preset must never rewrite identity copy. Keep body text at least 16px, paragraphs comfortably readable, and ordinary text contrast at least 4.5:1.
 
