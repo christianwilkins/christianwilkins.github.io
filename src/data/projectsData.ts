@@ -1,3 +1,4 @@
+import { personalBrand } from "@/data/personalBrand";
 import { siteConfig } from "@/data/siteConfig";
 
 export interface Project {
@@ -18,18 +19,34 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "Resume Tailor Ai Project",
-    summary: "Ai powered resume tailoring for Ats friendly applications.",
+    title: personalBrand.company.name,
+    summary: "My consulting company, where I work with founders to turn prototypes into shipped products.",
+    description: "I founded ForgePeak Ventures and work across technical direction, consulting, and engineering. The company website presents our services and project work.",
+    image: "",
+    technologies: ["React", "TypeScript", "Cloudflare"],
+    liveLink: personalBrand.company.url,
+    featured: true,
+    role: personalBrand.company.role,
+    timeline: "Current",
+    highlights: [
+      "Technical direction and product delivery for client projects.",
+      "Consulting and hands on software engineering.",
+      "Design and development of the ForgePeak Ventures website.",
+    ],
+    impact: [],
+  },
+  {
+    title: "Resume Tailor AI Project",
+    summary: "AI powered resume tailoring for ATS friendly applications.",
     description: "Built a product that extracts job requirements, generates targeted resume bullets, and keeps edits structured and consistent.",
     image: "",
-    technologies: ["Next.js", "OpenAi Api", "Tailwind CSS"],
+    technologies: ["Next.js", "OpenAI API", "Tailwind CSS"],
     liveLink: "https://resumetailor.ai",
-    githubLink: "https://github.com/christianwilkins/resume-tailor",
     featured: true,
-    role: "Full stack Developer",
+    role: "Full stack developer",
     timeline: "Side project",
     highlights: [
-      "Integrated Llm workflows for targeted rewrites.",
+      "Integrated LLM workflows for targeted rewrites.",
       "Built a structured editing experience for resumes.",
       "Added guardrails for tone, length, and clarity.",
     ],
@@ -39,15 +56,13 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: "ReKive Ai Politics Project",
-    summary: "Ai platform for balanced political analysis and news summaries.",
-    description: "Aggregated news sources, applied Nlp summarization, and surfaced multiple viewpoints in a clean, skimmable UI.",
+    title: "ReKive AI Politics Project",
+    summary: "AI platform for balanced political analysis and news summaries.",
+    description: "Aggregated news sources, applied NLP summarization, and surfaced multiple viewpoints in a clean, skimmable UI.",
     image: "",
-    technologies: ["Python", "Nlp", "React"],
-    liveLink: "https://rekive.ai",
-    githubLink: "https://github.com/christianwilkins/rekive",
+    technologies: ["Python", "NLP", "React"],
     featured: true,
-    role: "Full stack Developer",
+    role: "Full stack developer",
     timeline: "Ongoing",
     highlights: [
       "Built ingestion pipeline for multi source news.",
@@ -82,10 +97,10 @@ export const projects: Project[] = [
   },
   {
     title: "This Portfolio Website",
-    summary: "Next.js and Tailwind portfolio with custom, reusable UI components.",
+    summary: "React, Vite, and Tailwind portfolio with custom, reusable UI components.",
     description: "Designed a clean visual system, built modular components, and optimized layout for clarity and responsiveness.",
     image: "",
-    technologies: ["Next.js", "Tailwind CSS", "Shadcn UI"],
+    technologies: ["React", "Vite", "Tailwind CSS"],
     liveLink: siteConfig.url,
     githubLink: "https://github.com/christianwilkins/christianwilkins.github.io",
     featured: true,
@@ -107,8 +122,6 @@ export const projects: Project[] = [
     description: "Integrated on device vision models and crafted a camera first Flutter experience with clear recycling guidance.",
     image: "",
     technologies: ["Flutter", "TensorFlow Lite", "Dart"],
-    liveLink: "https://recycleme.app",
-    githubLink: "https://github.com/christianwilkins/recycleme",
     featured: false,
     role: "Mobile Developer",
     timeline: "Prototype",
@@ -123,19 +136,18 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: "Ros2 Car Capstone Project",
-    summary: "Autonomous navigation and obstacle avoidance with Ros2.",
+    title: "ROS 2 Car Capstone Project",
+    summary: "Autonomous navigation and obstacle avoidance with ROS 2.",
     description: "Implemented navigation behavior, sensor integration, and obstacle avoidance routines, validated in simulation and on hardware.",
     image: "",
-    technologies: ["Ros2", "Python", "C++"],
+    technologies: ["ROS 2", "Python", "C++"],
     liveLink: "https://msu.edu",
-    githubLink: "https://github.com/christianwilkins/ros2-car",
     featured: false,
     role: "Capstone Team Member",
     timeline: "Senior capstone",
     highlights: [
       "Implemented navigation and obstacle avoidance routines.",
-      "Integrated sensors and Ros2 nodes for autonomy.",
+      "Integrated sensors and ROS 2 nodes for autonomy.",
       "Tuned behaviors through simulation testing.",
     ],
     impact: [
@@ -178,7 +190,7 @@ export const projects: Project[] = [
     highlights: [
       "Delivered client requested features on a tight timeline.",
       "Bridged front end UI updates with backend logic.",
-      "Partnered with Qa to validate release readiness.",
+      "Partnered with QA to validate release readiness.",
     ],
     impact: [
       "Enhanced client workflows with tailored features.",
