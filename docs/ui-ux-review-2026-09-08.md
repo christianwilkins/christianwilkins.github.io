@@ -78,6 +78,20 @@ ForgePeak's live URL resolves successfully: https://www.forgepeakventures.com.
 
 ## Release
 
+### Homepage visual revision
+
+The first pass improved usability but left the homepage reading like a biography document. Christian requested a stronger visual pass. Applied the Redesign Existing Projects and Design Taste skills to the existing React implementation.
+
+- Replaced the repeated role headline and focus list with a concise introduction, existing personal portrait, selected work, latest writing, and a contact invitation.
+- Added an actual screenshot of the ForgePeak website, captured September 8, 2026. Paired it with the company role and a clear external link. Paira and Resume Tailor AI have compact project entries.
+- Used IBM Plex Sans for homepage headings and default navigation, with a wider content measure and a compact header. Newsreader remains available for editorial pages and exported brand artwork.
+- Changed the root navigation label to Home so it is distinct from the full About page.
+- Moved the homepage style control into the footer after visual review showed the floating trigger covering mobile content. Its native dialog, focus behavior, and presets are retained.
+- Checked the homepage at 320, 390, 768, 1024, and 1440 pixels in both themes. No horizontal overflow, broken rendered images, or axe violations across these 10 combinations. Visually reviewed desktop and mobile captures in light and dark mode.
+- Lint, TypeScript, and production build passed. All 23 applicable existing browser tests passed before the footer adjustment; all 10 affected style and dialog tests passed again after it. The existing desktop instance of the mobile resize test remains intentionally skipped.
+
+Screenshot source: `https://www.forgepeakventures.com`. The portrait is the existing `public/assets/pfp.jpg`. No generated portraits or simulated product screenshots were introduced.
+
 This branch uses Cloudflare Pages preview deployment. The production branch is unchanged. The workflow log records the immutable deployment URL; the stable preview alias is `https://feature-dev-ui-ux-release.chriswiki.pages.dev`.
 
 For brand copy and rollout rules, see [brand-guidelines.md](brand-guidelines.md).
