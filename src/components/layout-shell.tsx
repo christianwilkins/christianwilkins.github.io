@@ -36,14 +36,13 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
     return (
         <TerminalWindowProvider>
-            <div className="layout-shell flex min-h-screen">
+            <div className={cn("layout-shell flex min-h-screen", pathname === "/" && "layout-home")}>
                 <a href="#main-content" className="skip-link">Skip to content</a>
                 <Sidebar />
 
                 <div className="layout-main flex-1 min-w-0 flex flex-col min-h-screen transition-all duration-300">
                     <MobileHeader />
                     <HamburgerMenu isVisible={true} />
-                    <StyleSettingsDrawer />
 
                     <main id="main-content" ref={mainRef} tabIndex={-1} className={cn(
                         "flex-1 page-shell flex flex-col animate-fade-in overflow-x-hidden",
@@ -75,6 +74,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                                 </a>
                             ))}
                         </div>
+                        <StyleSettingsDrawer inline={pathname === "/"} />
                     </footer>
                 </div>
             </div>
