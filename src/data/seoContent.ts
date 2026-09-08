@@ -1,3 +1,4 @@
+import { personalBrand } from "@/data/personalBrand";
 export const servicesContent = {
   heroTitle: "Software consulting for startups",
   heroSubtitle:
@@ -100,7 +101,7 @@ export const seoFooterLinks = [
 
 export const llmProfile = {
   summary:
-    "Christian Wilkins is a software consultant and engineer focused on startups, product design systems, and AI workflow automation.",
+    personalBrand.shortBio,
   specialties: [
     "Software consulting",
     "Product design systems",
