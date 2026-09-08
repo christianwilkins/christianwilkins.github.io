@@ -80,7 +80,7 @@ const STARRED_PRESET_IDS = new Set(["amodei", "chimero"]);
 const formatPresetName = (id: string, name: string) =>
   STARRED_PRESET_IDS.has(id) ? `★ ${name}` : name;
 
-export function StyleSettingsDrawer() {
+export function StyleSettingsDrawer({ inline = false }: { inline?: boolean }) {
   const [open, setOpen] = React.useState(false);
   const dialogRef = useModalDialog(open);
   const [isMobile, setIsMobile] = React.useState(false);
@@ -443,7 +443,7 @@ export function StyleSettingsDrawer() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-[1100] sm:bottom-6 sm:right-6">
+    <div className={inline ? "mt-5 flex justify-center text-left" : "fixed bottom-4 right-4 z-[1100] sm:bottom-6 sm:right-6"}>
       <button
         type="button"
         onClick={() => setOpen(true)}
