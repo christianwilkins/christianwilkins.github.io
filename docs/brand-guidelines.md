@@ -64,11 +64,12 @@ Preserve technical capitalization: AI, API, ATS, LLM, NLP, ROS 2, and QA. Write 
 
 ## Visual identity
 
-Preserve the site's editorial system: serif headlines, plain sans serif body text, quiet neutral surfaces, and clear underlined links. The full name is the primary identifier. The existing outlined hexagon is a secondary mark for small avatars, favicons, and constrained spaces.
+Use quiet neutral surfaces, clear links, and a strong type hierarchy. The portfolio homepage and navigation use IBM Plex Sans for a direct, practical presentation. Newsreader remains the editorial face for writing and exported brand artwork. The full name is the primary identifier. The existing outlined hexagon is a secondary mark for small avatars, favicons, and constrained spaces.
 
 | Use | Canonical value |
 | --- | --- |
-| Heading and wordmark | Newsreader, weight 700 |
+| Editorial headings and exported wordmark | Newsreader, weight 700 |
+| Portfolio headings and navigation | IBM Plex Sans, weight 600 |
 | Body and descriptors | IBM Plex Sans, weights 400–600 |
 | Light surface | `#f3f3f3` |
 | Primary ink | `#161616` |
@@ -81,7 +82,7 @@ The self hosted font files and licenses are in `public/brand/fonts`. Exported PN
 
 Keep the mark square. Leave at least one stroke width of clear space and use a larger margin for circular avatar crops. Do not stretch it, add effects, or substitute the company logo for the personal mark. Use the full wordmark whenever the person needs to be identified without surrounding profile text.
 
-No canonical headshot was selected in this task. The provided avatar is the existing geometric mark. A future real headshot should use one consistent crop across personal accounts and retain the person's actual appearance.
+The homepage uses the existing real portrait in `public/assets/pfp.jpg`. The exported profile avatar remains the geometric mark. If adopting the portrait across accounts, use one consistent crop and retain the person's actual appearance.
 
 Visitor selected site presets are optional presentation settings; exported profiles and share images use the canonical look. A preset must never rewrite identity copy. Keep body text at least 16px, paragraphs comfortably readable, and ordinary text contrast at least 4.5:1.
 
