@@ -10,30 +10,34 @@ import { cn } from "@/lib/utils"
 import { seoFooterLinks } from "@/data/seoContent"
 
 import { usePathname } from "next/navigation"
+import { useLocation } from "react-router-dom"
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
-    const [isMobile, setIsMobile] = React.useState(false)
+    const location = useLocation()
+    const mainRef = React.useRef<HTMLElement>(null)
+    const previousPath = React.useRef(pathname)
     const isLab = pathname?.startsWith("/lab") || pathname?.startsWith("/terminal")
     const isProjects = pathname?.startsWith("/projects")
 
     React.useEffect(() => {
-        const update = () => {
-            const mobile = window.innerWidth <= 768
-            setIsMobile(mobile)
-        }
-
-        window.addEventListener("resize", update)
-        update()
-
-        return () => {
-            window.removeEventListener("resize", update)
-        }
-    }, [])
+        if (previousPath.current === pathname) return
+        previousPath.current = pathname
+        const frame = requestAnimationFrame(() => {
+            let anchorId = location.hash.slice(1)
+            try { anchorId = decodeURIComponent(anchorId) } catch { /* Keep malformed fragments safe. */ }
+            const anchor = anchorId ? document.getElementById(anchorId) : null
+            mainRef.current?.focus({ preventScroll: true })
+            if (anchor) anchor.scrollIntoView()
+            else window.scrollTo({ top: 0, behavior: "instant" })
+        })
+        return () => cancelAnimationFrame(frame)
+    }, [pathname, location.hash])
 
     return (
         <TerminalWindowProvider>
             <div className="layout-shell flex min-h-screen">
+                <a href="#main-content" className="skip-link">Skip to content</a>
                 <Sidebar />
 
                 <div className="layout-main flex-1 min-w-0 flex flex-col min-h-screen transition-all duration-300">
@@ -41,10 +45,10 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                     <HamburgerMenu isVisible={true} />
                     <StyleSettingsDrawer />
 
-                    <main className={cn(
+                    <main id="main-content" ref={mainRef} tabIndex={-1} className={cn(
                         "flex-1 page-shell flex flex-col animate-fade-in overflow-x-hidden",
                         !isLab && "justify-center items-center",
-                        isMobile && "mobile-content-offset"
+                        "mobile-content-offset"
                     )}>
                         <div className={cn(
                             "layout-content min-w-0 animate-rise-in",
@@ -63,7 +67,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
                     {/* Footer */}
                     <footer className="page-footer text-center text-sm text-muted-foreground mt-auto">
-                        <h4>Copyright © 2026 Christian J Wilkins. All rights reserved.</h4>
+                        <p>Copyright © 2026 Christian Wilkins. All rights reserved.</p>
                         <div className="mt-2 flex flex-wrap justify-center gap-3 text-xs text-muted-foreground">
                             {seoFooterLinks.map((link) => (
                                 <a key={link.href} href={link.href} className="hover:text-foreground">
