@@ -101,7 +101,7 @@ export default function VibeArcPage({ params }: { params: Params }) {
             </CardContent>
           </Card>
 
-          <ActivityPanel arc={arc} />
+          <ActivityPanel key={arc.id} arc={arc} />
         </section>
 
         <section className="rounded-3xl border border-dashed border-border/70 bg-muted/20 p-5">
