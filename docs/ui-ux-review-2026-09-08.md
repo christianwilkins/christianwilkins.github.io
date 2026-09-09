@@ -96,6 +96,10 @@ Screenshot source: `https://www.forgepeakventures.com`. The portrait is the exis
 
 The Amodei preset left the sticky header transparent, allowing page text to show through while scrolling. Its header also repeated the role already shown in the homepage introduction. Desktop top navigation and the mobile header now use a solid theme background. The role remains in the page introduction and sidebar layouts, and is hidden in top navigation across presets. Added desktop and mobile regressions for the scrolled Amodei header in both themes. All 10 style tests, lint, and TypeScript checks passed.
 
+### Style control placement
+
+On September 9, Christian requested that the Style me button remain floating in the bottom right corner. Restored its fixed placement on the homepage, matching the other pages, while retaining the accessible dialog behavior.
+
 This branch uses Cloudflare Pages preview deployment. The production branch is unchanged. The workflow log records the immutable deployment URL; the stable preview alias is `https://feature-dev-ui-ux-release.chriswiki.pages.dev`.
 
 For brand copy and rollout rules, see [brand-guidelines.md](brand-guidelines.md).
