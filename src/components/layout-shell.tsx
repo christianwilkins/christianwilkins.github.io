@@ -43,6 +43,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 <div className="layout-main flex-1 min-w-0 flex flex-col min-h-screen transition-all duration-300">
                     <MobileHeader />
                     <HamburgerMenu isVisible={true} />
+                    <StyleSettingsDrawer />
 
                     <main id="main-content" ref={mainRef} tabIndex={-1} className={cn(
                         "flex-1 page-shell flex flex-col animate-fade-in overflow-x-hidden",
@@ -74,7 +75,6 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                                 </a>
                             ))}
                         </div>
-                        <StyleSettingsDrawer inline={pathname === "/"} />
                     </footer>
                 </div>
             </div>
