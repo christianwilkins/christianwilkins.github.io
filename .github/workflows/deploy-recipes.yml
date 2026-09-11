@@ -1,0 +1,83 @@
+name: Deploy Recipes
+
+on:
+  workflow_dispatch:
+    inputs:
+      recipe_commit:
+        description: Full commit SHA from christianwilkins/recipes to publish
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-recipes-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Validate recipe commit
+        env:
+          RECIPE_COMMIT: ${{ inputs.recipe_commit }}
+        run: |
+          if [[ ! "$RECIPE_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'Provide a full lowercase Git commit SHA.' >&2
+            exit 1
+          fi
+
+      - name: Check out the requested recipe revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: christianwilkins/recipes
+          ref: ${{ inputs.recipe_commit }}
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install from lockfile
+        run: npm ci --ignore-scripts
+
+      - name: Validate content and build
+        run: |
+          npm run check
+          npm run build
+          test -s dist/index.html
+          test -s dist/protein-banana-pudding/index.html
+          test -s dist/biscoff-protein-cheesecake-bowl/index.html
+          test -s dist/shopping/index.html
+          test ! -e dist/_worker.js
+          test ! -d functions
+
+      - name: Check deployment credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+
+      - name: Deploy static recipes
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.106.0'
+          command: pages deploy dist --project-name=chriswiki-recipes --branch=main
+
+      - name: Verify published content
+        run: |
+          curl --fail --silent --show-error --retry 6 --retry-delay 5 --retry-all-errors \
+            https://chriswiki-recipes.pages.dev/protein-banana-pudding/ | grep -q 'Protein banana pudding'
+          curl --fail --silent --show-error --retry 6 --retry-delay 5 --retry-all-errors \
+            https://chriswiki-recipes.pages.dev/biscoff-protein-cheesecake-bowl/ | grep -q 'Biscoff protein cheesecake bowl'
+          curl --fail --silent --show-error --retry 6 --retry-delay 5 --retry-all-errors \
+            https://chriswiki-recipes.pages.dev/shopping/ | grep -q '56.69'
+          echo 'Published recipes: https://recipes.chriswiki.com' >> "$GITHUB_STEP_SUMMARY"
