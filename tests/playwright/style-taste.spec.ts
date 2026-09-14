@@ -69,6 +69,29 @@ async function readHeadingFontFamily(page: Page) {
 }
 
 test.describe("style system smoke", () => {
+  test("sticky navigation keeps scrolling text behind a solid surface", async ({ page, isMobile }, testInfo) => {
+    await visitHome(page);
+    for (const mode of ["light", "dark"] as const) {
+      await ensureTheme(page, mode);
+      await openStyleDrawer(page);
+      await openPresetsSection(page);
+      await page.locator("#style-presets").getByRole("button", { name: /amodei minimal/i }).click();
+      await page.keyboard.press("Escape");
+      await page.evaluate(() => window.scrollTo({ top: 170, behavior: "instant" }));
+
+      const header = page.locator(isMobile ? ".mobile-header" : ".sidebar-shell");
+      await expect(header).toBeVisible();
+      expect(await header.evaluate((element) => getComputedStyle(element).backgroundColor))
+        .toBe(await page.locator("body").evaluate((element) => getComputedStyle(element).backgroundColor));
+      expect(await header.evaluate((element) => element.getBoundingClientRect().top)).toBe(0);
+      if (!isMobile) await expect(page.locator(".sidebar-role")).toBeHidden();
+      await testInfo.attach(`scrolled-header-${mode}`, {
+        body: await page.screenshot(),
+        contentType: "image/png",
+      });
+    }
+  });
+
   test("homepage keeps good responsive structure", async ({ page }, testInfo) => {
     await visitHome(page);
 

@@ -12,14 +12,15 @@ export default defineConfig({
   reporter: [["html", { open: "never" }], ["list"]],
   use: {
     baseURL,
+    channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
     trace: "on-first-retry",
     screenshot: "only-on-failure",
-    video: "retain-on-failure",
+    video: process.env.PLAYWRIGHT_VIDEO === "off" ? "off" : "retain-on-failure",
   },
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
-        command: `npm run dev -- --hostname 127.0.0.1 --port ${PORT}`,
+        command: `npm run dev -- --host 127.0.0.1 --port ${PORT}`,
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         stdout: "pipe",

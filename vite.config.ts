@@ -1,9 +1,18 @@
 import path from "node:path";
+import brand from "./public/brand/identity.json";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), {
+    name: "canonical-personal-brand",
+    transformIndexHtml(html) {
+      const escape = (text: string) => text.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      return html.replaceAll("%BRAND_NAME%", escape(brand.name))
+        .replaceAll("%BRAND_ROLE%", escape(brand.role))
+        .replaceAll("%BRAND_TITLE%", escape(`${brand.name} | ${brand.role}`));
+    },
+  }],
   build: {
     rollupOptions: {
       output: {

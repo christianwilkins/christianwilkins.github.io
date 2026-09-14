@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export function CloudflarePendingPage({ feature }: { feature: string }) {
   return (
@@ -17,18 +17,11 @@ export function CloudflarePendingPage({ feature }: { feature: string }) {
             <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70">
               <Cloud className="h-5 w-5" />
             </div>
-            <CardTitle>{feature} is paused during the Cloudflare migration</CardTitle>
+            <h1 className="text-2xl font-semibold">{feature} is temporarily unavailable</h1>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>
-              This tool depended on Vercel server APIs and storage. The public site is ready for
-              Cloudflare Pages; this feature needs a Cloudflare-native backend before it can be
-              turned back on.
-            </p>
-            <p>
-              Planned replacement: Pages Functions or Workers for APIs, R2 for files, and a
-              Cloudflare-compatible auth/session path.
-            </p>
+            <p>This tool is paused while I update it. You can explore the Learning Hub or the other projects in The Lab.</p>
+            <Link to="/lab/learning" className="ui-link inline-flex min-h-11 items-center">Explore the Learning Hub</Link>
           </CardContent>
         </Card>
       </div>

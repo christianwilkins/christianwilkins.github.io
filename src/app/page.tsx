@@ -1,6 +1,9 @@
+import { personalBrand } from "@/data/personalBrand";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { thoughtPosts } from "@/data/thoughtsContent";
+import "./home.css";
 import { siteConfig } from "@/data/siteConfig";
 
 export const metadata: Metadata = {
@@ -47,50 +50,73 @@ export default function Home() {
   };
 
   return (
-    <div className="animate-rise-in">
+    <div className="home-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
-      <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">
-        Software consulting for startups
-      </h1>
-      <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m a software consultant and product engineer helping early stage and growth teams ship faster.
-        Based in the United States<span className="hidden sm:inline"> and a United States citizen</span>.
-      </p>
-      <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I focus on design systems, front end architecture, and AI workflow automation.
-      </p>
-      <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        Explore my <Link href="/consulting" className="ui-link">consulting</Link>{" and "}
-        <Link href="/projects" className="ui-link">project work</Link>.
-      </p>
-      <div className="mt-6">
-        <Button asChild size="lg">
-          <Link href="/contact" className="ui-label">
-            Start a project
-          </Link>
-        </Button>
-      </div>
-      <div className="mt-8 space-y-6">
-        <section className="ui-section space-y-3">
-          <h2 className="ui-label text-xl font-semibold font-heading">Current focus</h2>
-          <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
-            <li>Product audits and 2 to 6 week delivery plans.</li>
-            <li>Design systems and UI architecture for fast moving teams.</li>
-            <li>AI workflow automation and production ready Next.js delivery.</li>
-          </ul>
-        </section>
-        <section className="ui-section space-y-2">
-          <h2 className="ui-label text-xl font-semibold font-heading">Explore</h2>
-          <div className="flex flex-wrap gap-3 text-sm">
-            <Link href="/consulting" className="ui-link">
-              Consulting
-            </Link>
-            <Link href="/projects" className="ui-link">
-              Projects
-            </Link>
+      <section className="home-intro" aria-labelledby="home-heading">
+        <div className="home-intro-copy">
+          <p className="home-role">{personalBrand.role}</p>
+          <h1 id="home-heading">From first idea to working product.</h1>
+          <p className="home-description">I’m Christian. I build products, design systems, and AI workflows with founders who want to make something useful.</p>
+          <div className="home-actions">
+            <Link href="/contact" className="home-button">Start a project <ArrowUpRight aria-hidden="true" /></Link>
+            <Link href="/about" className="home-text-link">More about me <ArrowRight aria-hidden="true" /></Link>
           </div>
-        </section>
-      </div>
+        </div>
+        <figure className="home-portrait">
+          <img src="/assets/christian-wilkins-portrait.png" width="1086" height="992" alt="Christian Wilkins" fetchPriority="high" />
+          <figcaption>Founder of <a href={personalBrand.company.url}>{personalBrand.company.name}</a></figcaption>
+        </figure>
+      </section>
+
+      <section className="home-work" aria-labelledby="work-heading">
+        <div className="home-section-heading">
+          <h2 id="work-heading">Selected work</h2>
+          <Link href="/projects" className="home-text-link">All projects <ArrowRight aria-hidden="true" /></Link>
+        </div>
+        <article className="home-feature">
+          <a href={personalBrand.company.url} className="home-project-image" aria-label="Visit ForgePeak Ventures website">
+            <img src="/assets/forgepeak-website.png" alt="ForgePeak Ventures website, featuring its technical cofounder services" width="1440" height="1000" loading="lazy" />
+          </a>
+          <div className="home-feature-copy">
+            <p className="home-project-role">{personalBrand.company.role}</p>
+            <h3>{personalBrand.company.name}</h3>
+            <p>My consulting company. I work with founders on technical direction and software delivery, and designed and built the company’s website.</p>
+            <a href={personalBrand.company.url} className="home-text-link">Explore ForgePeak <ArrowUpRight aria-hidden="true" /></a>
+          </div>
+        </article>
+        <div className="home-project-list">
+          <a href="https://www.joinpaira.com/" className="home-project-row">
+            <div><h3>Paira</h3><p>Backend engineering for double date matching and real time messaging.</p></div>
+            <span>Mobile app <ArrowUpRight aria-hidden="true" /></span>
+          </a>
+          <a href="https://resumetailor.ai" className="home-project-row">
+            <div><h3>Resume Tailor AI</h3><p>Structured AI workflows for targeted, consistent resume edits.</p></div>
+            <span>AI product <ArrowUpRight aria-hidden="true" /></span>
+          </a>
+        </div>
+      </section>
+
+      <section className="home-notes" aria-labelledby="notes-heading">
+        <div className="home-notes-intro">
+          <h2 id="notes-heading">Outside the code.</h2>
+          <p>Notes on work, technology, and whatever has my attention.</p>
+          <Link href="/thoughts" className="home-text-link">All thoughts <ArrowRight aria-hidden="true" /></Link>
+        </div>
+        <div className="home-notes-list">
+          {thoughtPosts.slice(0, 2).map((post) => (
+            <Link key={post.slug} href={`/thoughts/${post.slug}`} className="home-note">
+              <time dateTime={post.date}>{new Date(`${post.date}T12:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}</time>
+              <h3>{post.title} <ArrowUpRight aria-hidden="true" /></h3>
+              <p>{post.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="home-contact" aria-labelledby="contact-heading">
+        <div><h2 id="contact-heading">Have something in mind?</h2><p>Tell me what you’re building and where you need a hand.</p></div>
+        <Link href="/contact" className="home-button">Let’s talk <ArrowUpRight aria-hidden="true" /></Link>
+      </section>
     </div>
   );
 }
