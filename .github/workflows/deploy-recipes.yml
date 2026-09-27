@@ -84,12 +84,24 @@ jobs:
 
       - name: Verify published content
         run: |
-          curl --fail --silent --show-error --retry 6 --retry-delay 5 --retry-all-errors \
-            https://chriswiki-recipes.pages.dev/protein-banana-pudding/ | grep -q 'Protein banana pudding'
-          curl --fail --silent --show-error --retry 6 --retry-delay 5 --retry-all-errors \
-            https://chriswiki-recipes.pages.dev/biscoff-protein-cheesecake-bowl/ | grep -q 'Biscoff protein cheesecake bowl'
-          curl --fail --silent --show-error --retry 6 --retry-delay 5 --retry-all-errors \
-            https://chriswiki-recipes.pages.dev/shopping/ | grep -q 'Anyone with this page can edit'
-          curl --fail --silent --show-error --retry 6 --retry-delay 5 --retry-all-errors \
-            https://chriswiki-recipes.pages.dev/api/groceries | node -e "let raw='';process.stdin.on('data',s=>raw+=s);process.stdin.on('end',()=>{if(!Array.isArray(JSON.parse(raw).items))process.exit(1)})"
+          node --input-type=module <<'JS'
+          const checks = [
+            ['/protein-banana-pudding/', text => text.includes('Protein banana pudding')],
+            ['/biscoff-protein-cheesecake-bowl/', text => text.includes('Biscoff protein cheesecake bowl')],
+            ['/shopping/', text => text.includes('Anyone with this page can edit')],
+            ['/api/groceries', text => Array.isArray(JSON.parse(text).items)]
+          ];
+          for (const [path, matches] of checks) {
+            let passed = false;
+            for (let attempt = 0; attempt < 10; attempt++) {
+              try {
+                const response = await fetch(`https://chriswiki-recipes.pages.dev${path}`, {signal: AbortSignal.timeout(15000)});
+                if (response.ok && matches(await response.text())) { passed = true; break; }
+              } catch { /* Retry while the new deployment reaches the edge. */ }
+              if (attempt < 9) await new Promise(resolve => setTimeout(resolve, 5000));
+            }
+            if (!passed) throw new Error(`Published content check failed: ${path}`);
+            console.log(`Verified ${path}`);
+          }
+          JS
           echo 'Published recipes: https://recipes.chriswiki.com' >> "$GITHUB_STEP_SUMMARY"
