@@ -1,3 +1,4 @@
+import { personalBrand } from "@/data/personalBrand";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,7 @@ import { contactLinks } from "@/data/contactData";
 import { siteConfig } from "@/data/siteConfig";
 
 const aboutDescription =
-  "Christian Wilkins is a software consultant and engineer focused on startups, product design systems, and AI workflow automation.";
+  personalBrand.shortBio;
 
 export const metadata: Metadata = {
   title: "About | Christian Wilkins",
@@ -47,7 +48,7 @@ export default function About() {
       "@type": "Person",
       name: siteConfig.name,
       url: siteConfig.url,
-      jobTitle: "Software consultant and engineer",
+      jobTitle: personalBrand.role,
       sameAs: contactLinks
         .filter((link) => ["github", "linkedin", "twitter"].includes(link.id))
         .map((link) => link.url),
@@ -79,7 +80,7 @@ export default function About() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">About</h1>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
-        I&apos;m a software consultant and engineer focused on startups, product design systems, and delivery quality.
+        {personalBrand.firstPersonBio}
         Based in the United States and a United States citizen.
       </p>
       <p className="mb-4 text-base sm:text-lg leading-relaxed">
@@ -92,6 +93,12 @@ export default function About() {
         </Link>
         .
       </p>
+      <section className="ui-section mt-8 mb-8 space-y-3">
+        <h2 className="text-2xl font-semibold font-heading">{personalBrand.company.name}</h2>
+        <p className="text-base">{personalBrand.company.role} · Current</p>
+        <p className="text-base text-muted-foreground">I work with founders on technical direction, product delivery, and hands on engineering. The company site brings together our services and project work.</p>
+        <a href={personalBrand.company.url} className="ui-link inline-flex min-h-11 items-center">Visit ForgePeak Ventures</a>
+      </section>
       <div className="mt-6">
         <Button asChild size="lg">
           <Link href="/contact" className="ui-label">

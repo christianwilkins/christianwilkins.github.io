@@ -6,7 +6,7 @@ export interface FAQOption {
 export const faqData: Record<string, FAQOption> = {
     // Main branches
     "Thinking of hiring Christian?": {
-        text: "Great! Christian is a passionate software engineer with leadership experience and a proven track record. What would you like to know about his qualifications?",
+        text: "Christian is a technical founder, consultant, and engineer. What would you like to know about his work?",
         options: [
             "Projects",
             "Experience",
@@ -22,30 +22,33 @@ export const faqData: Record<string, FAQOption> = {
         ]
     },
 
-    // Hiring branch placeholders
+    // Work and experience
     "Projects": {
-        text: "You'll add your own content here about Christian's projects.",
+        text: "My projects cover consulting, enterprise tools, AI products, and mobile applications. Visit Projects for my role and scope on each.",
         options: [
+            "View projects",
             "Experience",
             "Christian's Resume"
         ]
     },
     "Experience": {
-        text: "You'll add your own content here about Christian's experience.",
+        text: "I am a technical founder, consultant, and engineer. I founded ForgePeak Ventures and work across product design, engineering, and AI workflows.",
         options: [
+            "About Christian",
             "Projects",
             "Christian's Resume"
         ]
     },
     "Christian's Resume": {
-        text: "You'll add your own content here about Christian's resume.",
+        text: "Contact me for a current resume tailored to the role or project you have in mind.",
         options: [
+            "Contact Christian",
             "Projects",
             "Experience"
         ]
     },
 
-    // Advice branch placeholders
+    // Advice topics
     "Internship": {
         text: "I've mainly gotten my internships from experience gained at Imagine Software. I would recommend joining if you're an MSU student or not.",
         options: [
@@ -60,7 +63,7 @@ export const faqData: Record<string, FAQOption> = {
         ]
     },
     "Startups": {
-        text: "You'll add your own content here about startup advice.",
+        text: "I work with founders on technical direction and product delivery through ForgePeak Ventures. Contact me to discuss your product.",
         options: [
             "Internship",
             "Resume"

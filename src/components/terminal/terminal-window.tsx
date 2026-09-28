@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useModalDialog } from "@/components/use-modal-dialog";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -25,6 +26,7 @@ const MIN_WIDTH = 520;
 const MIN_HEIGHT = 320;
 
 export function TerminalWindow({ isOpen, onClose }: TerminalWindowProps) {
+  const dialogRef = useModalDialog(isOpen);
   const [position, setPosition] = React.useState({ x: 120, y: 110 });
   const [size, setSize] = React.useState({ width: 760, height: 460 });
   const [isDragging, setIsDragging] = React.useState(false);
@@ -80,16 +82,6 @@ export function TerminalWindow({ isOpen, onClose }: TerminalWindowProps) {
     }
   }, [hasOpened, inputRef, isMobile, isOpen]);
 
-  React.useEffect(() => {
-    if (!isOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    if (isMobile) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [isMobile, isOpen]);
 
   React.useEffect(() => {
     if (!isOpen) return;
@@ -193,13 +185,9 @@ export function TerminalWindow({ isOpen, onClose }: TerminalWindowProps) {
   };
 
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-[1400] pointer-events-none transition-opacity duration-200",
-        isOpen ? "opacity-100" : "opacity-0"
-      )}
-      aria-hidden={!isOpen}
-    >
+    <dialog ref={dialogRef} aria-label="Terminal window" onCancel={onClose} onClose={onClose}
+      onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}
+      className="terminal-dialog fixed inset-0 m-0 h-full w-full max-h-none max-w-none border-0 bg-transparent p-0">
       <div
         className={cn(
           "terminal-window pointer-events-auto",
@@ -207,8 +195,6 @@ export function TerminalWindow({ isOpen, onClose }: TerminalWindowProps) {
           isMobile ? "terminal-window-mobile" : "terminal-window-desktop",
           !isOpen && "pointer-events-none"
         )}
-        role="dialog"
-        aria-modal="true"
         style={
           isMobile
             ? { width: "100%", height: "100%", transform: "translate3d(0,0,0)" }
@@ -314,6 +300,6 @@ export function TerminalWindow({ isOpen, onClose }: TerminalWindowProps) {
           />
         )}
       </div>
-    </div>
+    </dialog>
   );
 }

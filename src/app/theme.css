@@ -322,7 +322,7 @@
 
 :root[data-font="chimero"] {
   --font-sans-base: var(--font-plex-sans);
-  --font-heading-base: "Plantin", "Plantijn", var(--font-newsreader), Georgia, serif;
+  --font-heading-base: var(--font-newsreader), Georgia, serif;
   --font-mono-base: var(--font-geist-mono);
 }
 
@@ -819,14 +819,14 @@
   --secondary: oklch(0.2 0 0);
   --secondary-foreground: oklch(0.82 0 0);
   --muted: oklch(0.14 0 0);
-  --muted-foreground: oklch(0.48 0 0);
+  --muted-foreground: oklch(0.68 0 0);
   --accent: oklch(0.2 0 0);
   --accent-foreground: oklch(0.82 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.82 0 0);
   --border: oklch(0.2 0 0);
   --input: oklch(0.2 0 0);
-  --ring: oklch(0.48 0 0);
+  --ring: oklch(0.68 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);

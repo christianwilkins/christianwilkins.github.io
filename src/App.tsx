@@ -1,3 +1,7 @@
+import { lazy, Suspense, useEffect } from "react";
+import { personalBrand } from "@/data/personalBrand";
+import { insightPosts } from "@/data/insightsContent";
+import { getVibeArcBySlug } from "@/data/vibeCoderCurriculum";
 import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { LayoutShell } from "@/components/layout-shell";
 import { AnalyticsScripts } from "@/components/analytics-scripts";
@@ -26,15 +30,16 @@ import { CloudflarePendingPage } from "@/routes/CloudflarePendingPage";
 import { NotFoundPage } from "@/routes/NotFoundPage";
 import { siteConfig } from "@/data/siteConfig";
 import { contactLinks } from "@/data/contactData";
-import { FiltersStudio } from "@/components/filters/filters-studio";
 import { thoughtPosts } from "@/data/thoughtsContent";
+
+const FiltersStudio = lazy(() => import("@/components/filters/filters-studio").then((module) => ({ default: module.FiltersStudio })));
 
 const FILTERS_HOSTS = new Set(["filters.chriswiki.com", "www.filters.chriswiki.com"]);
 
 function RouteMetadata() {
   const location = useLocation();
   const titleByPath: Record<string, string> = {
-    "/": "Christian Wilkins",
+    "/": siteConfig.title,
     "/about": "About | Christian Wilkins",
     "/about/now": "Now | Christian Wilkins",
     "/about/uses": "Uses | Christian Wilkins",
@@ -56,21 +61,35 @@ function RouteMetadata() {
 
   const thoughtSlug = location.pathname.match(/^\/thoughts\/([^/]+)$/)?.[1];
   const thought = thoughtPosts.find((entry) => entry.slug === thoughtSlug);
-  document.title = thought
+  const insightSlug = location.pathname.match(/^\/insights\/([^/]+)$/)?.[1];
+  const insight = insightPosts.find((entry) => entry.slug === insightSlug);
+  const arc = getVibeArcBySlug(location.pathname.split("/lab/learning/vibe-coders-guide/")[1] ?? "");
+  const title = thought
     ? `${thought.title} | Christian Wilkins`
-    : (titleByPath[location.pathname] ?? siteConfig.title);
+    : insight ? `${insight.title} | ${siteConfig.name}` : arc ? `${arc.title} | ${siteConfig.name}` : (titleByPath[location.pathname] ?? siteConfig.title);
 
-  const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-  if (canonical) {
-    canonical.href = `${siteConfig.url}${location.pathname === "/" ? "" : location.pathname}`;
-  }
+  useEffect(() => {
+    document.title = title;
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const url = `${siteConfig.url}${location.pathname === "/" ? "" : location.pathname}`;
+    if (canonical) canonical.href = url;
+    const description = thought?.description ?? insight?.description ?? siteConfig.description;
+    for (const [selector, value] of [
+      ['meta[name="description"]', description],
+      ['meta[property="og:title"]', title],
+      ['meta[name="twitter:title"]', title],
+      ['meta[property="og:description"]', description],
+      ['meta[name="twitter:description"]', description],
+      ['meta[property="og:url"]', url],
+    ]) document.querySelector(selector)?.setAttribute("content", value);
+  }, [title, location.pathname, thought, insight]);
 
   return null;
 }
 
 function VibeArcRoute() {
   const params = useParams<{ arc: string }>();
-  if (!params.arc) return <NotFoundPage />;
+  if (!params.arc || !getVibeArcBySlug(params.arc)) return <NotFoundPage />;
   return <VibeArcPage params={{ arc: params.arc }} />;
 }
 
@@ -88,7 +107,8 @@ function RootStructuredData() {
       "@type": "Person",
       name: siteConfig.name,
       url: siteConfig.url,
-      jobTitle: "Software consultant and engineer",
+      jobTitle: personalBrand.role,
+      worksFor: { "@type": "Organization", name: personalBrand.company.name, url: personalBrand.company.url },
       description: siteConfig.description,
       knowsAbout: [...siteConfig.keywords],
       sameAs: contactLinks
@@ -108,7 +128,7 @@ function RootStructuredData() {
 export default function App() {
   if (FILTERS_HOSTS.has(window.location.hostname.toLowerCase())) {
     const embedded = new URLSearchParams(window.location.search).get("embed") === "1";
-    return <FiltersStudio embedded={embedded} />;
+    return <Suspense fallback={<p role="status" className="p-8">Loading Filters Studio…</p>}><FiltersStudio embedded={embedded} /></Suspense>;
   }
 
   return (

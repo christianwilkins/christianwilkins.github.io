@@ -2,83 +2,48 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
 import { primaryNavItems } from "@/data/navigation"
+import { useModalDialog } from "@/components/use-modal-dialog"
 
-interface HamburgerMenuProps {
-    isVisible: boolean
-}
-
-export function HamburgerMenu({ isVisible }: HamburgerMenuProps) {
+export function HamburgerMenu({ isVisible }: { isVisible: boolean }) {
     const [isOpen, setIsOpen] = React.useState(false)
-
-    const toggleMenu = () => setIsOpen(!isOpen)
+    const pathname = usePathname()
+    const dialogRef = useModalDialog(isOpen)
     const closeMenu = () => setIsOpen(false)
 
     React.useEffect(() => {
-        const previous = document.body.style.overflow
-        if (isOpen) {
-            document.body.style.overflow = "hidden"
-            return () => {
-                document.body.style.overflow = previous
-            }
-        }
-        document.body.style.overflow = previous
-    }, [isOpen])
+        const media = window.matchMedia("(min-width: 768px)")
+        const closeOnDesktop = () => { if (media.matches) setIsOpen(false) }
+        media.addEventListener("change", closeOnDesktop)
+        return () => media.removeEventListener("change", closeOnDesktop)
+    }, [])
 
     if (!isVisible) return null
-
     return (
         <>
-            {/* Hamburger Button */}
-            <button
-                className={cn(
-                    "mobile-menu-button fixed z-[1002] flex items-center justify-center w-11 h-11 rounded-full border border-border/70 bg-background/80 text-foreground shadow-soft backdrop-blur-sm transition-all duration-300 md:hidden"
-                )}
-                onClick={toggleMenu}
-                aria-label="Toggle navigation menu"
-                aria-expanded={isOpen}
-                aria-controls="mobile-nav"
-            >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <button type="button" className="mobile-menu-button fixed z-[1002] flex items-center justify-center w-11 h-11 rounded-full border border-border/70 bg-background text-foreground md:hidden"
+                onClick={() => setIsOpen(true)} aria-label="Open navigation menu" aria-expanded={isOpen} aria-controls="mobile-nav">
+                <Menu className="h-5 w-5" aria-hidden="true" />
             </button>
-
-            {/* Overlay */}
-            {isOpen && (
-                <div
-                    className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[1001] animate-fade-in"
-                    onClick={closeMenu}
-                    aria-hidden="true"
-                />
-            )}
-
-            {/* Menu */}
-            <nav
-                id="mobile-nav"
-                className={cn(
-                    "fixed top-0 right-0 h-full w-[min(80vw,17.5rem)] z-[1001] transform transition-transform duration-300 ease-in-out flex flex-col justify-center items-center animate-soft-pop surface-panel",
-                    isOpen ? "translate-x-0" : "translate-x-full"
-                )}
-                aria-hidden={!isOpen}
-            >
-                <div className="flex flex-col gap-5 items-stretch w-full px-6">
+            <dialog ref={dialogRef} id="mobile-nav" aria-label="Navigation menu" onCancel={closeMenu} onClose={closeMenu}
+                onClick={(event) => { if (event.target === event.currentTarget) closeMenu() }} className="mobile-nav-dialog surface-panel">
+                <button type="button" onClick={closeMenu} aria-label="Close navigation menu" className="absolute top-3 right-4 flex h-11 w-11 items-center justify-center">
+                    <X className="h-5 w-5" aria-hidden="true" />
+                </button>
+                <nav aria-label="Primary" className="flex flex-col gap-2 px-6 py-16">
                     {primaryNavItems.map((item) => (
-                        <Link
-                            key={item.id}
-                            href={item.href}
-                            onClick={closeMenu}
-                            className="nav-link mobile-nav-link text-xl font-semibold transition-colors font-heading hover-lift text-center"
-                        >
+                        <Link key={item.id} href={item.href} onClick={closeMenu}
+                            aria-current={(item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href)) ? "page" : undefined}
+                            className="nav-link mobile-nav-link min-h-11 flex items-center justify-center text-xl font-semibold font-heading">
                             {item.label}
                         </Link>
                     ))}
-                    <div className="mt-4 flex justify-center">
-                        <ThemeToggle />
-                    </div>
-                </div>
-            </nav>
+                    <div className="mt-4 flex justify-center"><ThemeToggle /></div>
+                </nav>
+            </dialog>
         </>
     )
 }

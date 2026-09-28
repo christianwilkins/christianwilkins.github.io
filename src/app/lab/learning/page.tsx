@@ -31,7 +31,7 @@ function ModuleCard({ module }: { module: LearningModule }) {
     <Card
       className={cn(
         "h-full transition-all duration-300 hover:border-foreground/30 hover:shadow-deep bg-card/60",
-        !module.href && "opacity-80"
+        !module.href && "border-dashed"
       )}
     >
       <CardHeader className="space-y-4">
@@ -151,9 +151,9 @@ export default function LearningPage() {
             </Button>
 
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-primary">
+              <div className="flex items-center gap-3 text-foreground">
                 <Sparkles className="h-7 w-7" />
-                <span className="text-sm font-semibold text-muted-foreground">Learning hub</span>
+                <span className="text-sm font-semibold text-foreground">Learning hub</span>
               </div>
               <h1 className="ui-label text-4xl md:text-5xl font-heading font-bold tracking-tight">Learning Hub</h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
@@ -178,6 +178,7 @@ export default function LearningPage() {
                 size="sm"
                 variant={activeTopic === topic ? "secondary" : "outline"}
                 onClick={() => setActiveTopic(topic)}
+                aria-pressed={activeTopic === topic}
               >
                 {topic}
               </Button>
@@ -194,8 +195,8 @@ export default function LearningPage() {
           {activeModules.length === 0 ? (
             <Card className="border-dashed bg-muted/20">
               <CardContent className="py-10 text-center space-y-2">
-                <p className="text-base font-medium">No active modules yet.</p>
-                <p className="text-sm text-muted-foreground">This section will fill as modules go live.</p>
+                <p className="text-base font-medium">No active modules for this topic.</p>
+                <p className="text-sm text-muted-foreground">Choose another topic or select All to see the available modules.</p>
               </CardContent>
             </Card>
           ) : (
@@ -216,7 +217,7 @@ export default function LearningPage() {
             <Card className="border-dashed bg-muted/20">
               <CardContent className="py-10 text-center space-y-2">
                 <p className="text-base font-medium">No modules in queue.</p>
-                <p className="text-sm text-muted-foreground">Add future modules when you decide what to build next.</p>
+                <p className="text-sm text-muted-foreground">Choose another topic to see what is planned.</p>
               </CardContent>
             </Card>
           ) : (

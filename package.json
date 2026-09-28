@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/sync-brand.cjs && vite build",
     "start": "vite preview",
     "preview": "vite preview",
     "deploy:cloudflare": "wrangler pages deploy dist --project-name chriswiki --branch main",

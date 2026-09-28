@@ -14,6 +14,7 @@ export default function ActivityPanel({ arc }: Props) {
   const [completed, setCompleted] = useState<boolean[]>(arc.activity.instructions.map(() => false));
   const [response, setResponse] = useState("");
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState("");
 
   const progress = useMemo(() => {
     const done = completed.filter(Boolean).length;
@@ -31,12 +32,14 @@ export default function ActivityPanel({ arc }: Props) {
   };
 
   const copyPrompt = async () => {
+    setCopyError("");
     try {
       await navigator.clipboard.writeText(arc.activity.promptTemplate);
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
       setCopied(false);
+      setCopyError("Could not copy. Select the prompt text above and copy it manually.");
     }
   };
 
@@ -56,6 +59,7 @@ export default function ActivityPanel({ arc }: Props) {
               key={step}
               type="button"
               onClick={() => toggleStep(index)}
+              aria-pressed={completed[index]}
               className="w-full rounded-xl border border-border/70 bg-background/70 px-3 py-2 text-left text-sm transition hover:border-primary/40"
             >
               <span className="inline-flex items-start gap-2">
@@ -81,9 +85,13 @@ export default function ActivityPanel({ arc }: Props) {
           </Button>
         </div>
 
+        <p role="status" className="text-sm text-muted-foreground">{copyError || (copied ? "Prompt copied." : "")}</p>
+
         <div className="space-y-2">
-          <p className="text-sm font-medium">Your concise output draft</p>
+          <label htmlFor={`draft-${arc.id}`} className="block text-sm font-medium">Your concise output draft</label>
+          <p className="text-xs text-muted-foreground">Copy your draft before leaving this page; it is not saved.</p>
           <textarea
+            id={`draft-${arc.id}`}
             value={response}
             onChange={(event) => setResponse(event.target.value)}
             className="min-h-36 w-full rounded-xl border border-border/70 bg-background/70 p-3 text-sm"

@@ -86,10 +86,7 @@ export default function Contact() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">Contact</h1>
       <p className="mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed">
-        Feel free to reach out and connect with me. <br /> <br />
-        <span className="hidden sm:inline text-sm text-muted-foreground">
-          (Prefer to start with email? Send a short note and we can book if it&apos;s a fit.)
-        </span>
+        Send a short note about your project, or book a call. The same contact options are available below.
       </p>
       <div className="mb-6 sm:mb-8 space-y-3">
         <h2 className="ui-label text-xl font-semibold font-heading">A strong first note includes</h2>

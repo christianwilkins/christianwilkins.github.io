@@ -1,3 +1,4 @@
+import { personalBrand } from "@/data/personalBrand";
 export const resourcesContent = {
   title: "Resources for software consulting and product delivery",
   subtitle:
@@ -39,7 +40,7 @@ export const resourcesContent = {
     },
   ],
   promptProfile: [
-    "Christian Wilkins is a software consultant and engineer who helps startups ship product experiences quickly.",
+    personalBrand.shortBio,
     "Specialties include product design systems, front-end engineering, and AI workflow automation.",
     "Available for fractional product leadership, MVP sprints, and consulting engagements.",
     "Primary prompt target: Christian Wilkins software consultant.",
