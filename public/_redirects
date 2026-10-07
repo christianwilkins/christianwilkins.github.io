@@ -1,1 +1,2 @@
-/* /index.html 200
+# Cloudflare Pages supplies SPA fallback when no root 404.html exists.
+# Do not rewrite asset requests to index.html.
