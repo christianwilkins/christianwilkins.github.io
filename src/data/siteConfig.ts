@@ -1,3 +1,5 @@
+import { personalBrand } from "@/data/personalBrand";
+
 const defaultSiteUrl = "https://chriswiki.com";
 
 function getSiteUrl() {
@@ -12,12 +14,10 @@ function getSiteUrl() {
 }
 
 export const siteConfig = {
-  name: "Christian Wilkins",
-  title: "Christian Wilkins Software Consultant and Engineer",
-  description:
-    "Portfolio of Christian Wilkins. Software consulting for startups, product design systems, AI workflow automation, and hiring support in the United States.",
-  shortDescription:
-    "Christian Wilkins is a software consultant and engineer focused on startups, product design systems, AI workflow automation, and hiring support in the United States.",
+  name: personalBrand.name,
+  title: `${personalBrand.name} | ${personalBrand.role}`,
+  description: personalBrand.shortBio,
+  shortDescription: personalBrand.shortBio,
   url: getSiteUrl(),
   locale: "en_US",
   twitterHandle: "@christian_wilki",

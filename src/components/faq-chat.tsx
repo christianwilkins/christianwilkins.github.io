@@ -1,260 +1,68 @@
 "use client"
 
-import React, { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { faqData } from "@/data/faqData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 
-interface Message {
-    id: number;
-    text: string;
-    sender: "bot" | "user";
-    options?: string[];
-}
+const initialOptions = ["Thinking of hiring Christian?", "Get Advice from Christian", "Contact Christian"];
+const initialMessage = { text: "Choose a topic below, or search the FAQ topics.", options: initialOptions };
 
 export function FAQChat() {
-    const router = useRouter();
-    const [messages, setMessages] = useState<Message[]>([
-        {
-            id: 1,
-            text: "Hi! How can I help you today?",
-            sender: "bot",
-            options: [
-                "Thinking of hiring Christian?",
-                "Get Advice from Christian",
-            ]
-        }
-    ]);
-    const [inputValue, setInputValue] = useState("");
-    const [showOptions, setShowOptions] = useState(true);
-    const [isStreaming, setIsStreaming] = useState(false);
-    const messagesContainerRef = useRef<HTMLDivElement>(null);
-    const messageIdRef = useRef(1);
+  const router = useRouter();
+  const [answer, setAnswer] = useState(initialMessage);
+  const [query, setQuery] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
+  const answerRef = useRef<HTMLDivElement>(null);
 
-    const scrollToBottom = () => {
-        if (messagesContainerRef.current) {
-            messagesContainerRef.current.scrollTo({
-                top: messagesContainerRef.current.scrollHeight,
-                behavior: 'smooth'
-            });
-        }
+  useEffect(() => {
+    if (history.length) answerRef.current?.focus();
+  }, [history]);
+
+  const chooseTopic = (topic: string) => {
+    const routes: Record<string, string> = { "Contact Christian": "/contact", "View projects": "/projects", "About Christian": "/about" };
+    if (routes[topic]) { router.push(routes[topic]); return; }
+    const external: Record<string, string> = {
+      "Imagine Software": "https://www.imagine-software.org/",
+      "Companies Expert YouTube (soft skills)": "https://www.youtube.com/@TheCompaniesExpert/videos",
     };
+    if (external[topic]) { window.open(external[topic], "_blank", "noopener,noreferrer"); return; }
+    setHistory((previous) => [...previous, topic]);
+    setAnswer(faqData[topic] ?? { text: "That topic is not in this FAQ. Choose another topic or contact me directly.", options: initialOptions });
+  };
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
+  const search = (event: React.FormEvent) => {
+    event.preventDefault();
+    const term = query.trim().toLowerCase();
+    if (!term) return;
+    const matches = Object.keys(faqData).filter((topic) => topic.toLowerCase().includes(term));
+    if (matches.length === 1) chooseTopic(matches[0]);
+    else {
+      setHistory((previous) => [...previous, query.trim()]);
+      setAnswer({ text: matches.length ? "Choose a matching topic." : "No matching FAQ topics. Try projects, experience, resume, or contact me directly.", options: matches.length ? matches : initialOptions });
+    }
+    setQuery("");
+  };
 
-    // Streaming text function
-    const streamText = async (text: string, messageId: number) => {
-        const words = text.split(' ');
-
-        for (let i = 0; i < words.length; i++) {
-            const nextText = words.slice(0, i + 1).join(' ');
-
-            setMessages(prev => prev.map(msg =>
-                msg.id === messageId
-                    ? { ...msg, text: nextText }
-                    : msg
-            ));
-
-            // Add delay between words for streaming effect
-            await new Promise(resolve => setTimeout(resolve, 50));
-        }
-
-        // Ensure the final message is fully set
-        const finalText = words.join(' ');
-        setMessages(prev => prev.map(msg =>
-            msg.id === messageId
-                ? { ...msg, text: finalText }
-                : msg
-        ));
-        scrollToBottom();
-        // Wait a bit before allowing new input
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // After streaming is done, reset the isStreaming state
-        setIsStreaming(false);
-    };
-
-    const handleOptionClick = async (option: string) => {
-        if (isStreaming) return; // Prevent new messages while streaming
-
-        // Check if user selected "Contact Christian" and navigate to contact page
-        if (option === "Contact Christian") {
-            router.push("/contact");
-            return;
-        } else if (option === "Imagine Software") {
-            window.open("https://preview--imagine-software-reborn.lovable.app/", "_blank");
-            return;
-        } else if (option === "Companies Expert YouTube (soft skills)") {
-            window.open("https://www.youtube.com/@TheCompaniesExpert/videos", "_blank");
-            return;
-        }
-
-        setIsStreaming(true);
-        setShowOptions(false);
-
-        // Add user message
-        const userMessage: Message = {
-            id: messageIdRef.current + 1,
-            text: option,
-            sender: "user"
-        };
-        messageIdRef.current += 1;
-
-        // Get bot response
-        const response = faqData[option] || {
-            text: "I'm sorry, I don't have information about that. Let me help you with something else!",
-            options: [
-                "Thinking of hiring Christian?",
-                "Get Advice from Christian",
-                "Contact Christian"
-            ]
-        };
-
-        const botMessageId = messageIdRef.current + 1;
-        const botMessage: Message = {
-            id: botMessageId,
-            text: "", // Start with empty text for streaming
-            sender: "bot",
-            options: response.options
-        };
-        messageIdRef.current += 1;
-
-        // Add both messages
-        setMessages(prev => [...prev, userMessage, botMessage]);
-
-        // Stream the bot response
-        await streamText(response.text, botMessageId);
-        setShowOptions(true);
-    };
-
-    const handleInputSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (inputValue.trim() && !isStreaming) {
-            setIsStreaming(true);
-            setShowOptions(false);
-
-            const userMessage: Message = {
-                id: messageIdRef.current + 1,
-                text: inputValue,
-                sender: "user"
-            };
-            messageIdRef.current += 1;
-
-            // Find the last bot message to repeat
-            const lastBotMessage = messages.slice().reverse().find(msg => msg.sender === "bot");
-
-            const response = lastBotMessage ? {
-                text: lastBotMessage.text,
-                options: lastBotMessage.options || [
-                    "Thinking of hiring Christian?",
-                    "Get Advice from Christian",
-                    "Contact Christian"
-                ]
-            } : {
-                text: "Hi! I am Christian's faq assistant. How can I help you today?",
-                options: [
-                    "Thinking of hiring Christian?",
-                    "Get Advice from Christian",
-                    "Contact Christian"
-                ]
-            };
-
-            const botMessageId = messageIdRef.current + 1;
-            const botMessage: Message = {
-                id: botMessageId,
-                text: "", // Start with empty text for streaming
-                sender: "bot",
-                options: response.options
-            };
-            messageIdRef.current += 1;
-
-            setMessages(prev => [...prev, userMessage, botMessage]);
-            setInputValue("");
-
-            // Stream the bot response
-            await streamText(response.text, botMessageId);
-            setShowOptions(true);
-        }
-    };
-
-    const handleStartOver = () => {
-        setMessages([
-            {
-                id: 1,
-                text: "Hi! How can I help you today?",
-                sender: "bot",
-                options: [
-                    "Thinking of hiring Christian?",
-                    "Get Advice from Christian",
-                ]
-            }
-        ]);
-        messageIdRef.current = 1;
-        setInputValue("");
-        setShowOptions(true);
-        setIsStreaming(false);
-    };
-
-    return (
-        <div className="flex h-[min(72dvh,600px)] w-full max-w-2xl flex-col overflow-hidden rounded-lg border bg-card shadow-soft animate-rise-in sm:h-[600px]">
-            <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={messagesContainerRef}>
-                {messages.map((message) => (
-                    <div key={message.id} className={cn("flex flex-col animate-rise-in", message.sender === "user" ? "items-end" : "items-start")}>
-                        <div className={cn(
-                            "max-w-[92%] rounded-lg p-3 text-sm sm:max-w-[80%]",
-                            message.sender === "user"
-                                ? "bg-primary text-primary-foreground rounded-br-none"
-                                : "bg-muted text-muted-foreground rounded-bl-none"
-                        )}>
-                            <p className={cn(isStreaming && message.sender === "bot" && message.text ? "animate-pulse" : "")}>
-                                {message.text}
-                            </p>
-                            {message.options && showOptions && !isStreaming && (
-                                <div className="flex flex-wrap gap-2 mt-3">
-                                    {message.options.map((option, index) => (
-                                        <Button
-                                            key={index}
-                                            variant="outline"
-                                            size="sm"
-                                            onClick={() => handleOptionClick(option)}
-                                            className="text-xs h-auto py-1 px-2 whitespace-normal text-left"
-                                        >
-                                            {option}
-                                        </Button>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <form onSubmit={handleInputSubmit} className="flex flex-col gap-2 border-t bg-background p-3 sm:flex-row sm:p-4">
-                <Input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Type your question here..."
-                    className="flex-1"
-                    disabled={isStreaming}
-                />
-                <Button type="submit" disabled={isStreaming} className="w-full sm:w-auto">
-                    {isStreaming ? "..." : "Send"}
-                </Button>
-                <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={handleStartOver}
-                    disabled={isStreaming}
-                    className="w-full sm:w-auto"
-                >
-                    Start Over
-                </Button>
-            </form>
+  return (
+    <div className="w-full max-w-2xl space-y-6 rounded-lg border bg-card p-5 sm:p-6">
+      <p className="text-sm text-muted-foreground">A guide to my work and advice, with answers I have written.</p>
+      <div ref={answerRef} tabIndex={-1} role="region" aria-label="FAQ answer" className="space-y-4">
+        {history.length > 0 && <h2 className="text-lg font-semibold">{history[history.length - 1]}</h2>}
+        <p className="leading-relaxed">{answer.text}</p>
+      </div>
+      <div className="flex flex-wrap gap-3">
+        {answer.options.map((option) => <Button key={option} variant="outline" onClick={() => chooseTopic(option)} className="min-h-11 h-auto whitespace-normal text-left">{option}</Button>)}
+      </div>
+      <form onSubmit={search} className="space-y-2 border-t pt-5">
+        <label htmlFor="faq-search" className="block text-sm font-medium">Search FAQ topics</label>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Input id="faq-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Projects, experience, resume…" className="min-h-11 flex-1" />
+          <Button type="submit" disabled={!query.trim()} className="min-h-11">Search topics</Button>
         </div>
-    );
+      </form>
+      {history.length > 0 && <Button variant="ghost" className="min-h-11" onClick={() => { setAnswer(initialMessage); setHistory([]); setQuery(""); document.getElementById("faq-search")?.focus(); }}>Start over</Button>}
+    </div>
+  );
 }

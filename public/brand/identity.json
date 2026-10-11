@@ -1,0 +1,36 @@
+{
+  "name": "Christian Wilkins",
+  "role": "Technical founder, consultant, engineer",
+  "headline": "Technical founder, consultant, engineer. Founder of ForgePeak Ventures.",
+  "shortBio": "Christian Wilkins is a technical founder, consultant, and engineer. He builds products, design systems, and AI workflows through ForgePeak Ventures.",
+  "firstPersonBio": "I'm a technical founder, consultant, and engineer. I build products, design systems, and AI workflows through ForgePeak Ventures.",
+  "company": {
+    "name": "ForgePeak Ventures",
+    "legalName": "Forgepeak Ventures LLC",
+    "url": "https://www.forgepeakventures.com",
+    "role": "Founder, consultant, engineer"
+  },
+  "version": "1.0",
+  "updated": "2026-09-08",
+  "url": "https://chriswiki.com",
+  "voice": [
+    "Direct",
+    "Curious",
+    "Practical",
+    "Personal"
+  ],
+  "visual": {
+    "headingFont": "Newsreader",
+    "bodyFont": "IBM Plex Sans",
+    "ink": "#161616",
+    "paper": "#f3f3f3",
+    "muted": "#636363",
+    "markInk": "#121211",
+    "markPaper": "#f1efe8"
+  },
+  "profiles": {
+    "github": "https://github.com/christianwilkins",
+    "linkedin": "https://www.linkedin.com/in/christian--wilkins/",
+    "x": "https://x.com/christian_wilki"
+  }
+}

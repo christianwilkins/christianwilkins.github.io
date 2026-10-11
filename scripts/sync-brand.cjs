@@ -1,0 +1,11 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const brand = JSON.parse(fs.readFileSync(path.join(root, 'public/brand/identity.json'), 'utf8'));
+const write = (file, text) => fs.writeFileSync(path.join(root, 'public', file), text);
+write('ai.txt', `${brand.shortBio}\n\nCanonical site: ${brand.url}\nForgePeak Ventures: ${brand.company.url}\nThoughts: ${brand.url}/thoughts\nContact: ${brand.url}/contact\n`);
+write('llms.txt', `# ${brand.name}\n\n${brand.shortBio}\n\n- Site: ${brand.url}\n- ForgePeak Ventures: ${brand.company.url}\n- Consulting: ${brand.url}/consulting\n- Projects: ${brand.url}/projects\n- Thoughts: ${brand.url}/thoughts\n- Contact: ${brand.url}/contact\n`);
+const manifest = JSON.parse(fs.readFileSync(path.join(root, 'public/manifest.json'), 'utf8'));
+manifest.name = `${brand.name} | ${brand.role}`;
+manifest.short_name = brand.name;
+write('manifest.json', `${JSON.stringify(manifest, null, 2)}\n`);

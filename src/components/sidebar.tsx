@@ -1,5 +1,6 @@
 "use client"
 
+import { personalBrand } from "@/data/personalBrand"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -13,7 +14,7 @@ export function Sidebar() {
     }
 
     return (
-        <div className="sidebar-shell hidden md:flex flex-col fixed h-screen p-6 items-start animate-rise-in">
+        <header className="sidebar-shell hidden md:flex flex-col fixed h-screen p-6 items-start animate-rise-in">
             <div className="sidebar-inner">
                 <div className="sidebar-header">
                     <Link
@@ -25,12 +26,11 @@ export function Sidebar() {
                             <span className="sidebar-name-part">Wilkins</span>
                         </h2>
                     </Link>
-                    <h1 className="sidebar-role m-0 leading-[1.05] p-0 text-xl font-normal font-heading">
-                        <span className="sidebar-role-part">Software</span>
-                        <span className="sidebar-role-part">Consultant</span>
-                    </h1>
+                    <p className="sidebar-role m-0 leading-[1.05] p-0 text-xl font-normal font-heading">
+                        {personalBrand.role}
+                    </p>
                 </div>
-                <nav className="flex flex-col gap-4 mt-8">
+                <nav aria-label="Primary" className="flex flex-col gap-4 mt-8">
                     {primaryNavItems.map((item) => (
                         <Link
                             key={item.id}
@@ -44,6 +44,6 @@ export function Sidebar() {
                     <ThemeToggle />
                 </nav>
             </div>
-        </div>
+        </header>
     )
 }

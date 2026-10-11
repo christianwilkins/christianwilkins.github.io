@@ -57,3 +57,17 @@ With `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` available in the environ
 npm run build
 npm run deploy:cloudflare
 ```
+
+## Development release
+
+Pushes to `feature/dev-ui-ux-release` run the same checks as production and deploy a Cloudflare Pages branch preview. The workflow passes the Git branch explicitly to Wrangler. Only `main` uses the production deploy script. Manual dispatch from this development branch also targets its preview.
+
+The branch preview is `https://feature-dev-ui-ux-release.chriswiki.pages.dev`. Find the immutable deployment URL in the workflow log. Do not use `npm run deploy:cloudflare` for development; that script explicitly targets production.
+
+The audit and fixes are documented in [the UI/UX review](docs/ui-ux-review-2026-09-08.md). The canonical identity and platform copy are in [the personal brand guide](docs/brand-guidelines.md).
+
+For local browser checks using an installed Chrome without Playwright's video runtime:
+
+```bash
+PLAYWRIGHT_CHANNEL=chrome PLAYWRIGHT_VIDEO=off npm run test:e2e
+```

@@ -1,3 +1,4 @@
+import { personalBrand } from "@/data/personalBrand";
 import { contactLinks } from "@/data/contactData";
 import { primaryNavItems } from "@/data/navigation";
 
@@ -84,7 +85,7 @@ export const terminalBootSequence: TerminalOutputLine[] = [
 
 export const terminalProfile = [
   "Christian Wilkins",
-  "Software consultant and engineer",
+  personalBrand.role,
   "Focus: AI workflows, product design, and startups",
   "Use 'contact' for a quick intro.",
 ];

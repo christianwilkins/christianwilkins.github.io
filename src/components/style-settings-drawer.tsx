@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useModalDialog } from "@/components/use-modal-dialog";
 import {
   AlignLeft,
   CaseSensitive,
@@ -81,6 +82,7 @@ const formatPresetName = (id: string, name: string) =>
 
 export function StyleSettingsDrawer() {
   const [open, setOpen] = React.useState(false);
+  const dialogRef = useModalDialog(open);
   const [isMobile, setIsMobile] = React.useState(false);
   const [preset, setPreset] = React.useState<PresetId>("chimero");
   const [palette, setPalette] = React.useState<(typeof palettes)[number]["id"]>("chimero");
@@ -456,20 +458,18 @@ export function StyleSettingsDrawer() {
         <span className="sm:hidden">Style</span>
       </button>
 
-      <div
-        className={cn(
-          "fixed inset-0 bg-background/60 backdrop-blur-sm transition-opacity",
-          open ? "opacity-100" : "opacity-0 pointer-events-none"
-        )}
-        onClick={() => setOpen(false)}
-        aria-hidden={!open}
-      />
-
-      <aside
-        role="dialog"
+      <dialog
+        ref={dialogRef}
+        onCancel={() => setOpen(false)}
+        onClose={() => setOpen(false)}
+        onClick={(event) => {
+          if (event.target !== event.currentTarget) return;
+          const bounds = event.currentTarget.getBoundingClientRect();
+          if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setOpen(false);
+        }}
         aria-label="Style settings"
         className={cn(
-          "fixed inset-x-2 bottom-2 w-auto rounded-2xl border text-card-foreground shadow-deep max-h-[82dvh] flex flex-col sm:inset-x-auto sm:left-auto sm:right-6 sm:bottom-6 sm:w-[420px] sm:max-h-[80vh]",
+          "style-dialog fixed inset-x-2 top-auto bottom-2 m-0 w-auto max-w-none rounded-2xl border text-card-foreground shadow-deep max-h-[82dvh] flex-col sm:inset-x-auto sm:left-auto sm:right-6 sm:bottom-6 sm:w-[420px] sm:max-h-[80vh]",
           "surface-panel",
           "transition-all duration-300",
           open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
@@ -483,7 +483,7 @@ export function StyleSettingsDrawer() {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             aria-label="Close style settings"
           >
             <X className="h-4 w-4" />
@@ -1256,7 +1256,7 @@ export function StyleSettingsDrawer() {
             </div>
           </div>
         </div>
-      </aside>
+      </dialog>
     </div>
   );
 }

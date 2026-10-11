@@ -83,8 +83,8 @@ export default function Projects() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <h1 className="ui-label text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 font-heading">Projects</h1>
       <p className="mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed text-muted-foreground">
-        Recent work across enterprise tooling, AI enabled products, and mobile applications
-        <span className="hidden sm:inline">. Hover or click any card to view role, scope, and impact</span>.
+        Recent work across enterprise tooling, AI products, and mobile applications.
+        Open project details for my role, scope, and outcomes.
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
