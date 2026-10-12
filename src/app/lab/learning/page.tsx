@@ -129,7 +129,7 @@ export default function LearningPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
-      { "@type": "ListItem", position: 2, name: "Lab", item: `${siteConfig.url}/lab` },
+      { "@type": "ListItem", position: 2, name: "Fun Stuff", item: `${siteConfig.url}/lab` },
       { "@type": "ListItem", position: 3, name: "Learning Hub", item: `${siteConfig.url}/lab/learning` },
     ],
   };
@@ -145,7 +145,7 @@ export default function LearningPage() {
         <div className="flex items-start justify-between gap-6">
           <div className="space-y-6 max-w-3xl">
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/lab" aria-label="Back to The Lab">
+              <Link href="/lab" aria-label="Back to Fun Stuff">
                 <ArrowLeft className="h-5 w-5" />
               </Link>
             </Button>
