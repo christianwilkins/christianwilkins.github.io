@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { FAQChat } from "@/components/faq-chat";
 import { siteConfig } from "@/data/siteConfig";
 
-const labFaqDescription = "Interactive lab FAQ for Christian Wilkins.";
+const labFaqDescription = "Interactive FAQ for Christian Wilkins.";
 
 export const metadata: Metadata = {
-  title: "Lab FAQ | Christian Wilkins",
+  title: "Interactive FAQ | Christian Wilkins",
   description: labFaqDescription,
   keywords: [...siteConfig.keywords, "lab faq", "interactive faq"],
   alternates: {
     canonical: `${siteConfig.url}/lab/faq`,
   },
   openGraph: {
-    title: "Lab FAQ | Christian Wilkins",
+    title: "Interactive FAQ | Christian Wilkins",
     description: labFaqDescription,
     url: `${siteConfig.url}/lab/faq`,
     type: "website",
@@ -21,13 +21,13 @@ export const metadata: Metadata = {
         url: siteConfig.image,
         width: 1200,
         height: 630,
-        alt: "Lab FAQ",
+        alt: "Interactive FAQ",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lab FAQ | Christian Wilkins",
+    title: "Interactive FAQ | Christian Wilkins",
     description: labFaqDescription,
     images: [siteConfig.image],
   },
@@ -37,7 +37,7 @@ export default function FAQ() {
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Lab FAQ",
+    name: "Interactive FAQ",
     description: labFaqDescription,
     url: `${siteConfig.url}/lab/faq`,
     isPartOf: {
@@ -60,7 +60,7 @@ export default function FAQ() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Lab",
+        name: "Fun Stuff",
         item: `${siteConfig.url}/lab`,
       },
       {
