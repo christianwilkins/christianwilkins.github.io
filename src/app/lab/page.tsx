@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/data/siteConfig";
 
-const labDescription = "The Lab by Christian Wilkins with practical tools for product design, UI systems, and workflow testing.";
+const labDescription = "Fun Stuff by Christian Wilkins with practical tools for product design, UI systems, and workflow testing.";
 
 const pastPortfolios = [
   {
@@ -26,14 +26,14 @@ const pastPortfolios = [
 ] as const;
 
 export const metadata: Metadata = {
-  title: "The Lab | Christian Wilkins",
+  title: "Fun Stuff | Christian Wilkins",
   description: labDescription,
   keywords: [...siteConfig.keywords, "product design experiments", "ui systems lab"],
   alternates: {
     canonical: `${siteConfig.url}/lab`,
   },
   openGraph: {
-    title: "The Lab | Christian Wilkins",
+    title: "Fun Stuff | Christian Wilkins",
     description: labDescription,
     url: `${siteConfig.url}/lab`,
     type: "website",
@@ -42,13 +42,13 @@ export const metadata: Metadata = {
         url: siteConfig.image,
         width: 1200,
         height: 630,
-        alt: "Christian Wilkins Lab",
+        alt: "Christian Wilkins Fun Stuff",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Lab | Christian Wilkins",
+    title: "Fun Stuff | Christian Wilkins",
     description: labDescription,
     images: [siteConfig.image],
   },
@@ -58,7 +58,7 @@ export default function LabPage() {
   const labSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "The Lab",
+    name: "Fun Stuff",
     description: labDescription,
     url: `${siteConfig.url}/lab`,
     about: {
@@ -106,6 +106,13 @@ export default function LabPage() {
         description: "Managed hosting layer for OpenClaw with a separate product surface and portable domain model.",
         applicationCategory: "BusinessApplication",
       },
+      {
+        "@type": "SoftwareApplication",
+        name: "Recipes",
+        url: "https://recipes.chriswiki.com/",
+        description: "A recipe notebook with a shared grocery list, scaling, and nutrition estimates.",
+        applicationCategory: "LifestyleApplication",
+      },
     ],
   };
 
@@ -122,7 +129,7 @@ export default function LabPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Lab",
+        name: "Fun Stuff",
         item: `${siteConfig.url}/lab`,
       },
     ],
@@ -135,7 +142,7 @@ export default function LabPage() {
       <header className="space-y-4 max-w-2xl">
         <div className="flex items-center gap-4">
           <span className="h-2.5 w-2.5 rounded-full bg-primary/70" aria-hidden="true" />
-          <h1 className="ui-label text-4xl font-bold tracking-tight font-heading">The Lab</h1>
+          <h1 className="ui-label text-4xl font-bold tracking-tight font-heading">Fun Stuff</h1>
         </div>
         <p className="text-xl text-muted-foreground leading-relaxed">
           Practical tools, experiments, and prototypes. Built to test ideas fast and keep what works.
@@ -264,6 +271,31 @@ export default function LabPage() {
             <CardContent>
               <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
                 Visit EasyClaw <ArrowRight className="ml-2 h-4 w-4" />
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+
+        <a
+          href="https://recipes.chriswiki.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="group block h-full"
+        >
+          <Card className="h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg bg-card/50 hover:bg-card">
+            <CardHeader>
+              <div className="flex items-center justify-between mb-4">
+                <span className="h-2.5 w-2.5 rounded-full bg-primary/50" aria-hidden="true" />
+                <Badge variant="secondary" className="font-medium tracking-wide opacity-80">New</Badge>
+              </div>
+              <CardTitle className="ui-label text-2xl group-hover:text-primary transition-colors">Recipes</CardTitle>
+              <CardDescription className="text-base mt-2">
+                A recipe notebook with a shared grocery list, scaling, and nutrition estimates.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="ui-label flex items-center text-sm font-medium text-primary/80 group-hover:text-primary group-hover:translate-x-1 transition-all">
+                Open Recipes <ArrowRight className="ml-2 h-4 w-4" />
               </div>
             </CardContent>
           </Card>
