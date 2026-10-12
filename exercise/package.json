@@ -1,0 +1,11 @@
+{
+  "name": "chriswiki-exercise",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5182",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --experimental-strip-types --test src/routine.test.ts"
+  }
+}

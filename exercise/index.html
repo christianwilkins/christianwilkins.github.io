@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-palette="chimero" data-font="chimero">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise — Christian Wilkins</title>
+    <meta
+      name="description"
+      content="One full body routine, every other day. Explore the exercises, equipment swaps and tradeoffs behind my gym plan."
+    />
+    <link rel="canonical" href="https://exercise.chriswiki.com/" />
+    <meta property="og:title" content="Full body. Every other day." />
+    <meta
+      property="og:description"
+      content="My evolving gym routine, with interactive exercise choices and session tradeoffs."
+    />
+    <meta property="og:url" content="https://exercise.chriswiki.com/" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#000000" />
+    <link
+      rel="icon"
+      href="https://chriswiki.com/favicon.svg"
+      type="image/svg+xml"
+    />
+    <script>
+      try {
+        const t = localStorage.getItem("exercise.theme");
+        document.documentElement.classList.toggle(
+          "dark",
+          t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches,
+        );
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript
+      >This interactive guide needs JavaScript. The routine starts with leg
+      press, chest press, a back pull, leg curl, dead bug and lateral raises.
+      Repeat after a rest day.</noscript
+    >
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
