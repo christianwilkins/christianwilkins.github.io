@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { primaryNavItems } from "@/data/navigation"
+import { MoreNavigation } from "@/components/more-navigation"
 
 export function Sidebar() {
     const pathname = usePathname()
@@ -30,7 +31,7 @@ export function Sidebar() {
                         <span className="sidebar-role-part">Consultant</span>
                     </h1>
                 </div>
-                <nav className="flex flex-col gap-4 mt-8">
+                <nav aria-label="Main navigation" className="flex flex-col gap-4 mt-8">
                     {primaryNavItems.map((item) => (
                         <Link
                             key={item.id}
@@ -41,6 +42,7 @@ export function Sidebar() {
                             {item.label}
                         </Link>
                     ))}
+                    <MoreNavigation />
                     <ThemeToggle />
                 </nav>
             </div>
