@@ -249,7 +249,7 @@ body::after {
 
   :root[data-nav="top"] .sidebar-shell nav {
     flex-direction: row !important;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-top: 0 !important;
     margin-left: auto;
     gap: 0.75rem;
@@ -259,6 +259,7 @@ body::after {
   :root[data-nav="top"] .sidebar-brand,
   :root[data-nav="top"] .sidebar-role {
     margin-bottom: 0 !important;
+    white-space: nowrap;
   }
 
   :root[data-nav="top"] .sidebar-role {
@@ -1087,4 +1088,23 @@ body::after {
   .filters-page-embed .filters-stage { min-height: 500px; }
   @media (max-width: 760px) { .filters-page-embed { width: min(100% - 1rem, 600px); padding-top: 0.75rem; } .filters-page-embed .filters-title { font-size: clamp(2.5rem, 13vw, 4rem); } .filters-page-embed .filters-workspace { padding-top: 1rem; } }
   @media (prefers-reduced-motion: reduce) { .filters-page *, .filters-page *::before, .filters-page *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
+}
+
+/* Secondary destinations share one navigation slot. */
+.more-navigation { position: relative; }
+.more-nav-trigger { display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; white-space: nowrap; }
+.more-nav-trigger[aria-expanded="true"], .more-nav-trigger[data-active] { background: var(--nav-link-active-bg); border: var(--nav-link-active-border); }
+.more-nav-panel { position: absolute; top: calc(100% + 0.6rem); left: 0; z-index: 1000; min-width: 11rem; padding: 0.45rem; background: var(--popover); border: 1px solid var(--border); border-radius: var(--radius); }
+:root[data-nav="top"] .more-nav-panel { left: auto; right: 0; }
+.more-nav-link { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 0.55rem 0.8rem; color: var(--foreground); text-decoration: none; font-size: 1.05rem; border-radius: calc(var(--radius) * 0.6); }
+.more-nav-link:hover, .more-nav-link[aria-current="page"] { background: var(--muted); }
+.more-nav-link:focus-visible, .more-nav-trigger:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.mobile-more-navigation { border-top: 1px solid var(--border); padding-top: 1rem; }
+.more-nav-label { display: block; color: var(--muted-foreground); font-size: 0.75rem; padding: 0 0.8rem 0.3rem; }
+.mobile-nav-panel { overflow-y: auto; padding-block: 5rem 2rem; justify-content: safe center; }
+@media (min-width: 768px) and (max-width: 1279px) {
+  :root[data-nav="top"] .sidebar-shell { display: none !important; }
+  :root[data-nav="top"] .mobile-header { display: flex; align-items: center; height: calc(env(safe-area-inset-top, 0px) + 56px); padding: env(safe-area-inset-top, 0px) 4.25rem 0 1rem; background: var(--background); border-bottom: 1px solid var(--border); }
+  :root[data-nav="top"] .mobile-menu-button { display: flex; top: calc(env(safe-area-inset-top, 0px) + 6px); right: 1rem; }
+  :root[data-nav="top"] .page-shell { padding-top: calc(env(safe-area-inset-top, 0px) + 56px + var(--page-padding-md)); }
 }
