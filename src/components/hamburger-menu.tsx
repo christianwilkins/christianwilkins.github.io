@@ -2,10 +2,11 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
-import { primaryNavItems } from "@/data/navigation"
+import { isNavItemActive, primaryNavItems } from "@/data/navigation"
 
 interface HamburgerMenuProps {
     isVisible: boolean
@@ -13,6 +14,7 @@ interface HamburgerMenuProps {
 
 export function HamburgerMenu({ isVisible }: HamburgerMenuProps) {
     const [isOpen, setIsOpen] = React.useState(false)
+    const pathname = usePathname()
 
     const toggleMenu = () => setIsOpen(!isOpen)
     const closeMenu = () => setIsOpen(false)
@@ -57,6 +59,8 @@ export function HamburgerMenu({ isVisible }: HamburgerMenuProps) {
             {/* Menu */}
             <nav
                 id="mobile-nav"
+                aria-label="Mobile navigation"
+                inert={!isOpen}
                 className={cn(
                     "fixed top-0 right-0 h-full w-[min(80vw,17.5rem)] z-[1001] transform transition-transform duration-300 ease-in-out flex flex-col justify-center items-center animate-soft-pop surface-panel",
                     isOpen ? "translate-x-0" : "translate-x-full"
@@ -68,6 +72,7 @@ export function HamburgerMenu({ isVisible }: HamburgerMenuProps) {
                         <Link
                             key={item.id}
                             href={item.href}
+                            aria-current={isNavItemActive(item, pathname) ? (pathname === item.href ? "page" : "location") : undefined}
                             onClick={closeMenu}
                             className="nav-link mobile-nav-link text-xl font-semibold transition-colors font-heading hover-lift text-center"
                         >
