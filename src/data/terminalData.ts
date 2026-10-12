@@ -112,6 +112,8 @@ const labRoutes: TerminalRoute[] = [
 
 export const terminalRoutes: TerminalRoute[] = [
   ...primaryNavItems.map((item) => ({ id: item.id, label: item.label, path: item.href })),
+  { id: "about", label: "About", path: "/" },
+  { id: "consulting", label: "Consulting", path: "/consulting" },
   ...labRoutes,
 ];
 

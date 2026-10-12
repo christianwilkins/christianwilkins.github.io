@@ -3,14 +3,10 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { primaryNavItems } from "@/data/navigation"
+import { isNavItemActive, primaryNavItems } from "@/data/navigation"
 
 export function Sidebar() {
     const pathname = usePathname()
-    const isActive = (href: string) => {
-        if (href === "/") return pathname === "/"
-        return pathname?.startsWith(href)
-    }
 
     return (
         <div className="sidebar-shell hidden md:flex flex-col fixed h-screen p-6 items-start animate-rise-in">
@@ -30,12 +26,12 @@ export function Sidebar() {
                         <span className="sidebar-role-part">Consultant</span>
                     </h1>
                 </div>
-                <nav className="flex flex-col gap-4 mt-8">
+                <nav aria-label="Main navigation" className="flex flex-col gap-4 mt-8">
                     {primaryNavItems.map((item) => (
                         <Link
                             key={item.id}
                             href={item.href}
-                            aria-current={isActive(item.href) ? "page" : undefined}
+                            aria-current={isNavItemActive(item, pathname) ? (pathname === item.href ? "page" : "location") : undefined}
                             className="nav-link w-fit text-lg transition-colors font-heading hover-lift"
                         >
                             {item.label}

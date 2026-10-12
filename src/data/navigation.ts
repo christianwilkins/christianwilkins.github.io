@@ -3,13 +3,18 @@ export interface NavItem {
   href: string;
   label: string;
   action?: "terminal";
+  matchPaths?: string[];
 }
 
 export const primaryNavItems: NavItem[] = [
-  { id: "about", href: "/", label: "About" },
-  { id: "consulting", href: "/consulting", label: "Consulting" },
-  { id: "projects", href: "/projects", label: "Projects" },
+  { id: "projects", href: "/projects", label: "Work", matchPaths: ["/projects", "/consulting", "/services", "/case-studies"] },
   { id: "thoughts", href: "/thoughts", label: "Thoughts" },
-  { id: "contact", href: "/contact", label: "Contact" },
   { id: "lab", href: "/lab", label: "Fun Stuff" },
+  { id: "contact", href: "/contact", label: "Contact" },
 ];
+
+export function isNavItemActive(item: NavItem, pathname: string | null): boolean {
+  return (item.matchPaths ?? [item.href]).some(path =>
+    pathname === path || pathname?.startsWith(`${path}/`)
+  );
+}

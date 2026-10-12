@@ -264,7 +264,7 @@ body::after {
   }
 
   :root[data-nav="top"] .sidebar-role {
-    font-size: 0.95em;
+    display: none;
   }
 
   .layout-tag {
@@ -359,7 +359,8 @@ body::after {
     text-decoration: var(--nav-link-hover-decoration);
   }
 
-  .nav-link[aria-current="page"] {
+  .nav-link[aria-current="page"],
+  .nav-link[aria-current="location"] {
     background: var(--nav-link-active-bg);
     border: var(--nav-link-active-border);
     text-decoration: var(--nav-link-active-decoration);

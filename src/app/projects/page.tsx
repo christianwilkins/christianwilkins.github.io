@@ -87,6 +87,10 @@ export default function Projects() {
         <span className="hidden sm:inline">. Hover or click any card to view role, scope, and impact</span>.
       </p>
 
+      <p className="mb-6 sm:mb-8">
+        <Link href="/consulting" className="ui-link">Explore consulting services</Link>
+      </p>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {projects.map((project) => (
           <ProjectCard key={project.title} project={project} />
