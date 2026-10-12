@@ -7,8 +7,8 @@ export interface NavItem {
 }
 
 export const primaryNavItems: NavItem[] = [
-  { id: "projects", href: "/projects", label: "Work", matchPaths: ["/projects", "/consulting", "/services", "/case-studies"] },
-  { id: "thoughts", href: "/thoughts", label: "Thoughts" },
+  { id: "projects", href: "/projects", label: "Work", matchPaths: ["/projects", "/consulting", "/services", "/case-studies", "/resources", "/faq"] },
+  { id: "thoughts", href: "/thoughts", label: "Thoughts", matchPaths: ["/thoughts", "/insights"] },
   { id: "lab", href: "/lab", label: "Fun Stuff" },
   { id: "contact", href: "/contact", label: "Contact" },
 ];
