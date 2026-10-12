@@ -109,6 +109,12 @@ export default function Projects() {
           <Link href="/services" className="ui-link">
             Services
           </Link>
+          <Link href="/resources" className="ui-link">
+            Resources
+          </Link>
+          <Link href="/faq" className="ui-link">
+            FAQ
+          </Link>
         </div>
       </section>
     </div>

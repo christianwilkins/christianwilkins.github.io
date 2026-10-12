@@ -1,13 +1,14 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { Sidebar } from "@/components/sidebar"
 import { MobileHeader } from "@/components/mobile-header"
 import { HamburgerMenu } from "@/components/hamburger-menu"
 import { StyleSettingsDrawer } from "@/components/style-settings-drawer"
 import { TerminalWindowProvider } from "@/components/terminal/terminal-window-provider"
 import { cn } from "@/lib/utils"
-import { seoFooterLinks } from "@/data/seoContent"
+import { primaryNavItems } from "@/data/navigation"
 
 import { usePathname } from "next/navigation"
 
@@ -63,14 +64,14 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
                     {/* Footer */}
                     <footer className="page-footer text-center text-sm text-muted-foreground mt-auto">
-                        <h4>Copyright © 2026 Christian J Wilkins. All rights reserved.</h4>
-                        <div className="mt-2 flex flex-wrap justify-center gap-3 text-xs text-muted-foreground">
-                            {seoFooterLinks.map((link) => (
-                                <a key={link.href} href={link.href} className="hover:text-foreground">
+                        <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-x-2">
+                            {primaryNavItems.map((link) => (
+                                <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center px-2 text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
                                     {link.label}
-                                </a>
+                                </Link>
                             ))}
-                        </div>
+                        </nav>
+                        <p className="mt-2 text-xs">Copyright © 2026 Christian J Wilkins. All rights reserved.</p>
                     </footer>
                 </div>
             </div>
