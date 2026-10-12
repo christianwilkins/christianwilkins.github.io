@@ -1011,6 +1011,10 @@ body::after {
   }
 
   .theme-toggle { min-width: 2.75rem; min-height: 2.75rem; }
+
+  .page-footer {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* The top nav needs about 1215px on one row, so narrower screens use the hamburger menu. */
