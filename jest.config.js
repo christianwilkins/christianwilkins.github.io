@@ -6,6 +6,7 @@ const customJestConfig = {
     },
     testPathIgnorePatterns: [
         '<rootDir>/node_modules/',
+        '<rootDir>/exercise/',
         '<rootDir>/src/app/api/',
         '<rootDir>/src/lib/auth.test.ts',
         '<rootDir>/tests/playwright/',
