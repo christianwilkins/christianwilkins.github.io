@@ -39,7 +39,7 @@ export default function WritesPage() {
               href="/lab"
               className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-ink-muted)]"
             >
-              Back to Lab
+              Back to Fun Stuff
             </Link>
           </div>
           <h1 className="mt-6 max-w-2xl font-heading text-4xl leading-tight text-[var(--color-ink)] sm:text-5xl">

@@ -8,7 +8,7 @@ export function CloudflarePendingPage({ feature }: { feature: string }) {
     <div className="min-h-[65vh] px-5 py-10 md:px-10 lg:px-16 animate-rise-in">
       <div className="mx-auto max-w-3xl space-y-6">
         <Button variant="ghost" size="icon" asChild>
-          <Link to="/lab" aria-label="Back to The Lab">
+          <Link to="/lab" aria-label="Back to Fun Stuff">
             <ArrowLeft className="h-5 w-5" />
           </Link>
         </Button>

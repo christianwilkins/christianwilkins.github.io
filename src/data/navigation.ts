@@ -11,10 +11,5 @@ export const primaryNavItems: NavItem[] = [
   { id: "projects", href: "/projects", label: "Projects" },
   { id: "thoughts", href: "/thoughts", label: "Thoughts" },
   { id: "contact", href: "/contact", label: "Contact" },
-];
-
-export const moreNavItems: NavItem[] = [
-  { id: "exercise", href: "https://exercise.chriswiki.com/", label: "Exercise" },
-  { id: "recipes", href: "https://recipes.chriswiki.com/", label: "Recipes" },
-  { id: "lab", href: "/lab", label: "The Lab" },
+  { id: "lab", href: "/lab", label: "Fun Stuff" },
 ];

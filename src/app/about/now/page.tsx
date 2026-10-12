@@ -98,7 +98,7 @@ export default function NowPage() {
         <h2 className="ui-label text-xl font-semibold font-heading">In the queue</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm sm:text-base text-muted-foreground">
           <li>More case study writeups and delivery playbooks.</li>
-          <li>New Lab experiments around UI systems and workflow tooling.</li>
+          <li>New Fun Stuff experiments around UI systems and workflow tooling.</li>
         </ul>
       </section>
 
