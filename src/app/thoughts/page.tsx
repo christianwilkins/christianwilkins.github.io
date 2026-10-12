@@ -93,6 +93,9 @@ export default function ThoughtsPage() {
           ))}
         </section>
       )}
+      <p className="text-sm">
+        <Link href="/insights" className="ui-link">Insights</Link>
+      </p>
     </div>
   );
 }
