@@ -41,7 +41,7 @@ export function SupabaseTesterNav({ className }: { className?: string }) {
         href="/lab"
         className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 font-semibold text-[var(--color-ink-muted)] transition hover:border-[var(--color-accent)]"
       >
-        Lab Home
+        Fun Stuff
       </Link>
     </nav>
   );
